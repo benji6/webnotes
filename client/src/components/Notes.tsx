@@ -1,3 +1,4 @@
+import { Card, CardGroup } from 'eri'
 import * as React from 'react'
 
 export default class Notes extends React.PureComponent {
@@ -12,6 +13,14 @@ export default class Notes extends React.PureComponent {
   }
 
   render() {
-    return this.state.notes.map(note => <div e-util="pre-line">{note}</div>)
+    return (
+      <CardGroup>
+        {this.state.notes.map(({ id, body }) => (
+          <Card key={id} e-util="pre-line">
+            {body}
+          </Card>
+        ))}
+      </CardGroup>
+    )
   }
 }

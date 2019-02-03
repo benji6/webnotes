@@ -1,9 +1,9 @@
 exports.handler = (event, context, callback) => {
   const response = {
     body: JSON.stringify([
-      'This is the first note.',
-      'This is the second note.',
-      'This is the third note.\n\nIt has linebreaks in it.',
+      { id: '0', body: 'This is the first note.' },
+      { id: '1', body: 'This is the second note.' },
+      { id: '2', body: 'This is the third note.\n\nIt has linebreaks in it.' },
     ]),
     headers: {
       'Access-Control-Allow-Origin': 'https://webnotes.link',
