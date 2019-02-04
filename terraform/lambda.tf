@@ -13,26 +13,6 @@ resource "aws_lambda_function" "notes" {
   source_code_hash = "${base64sha256(file("${data.archive_file.notes.output_path}"))}"
 }
 
-resource "aws_iam_role" "lambda_exec" {
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Sid": ""
-    }
-  ]
-}
-EOF
-
-  name = "lambda_exec"
-}
-
 resource "aws_lambda_permission" "api_gw" {
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.notes.arn}"
