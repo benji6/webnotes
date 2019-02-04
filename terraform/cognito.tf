@@ -13,8 +13,7 @@ resource "aws_cognito_user_pool" "main" {
 }
 
 resource "aws_cognito_user_pool_client" "main" {
-  name = "webnotes"
-
+  name         = "webnotes"
   user_pool_id = "${aws_cognito_user_pool.main.id}"
 }
 
