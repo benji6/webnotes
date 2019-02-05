@@ -11,8 +11,7 @@ resource "aws_s3_bucket" "site" {
       "Principal": {
         "AWS": "${aws_cloudfront_origin_access_identity.site.iam_arn}"
       },
-      "Resource": "arn:aws:s3:::${var.domain_name}/*",
-      "Sid": "bucket_policy_site"
+      "Resource": "arn:aws:s3:::${var.domain_name}/*"
     }
   ]
 }

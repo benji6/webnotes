@@ -8,8 +8,7 @@ resource "aws_iam_role" "lambda_exec" {
       "Effect": "Allow",
       "Principal": {
         "Service": "lambda.amazonaws.com"
-      },
-      "Sid": ""
+      }
     }
   ]
 }
