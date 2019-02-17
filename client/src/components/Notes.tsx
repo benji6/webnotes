@@ -6,7 +6,7 @@ export default function Notes() {
   const [notes, setNotes] = React.useState([])
   React.useEffect(() => {
     getNotes().then(setNotes)
-  })
+  }, [])
   return (
     <>
       <h2>Notes</h2>
