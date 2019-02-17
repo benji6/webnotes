@@ -1,16 +1,19 @@
-exports.handler = (event, context, callback) => {
-  const response = {
-    body: JSON.stringify([
-      { id: '0', body: 'This is the first note.' },
-      { id: '1', body: 'This is the second note.' },
-      { id: '2', body: 'This is the third note.\n\nIt has linebreaks in it.' },
-    ]),
-    headers: {
-      'Access-Control-Allow-Origin': 'https://webnotes.link',
-      'Content-Type': 'application/json;charset=utf-8',
-      Vary: 'Origin',
-    },
-    statusCode: 200,
-  }
-  callback(null, response)
-}
+const AWS = require('aws-sdk')
+
+const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' })
+
+exports.handler = (event, context, callback) =>
+  dynamodb.scan({ TableName: 'webnotes_notes' }, (err, data) => {
+    if (err) return callback(err)
+    callback(null, {
+      body: JSON.stringify(
+        data.Items.map(({ body, id }) => ({ body: body.S, id: id.S })),
+      ),
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json;charset=utf-8',
+        Vary: 'Origin',
+      },
+      statusCode: 200,
+    })
+  })
