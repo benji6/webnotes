@@ -1,9 +1,10 @@
+import { Header } from 'eri'
 import * as React from 'react'
+import Note from './Note'
 import Notes from './Notes'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
-import { Header } from 'eri'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <main>
         <h2>About</h2>
         <p>A web app for notes that's under construction.</p>
+        <Note />
         <SignIn />
         <SignUp />
         <VerifyUser />

@@ -4,3 +4,11 @@ export const getNotes = async () => {
   const response = await fetch(`${apiUri}/notes`)
   return response.json()
 }
+
+export const postNote = async (note: { body: string }) => {
+  const response = await fetch(`${apiUri}/notes`, {
+    body: JSON.stringify(note),
+    method: 'POST',
+  })
+  return response.json()
+}
