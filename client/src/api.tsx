@@ -8,6 +8,7 @@ export const getNotes = async () => {
 export const postNote = async (note: { body: string }) => {
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(note),
+    headers: { 'Content-Type': 'application/json' },
     method: 'POST',
   })
   return response.json()
