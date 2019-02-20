@@ -4,7 +4,11 @@ import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 import { Form, Field } from 'react-final-form'
 import { userPool } from '../constants'
 
-export default function SignIn() {
+export default function SignIn({
+  setUserEmail,
+}: {
+  setUserEmail: React.Dispatch<React.SetStateAction<string | undefined>>
+}) {
   return (
     <Form
       onSubmit={({ email, password }: any) => {
@@ -25,6 +29,8 @@ export default function SignIn() {
           },
           onSuccess: result => {
             const accessToken = result.getAccessToken().getJwtToken()
+            const { email } = result.getIdToken().payload
+            setUserEmail(email)
             console.log('accessToken', accessToken)
           },
         })
