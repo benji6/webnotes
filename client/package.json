@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "rm -rf dist && parcel build src/index.html",
-    "deploy": "node scripts/deploy",
+    "deploy": "yarn build && node scripts/deploy",
     "start": "parcel src/index.html",
     "test": "run-p test:*",
     "test:format": "prettier --list-different \"src/**/*\"",
