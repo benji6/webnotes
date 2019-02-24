@@ -28,10 +28,7 @@ export default function SignIn({
             console.error(err)
           },
           onSuccess: result => {
-            const accessToken = result.getAccessToken().getJwtToken()
-            const { email } = result.getIdToken().payload
-            setUserEmail(email)
-            console.log('accessToken', accessToken)
+            setUserEmail(result.getIdToken().payload.email)
           },
         })
       }}

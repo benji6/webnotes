@@ -14,10 +14,7 @@ export default function VerifyUser() {
         })
 
         cognitoUser.confirmRegistration(code, true, (err, result) => {
-          if (err) {
-            // TODO - handle errors
-            return console.error(err)
-          }
+          if (err) return console.error(err)
           console.log('call result: ' + result)
         })
       }}

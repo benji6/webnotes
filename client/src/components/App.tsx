@@ -1,4 +1,4 @@
-import { Header, ButtonGroup, Button } from 'eri'
+import { Header, ButtonGroup, Button, Spinner } from 'eri'
 import * as React from 'react'
 import Note from './Note'
 import Notes from './Notes'
@@ -6,11 +6,26 @@ import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
 import { userPool } from '../constants'
+import { CognitoUserSession } from 'amazon-cognito-identity-js'
 
 export default function App() {
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
     undefined,
   )
+  const [userDataLoading, setUserDataLoading] = React.useState(true)
+  React.useEffect(() => {
+    const currentUser = userPool.getCurrentUser()
+    if (!currentUser) return setUserDataLoading(false)
+    currentUser.getSession((err: Error | void, session: CognitoUserSession) => {
+      if (err) {
+        setUserDataLoading(false)
+        return console.error(err)
+      }
+      if (!session.isValid()) return setUserDataLoading(false)
+      setUserEmail(session.getIdToken().payload.email)
+      setUserDataLoading(false)
+    })
+  }, [])
   const isSignedIn = Boolean(userEmail)
 
   return (
@@ -21,28 +36,34 @@ export default function App() {
       <main>
         <h2>About</h2>
         <p>A web app for notes that's under construction.</p>
-        {isSignedIn && (
+        {userDataLoading ? (
+          <Spinner variant="page" />
+        ) : (
           <>
-            <p>Logged in as {userEmail}</p>
-            <ButtonGroup>
-              <Button
-                onClick={() => {
-                  const currentUser = userPool.getCurrentUser()
-                  if (currentUser) currentUser.signOut()
-                  setUserEmail(undefined)
-                }}
-              >
-                Sign out
-              </Button>
-            </ButtonGroup>
-            <Note />
-          </>
-        )}
-        {!isSignedIn && (
-          <>
-            <SignIn setUserEmail={setUserEmail} />
-            <SignUp />
-            <VerifyUser />
+            {isSignedIn && (
+              <>
+                <p>Logged in as {userEmail}</p>
+                <ButtonGroup>
+                  <Button
+                    onClick={() => {
+                      const currentUser = userPool.getCurrentUser()
+                      if (currentUser) currentUser.signOut()
+                      setUserEmail(undefined)
+                    }}
+                  >
+                    Sign out
+                  </Button>
+                </ButtonGroup>
+                <Note />
+              </>
+            )}
+            {!isSignedIn && (
+              <>
+                <SignIn setUserEmail={setUserEmail} />
+                <SignUp />
+                <VerifyUser />
+              </>
+            )}
           </>
         )}
         <Notes />

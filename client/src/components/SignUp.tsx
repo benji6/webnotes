@@ -21,10 +21,8 @@ export default function SignUp() {
           attributeList,
           null as any,
           (err: Error | void, result) => {
-            if (err) {
-              // TODO - handle errors
-              return console.error(err)
-            }
+            if (err) return console.error(err)
+
             console.log(
               'user name is ' + (result as ISignUpResult).user.getUsername(),
             )
