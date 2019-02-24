@@ -3,6 +3,13 @@ resource "aws_api_gateway_rest_api" "api" {
   description = "Webnotes API"
 }
 
+resource "aws_api_gateway_authorizer" "api" {
+  name          = "WebnotesCognitoUserPoolAuthorizer"
+  provider_arns = ["${aws_cognito_user_pool.main.arn}"]
+  rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
+  type          = "COGNITO_USER_POOLS"
+}
+
 resource "aws_api_gateway_base_path_mapping" "api" {
   api_id      = "${aws_api_gateway_rest_api.api.id}"
   domain_name = "${aws_api_gateway_domain_name.api.domain_name}"
@@ -39,7 +46,8 @@ resource "aws_api_gateway_method" "notes_options" {
 }
 
 resource "aws_api_gateway_method" "notes_post" {
-  authorization = "NONE"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = "${aws_api_gateway_authorizer.api.id}"
   http_method   = "POST"
   resource_id   = "${aws_api_gateway_resource.notes.id}"
   rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
@@ -111,7 +119,12 @@ resource "aws_api_gateway_integration_response" "notes_options" {
 }
 
 resource "aws_api_gateway_deployment" "prod" {
-  depends_on  = ["aws_api_gateway_integration.notes", "aws_api_gateway_integration.notes_post"]
+  depends_on = [
+    "aws_api_gateway_integration.notes",
+    "aws_api_gateway_integration.notes_options",
+    "aws_api_gateway_integration.notes_post",
+  ]
+
   rest_api_id = "${aws_api_gateway_rest_api.api.id}"
   stage_name  = "prod"
 }
