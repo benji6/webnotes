@@ -38,35 +38,30 @@ export default function App() {
         <p>A web app for notes that's under construction.</p>
         {userDataLoading ? (
           <Spinner variant="page" />
+        ) : isSignedIn ? (
+          <>
+            <p>Logged in as {userEmail}</p>
+            <ButtonGroup>
+              <Button
+                onClick={() => {
+                  const currentUser = userPool.getCurrentUser()
+                  if (currentUser) currentUser.signOut()
+                  setUserEmail(undefined)
+                }}
+              >
+                Sign out
+              </Button>
+            </ButtonGroup>
+            <Note />
+            <Notes />
+          </>
         ) : (
           <>
-            {isSignedIn && (
-              <>
-                <p>Logged in as {userEmail}</p>
-                <ButtonGroup>
-                  <Button
-                    onClick={() => {
-                      const currentUser = userPool.getCurrentUser()
-                      if (currentUser) currentUser.signOut()
-                      setUserEmail(undefined)
-                    }}
-                  >
-                    Sign out
-                  </Button>
-                </ButtonGroup>
-                <Note />
-              </>
-            )}
-            {!isSignedIn && (
-              <>
-                <SignIn setUserEmail={setUserEmail} />
-                <SignUp />
-                <VerifyUser />
-              </>
-            )}
+            <SignIn setUserEmail={setUserEmail} />
+            <SignUp />
+            <VerifyUser />
           </>
         )}
-        <Notes />
       </main>
     </>
   )
