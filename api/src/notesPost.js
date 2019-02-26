@@ -19,6 +19,7 @@ exports.handler = (event, context, callback) => {
     {
       Item: {
         body: { S: note.body },
+        date: { S: new Date().toISOString() },
         id: { S: String(Math.floor(Math.random() * 1e8)) },
         userId: { S: userId },
       },
