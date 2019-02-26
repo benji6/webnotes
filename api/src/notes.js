@@ -7,7 +7,11 @@ exports.handler = (event, context, callback) =>
     if (error) return callback(error)
     callback(null, {
       body: JSON.stringify(
-        data.Items.map(({ body, id }) => ({ body: body.S, id: id.S })),
+        data.Items.map(({ body, date, userId }) => ({
+          body: body.S,
+          date: date.S,
+          userId: userId.S,
+        })),
       ),
       headers: {
         'Access-Control-Allow-Origin': '*',
