@@ -5,8 +5,7 @@ import Notes from './Notes'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
-import { CognitoUserSession } from 'amazon-cognito-identity-js'
-import { userPool } from '../cognito'
+import { userPool, getIdToken } from '../cognito'
 
 export default function App() {
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
@@ -14,17 +13,13 @@ export default function App() {
   )
   const [userDataLoading, setUserDataLoading] = React.useState(true)
   React.useEffect(() => {
-    const currentUser = userPool.getCurrentUser()
-    if (!currentUser) return setUserDataLoading(false)
-    currentUser.getSession((err: Error | void, session: CognitoUserSession) => {
-      if (err) {
+    getIdToken().then(
+      idToken => {
+        setUserEmail(idToken.payload.email)
         setUserDataLoading(false)
-        return console.error(err)
-      }
-      if (!session.isValid()) return setUserDataLoading(false)
-      setUserEmail(session.getIdToken().payload.email)
-      setUserDataLoading(false)
-    })
+      },
+      () => setUserDataLoading(false),
+    )
   }, [])
   const isSignedIn = Boolean(userEmail)
 
