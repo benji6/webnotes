@@ -32,7 +32,8 @@ resource "aws_api_gateway_resource" "notes" {
 }
 
 resource "aws_api_gateway_method" "get_notes" {
-  authorization = "NONE"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = "${aws_api_gateway_authorizer.api.id}"
   http_method   = "GET"
   resource_id   = "${aws_api_gateway_resource.notes.id}"
   rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
