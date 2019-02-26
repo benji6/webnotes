@@ -1,5 +1,6 @@
 import { CognitoUserSession } from 'amazon-cognito-identity-js'
-import { apiUri, userPool } from './constants'
+import { apiUri } from './constants'
+import { userPool } from './cognito'
 
 export const getNotes = async () => {
   const response = await fetch(`${apiUri}/notes`)

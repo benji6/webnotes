@@ -5,8 +5,8 @@ import Notes from './Notes'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
-import { userPool } from '../constants'
 import { CognitoUserSession } from 'amazon-cognito-identity-js'
+import { userPool } from '../cognito'
 
 export default function App() {
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
