@@ -23,9 +23,9 @@ exports.handler = (event, context, callback) => {
       if (error) return callback(error)
       callback(null, {
         body: JSON.stringify(
-          data.Items.map(({ body, date, userId }) => ({
+          data.Items.map(({ body, dateCreated, userId }) => ({
             body: body.S,
-            date: date.S,
+            dateCreated: dateCreated.S,
             userId: userId.S,
           })),
         ),

@@ -4,7 +4,7 @@ import { getNotes } from '../api'
 
 interface INote {
   body: string
-  date: string
+  dateCreated: string
   userId: string
 }
 
@@ -14,8 +14,8 @@ export default function Notes() {
     getNotes().then((notes: INote[]) =>
       setNotes(
         notes.sort((a, b) => {
-          if (a.date > b.date) return 1
-          if (a.date < b.date) return -1
+          if (a.dateCreated > b.dateCreated) return 1
+          if (a.dateCreated < b.dateCreated) return -1
           return 0
         }),
       ),
@@ -26,8 +26,8 @@ export default function Notes() {
       <h2>Notes</h2>
       <CardGroup>
         {notes ? (
-          notes.map(({ date, body }) => (
-            <Card key={date} e-util="pre-line">
+          notes.map(({ dateCreated, body }) => (
+            <Card key={dateCreated} e-util="pre-line">
               {body}
             </Card>
           ))

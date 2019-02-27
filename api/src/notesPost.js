@@ -19,7 +19,7 @@ exports.handler = (event, context, callback) => {
     {
       Item: {
         body: { S: note.body },
-        date: { S: new Date().toISOString() },
+        dateCreated: { S: new Date().toISOString() },
         userId: { S: userId },
       },
       TableName: 'webnotes_notes',
