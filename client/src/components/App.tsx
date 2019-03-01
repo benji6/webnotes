@@ -1,6 +1,6 @@
 import { Header, ButtonGroup, Button, Spinner } from 'eri'
 import * as React from 'react'
-import Note from './Note'
+import NoteForm from './NoteForm'
 import Notes from './Notes'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
@@ -47,7 +47,7 @@ export default function App() {
                 Sign out
               </Button>
             </ButtonGroup>
-            <Note />
+            <NoteForm />
             <Notes />
           </>
         ) : (

@@ -3,7 +3,7 @@ import { TextArea, ButtonGroup, Button } from 'eri'
 import { Form, Field } from 'react-final-form'
 import { postNote } from '../api'
 
-export default function Note() {
+export default function NoteForm() {
   return (
     <Form
       onSubmit={postNote as any}
