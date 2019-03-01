@@ -72,7 +72,7 @@ resource "aws_api_gateway_method_response" "notes_options_200" {
   }
 }
 
-resource "aws_api_gateway_integration" "notes" {
+resource "aws_api_gateway_integration" "notes_get" {
   http_method             = "${aws_api_gateway_method.notes_get.http_method}"
   integration_http_method = "POST"
   resource_id             = "${aws_api_gateway_resource.notes.id}"
@@ -121,7 +121,7 @@ resource "aws_api_gateway_integration_response" "notes_options" {
 
 resource "aws_api_gateway_deployment" "prod" {
   depends_on = [
-    "aws_api_gateway_integration.notes",
+    "aws_api_gateway_integration.notes_get",
     "aws_api_gateway_integration.notes_options",
     "aws_api_gateway_integration.notes_post",
   ]
