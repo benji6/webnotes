@@ -31,6 +31,14 @@ resource "aws_api_gateway_resource" "notes" {
   rest_api_id = "${aws_api_gateway_rest_api.api.id}"
 }
 
+resource "aws_api_gateway_method" "notes_delete" {
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = "${aws_api_gateway_authorizer.api.id}"
+  http_method   = "DELETE"
+  resource_id   = "${aws_api_gateway_resource.notes.id}"
+  rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
+}
+
 resource "aws_api_gateway_method" "notes_get" {
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = "${aws_api_gateway_authorizer.api.id}"
@@ -70,6 +78,15 @@ resource "aws_api_gateway_method_response" "notes_options_200" {
     "method.response.header.Access-Control-Allow-Methods" = true
     "method.response.header.Access-Control-Allow-Origin"  = true
   }
+}
+
+resource "aws_api_gateway_integration" "notes_delete" {
+  http_method             = "${aws_api_gateway_method.notes_delete.http_method}"
+  integration_http_method = "POST"
+  resource_id             = "${aws_api_gateway_resource.notes.id}"
+  rest_api_id             = "${aws_api_gateway_rest_api.api.id}"
+  type                    = "AWS_PROXY"
+  uri                     = "${aws_lambda_function.notes_delete.invoke_arn}"
 }
 
 resource "aws_api_gateway_integration" "notes_get" {
@@ -121,6 +138,7 @@ resource "aws_api_gateway_integration_response" "notes_options" {
 
 resource "aws_api_gateway_deployment" "prod" {
   depends_on = [
+    "aws_api_gateway_integration.notes_delete",
     "aws_api_gateway_integration.notes_get",
     "aws_api_gateway_integration.notes_options",
     "aws_api_gateway_integration.notes_post",
