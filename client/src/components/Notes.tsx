@@ -1,6 +1,7 @@
-import { Card, CardGroup, Spinner } from 'eri'
+import { CardGroup, Spinner } from 'eri'
 import * as React from 'react'
 import { getNotes } from '../api'
+import Note from './Note'
 
 interface INote {
   body: string
@@ -27,9 +28,7 @@ export default function Notes() {
       <CardGroup>
         {notes ? (
           notes.map(({ dateCreated, body }) => (
-            <Card key={dateCreated} e-util="pre-line">
-              {body}
-            </Card>
+            <Note key={dateCreated}>{body}</Note>
           ))
         ) : (
           <Spinner variant="page" />
