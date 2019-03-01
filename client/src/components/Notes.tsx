@@ -27,8 +27,10 @@ export default function Notes() {
       <h2>Notes</h2>
       <CardGroup>
         {notes ? (
-          notes.map(({ dateCreated, body }) => (
-            <Note key={dateCreated}>{body}</Note>
+          notes.map(({ body, dateCreated }) => (
+            <Note dateCreated={dateCreated} key={dateCreated}>
+              {body}
+            </Note>
           ))
         ) : (
           <Spinner variant="page" />

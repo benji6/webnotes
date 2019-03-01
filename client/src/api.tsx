@@ -6,6 +6,17 @@ const getAuthorizationHeader = async () => {
   return `Bearer ${idToken.getJwtToken()}`
 }
 
+export const deleteNote = async (body: { dateCreated: string }) => {
+  const Authorization = await getAuthorizationHeader()
+  return fetch(`${apiUri}/notes`, {
+    body: JSON.stringify(body),
+    headers: {
+      Authorization,
+      'Content-Type': 'application/json',
+    },
+    method: 'DELETE',
+  })
+}
 export const getNotes = async () => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {
