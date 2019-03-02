@@ -1,7 +1,7 @@
 import { CardGroup, Spinner } from 'eri'
 import * as React from 'react'
-import { getNotes } from '../api'
-import Note from './Note'
+import { getNotes } from '../../api'
+import Note from '../Note'
 
 interface INote {
   body: string
@@ -9,7 +9,7 @@ interface INote {
   userId: string
 }
 
-export default function Notes() {
+export default function Home() {
   const [notes, setNotes] = React.useState<INote[] | undefined>(undefined)
   React.useEffect(() => {
     getNotes().then((notes: INote[]) =>

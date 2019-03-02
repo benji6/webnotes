@@ -1,12 +1,12 @@
 import { Link, Router } from '@reach/router'
 import { Header, ButtonGroup, Button, Spinner, MenuButton, Menu } from 'eri'
 import * as React from 'react'
+import About from './pages/About'
 import AddNote from './pages/AddNote'
-import Notes from './Notes'
+import Home from './pages/Home'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
-import About from './pages/About'
 import { userPool, getIdToken } from '../cognito'
 
 export default function App() {
@@ -73,7 +73,7 @@ export default function App() {
               </Button>
             </ButtonGroup>
             <Router>
-              <Notes path="/" />
+              <Home path="/" />
               <About path="about" />
               <AddNote path="add" />
             </Router>
