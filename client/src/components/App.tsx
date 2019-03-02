@@ -1,7 +1,7 @@
 import { Link, Router } from '@reach/router'
 import { Header, ButtonGroup, Button, Spinner, MenuButton, Menu } from 'eri'
 import * as React from 'react'
-import NoteForm from './NoteForm'
+import AddNote from './pages/AddNote'
 import Notes from './Notes'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
@@ -49,7 +49,7 @@ export default function App() {
             </Link>
           </li>
           <li>
-            <Link onClick={handleMenuClose} to="create">
+            <Link onClick={handleMenuClose} to="add">
               Add note
             </Link>
           </li>
@@ -75,7 +75,7 @@ export default function App() {
             <Router>
               <Notes path="/" />
               <About path="about" />
-              <NoteForm path="create" />
+              <AddNote path="add" />
             </Router>
           </>
         ) : (
