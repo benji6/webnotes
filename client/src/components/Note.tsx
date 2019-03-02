@@ -12,7 +12,7 @@ export default function Note({ children, dateCreated }: IProps) {
 
   return (
     <Card e-util="pre-line">
-      {children}
+      <p>{children}</p>
       <ButtonGroup>
         <Button onClick={handleDelete} sentiment="negative">
           Delete
