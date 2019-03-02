@@ -37,3 +37,16 @@ export const postNote = async (note: { body: string }) => {
   })
   return response.json()
 }
+
+export const putNote = async (note: { body: string; dateCreated: string }) => {
+  const Authorization = await getAuthorizationHeader()
+  const response = await fetch(`${apiUri}/notes`, {
+    body: JSON.stringify(note),
+    headers: {
+      Authorization,
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+  })
+  return response.json()
+}
