@@ -1,6 +1,7 @@
 import { Link, Router } from '@reach/router'
 import { Header, ButtonGroup, Button, Spinner, MenuButton, Menu } from 'eri'
 import * as React from 'react'
+import _404 from './pages/_404'
 import About from './pages/About'
 import AddNote from './pages/AddNote'
 import Home from './pages/Home'
@@ -73,6 +74,7 @@ export default function App() {
               </Button>
             </ButtonGroup>
             <Router>
+              <_404 default />
               <Home path="/" />
               <About path="about" />
               <AddNote path="add" />
