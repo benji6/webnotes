@@ -2,7 +2,7 @@ import * as React from 'react'
 import { TextField, Button, ButtonGroup } from 'eri'
 import { CognitoUserAttribute, ISignUpResult } from 'amazon-cognito-identity-js'
 import { Form, Field } from 'react-final-form'
-import { userPool } from '../constants'
+import { userPool } from '../cognito'
 
 export default function SignUp() {
   return (
