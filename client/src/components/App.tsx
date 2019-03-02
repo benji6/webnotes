@@ -6,6 +6,7 @@ import Notes from './Notes'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
+import About from './pages/About'
 import { userPool, getIdToken } from '../cognito'
 
 export default function App() {
@@ -43,6 +44,11 @@ export default function App() {
             </Link>
           </li>
           <li>
+            <Link onClick={handleMenuClose} to="about">
+              About
+            </Link>
+          </li>
+          <li>
             <Link onClick={handleMenuClose} to="create">
               Add note
             </Link>
@@ -50,8 +56,6 @@ export default function App() {
         </ul>
       </Menu>
       <main>
-        <h2>About</h2>
-        <p>A web app for notes that's under construction.</p>
         {userDataLoading ? (
           <Spinner variant="page" />
         ) : isSignedIn ? (
@@ -70,6 +74,7 @@ export default function App() {
             </ButtonGroup>
             <Router>
               <Notes path="/" />
+              <About path="about" />
               <NoteForm path="create" />
             </Router>
           </>
