@@ -2022,10 +2022,10 @@ entities@^1.1.1, entities@~1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
 
-eri@^7.5.2:
-  version "7.5.2"
-  resolved "https://registry.yarnpkg.com/eri/-/eri-7.5.2.tgz#4394ad23f060a6050b403a6cef80b63ace3d4058"
-  integrity sha512-d9QygFqiaF2c6c5C/CeV5RKWfWl90J96tOzqj9ttQVlQJO14zo4NuFmXFwtcP+K+J/tytljrrYndjIF930ff5g==
+eri@^7.7.1:
+  version "7.7.1"
+  resolved "https://registry.yarnpkg.com/eri/-/eri-7.7.1.tgz#0d466a05e0138bd12d35a3e9073f75b87bf67174"
+  integrity sha512-mqxEaJuxd/yx3TY1DruoNaBfhmLRCSdFOyP/1EmbomcXWM8319HPD9unx0W4k/Anl1Bvfb6+sbUWYKPuEQRKcQ==
   dependencies:
     classnames "^2.2.6"
 
