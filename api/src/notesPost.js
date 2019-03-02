@@ -30,7 +30,12 @@ exports.handler = (event, context, callback) => {
     error => {
       if (error) return callback(error)
       callback(null, {
-        body: event.body,
+        body: JSON.stringify({
+          body: note.body,
+          dateCreated: date,
+          dateUpdated: date,
+          userId,
+        }),
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json;charset=utf-8',
