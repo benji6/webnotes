@@ -62,6 +62,14 @@ resource "aws_api_gateway_method" "notes_post" {
   rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
 }
 
+resource "aws_api_gateway_method" "notes_put" {
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = "${aws_api_gateway_authorizer.api.id}"
+  http_method   = "PUT"
+  resource_id   = "${aws_api_gateway_resource.notes.id}"
+  rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
+}
+
 resource "aws_api_gateway_method_response" "notes_options_200" {
   depends_on  = ["aws_api_gateway_method.notes_options"]
   http_method = "${aws_api_gateway_method.notes_options.http_method}"
@@ -118,6 +126,15 @@ resource "aws_api_gateway_integration" "notes_post" {
   uri                     = "${aws_lambda_function.notes_post.invoke_arn}"
 }
 
+resource "aws_api_gateway_integration" "notes_put" {
+  http_method             = "${aws_api_gateway_method.notes_put.http_method}"
+  integration_http_method = "POST"
+  resource_id             = "${aws_api_gateway_resource.notes.id}"
+  rest_api_id             = "${aws_api_gateway_rest_api.api.id}"
+  type                    = "AWS_PROXY"
+  uri                     = "${aws_lambda_function.notes_put.invoke_arn}"
+}
+
 resource "aws_api_gateway_integration_response" "notes_options" {
   http_method = "${aws_api_gateway_method.notes_options.http_method}"
   resource_id = "${aws_api_gateway_resource.notes.id}"
@@ -142,6 +159,7 @@ resource "aws_api_gateway_deployment" "prod" {
     "aws_api_gateway_integration.notes_get",
     "aws_api_gateway_integration.notes_options",
     "aws_api_gateway_integration.notes_post",
+    "aws_api_gateway_integration.notes_put",
   ]
 
   rest_api_id = "${aws_api_gateway_rest_api.api.id}"

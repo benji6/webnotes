@@ -16,6 +16,12 @@ data "archive_file" "notes_post" {
   type        = "zip"
 }
 
+data "archive_file" "notes_put" {
+  output_path = "../api/dist/notesPut.zip"
+  source_file = "../api/src/notesPut.js"
+  type        = "zip"
+}
+
 resource "aws_lambda_function" "notes_delete" {
   filename         = "${data.archive_file.notes_delete.output_path}"
   function_name    = "notesDelete"
@@ -32,6 +38,15 @@ resource "aws_lambda_function" "notes_get" {
   role             = "${aws_iam_role.lambda_exec.arn}"
   runtime          = "nodejs8.10"
   source_code_hash = "${base64sha256(file("${data.archive_file.notes_get.output_path}"))}"
+}
+
+resource "aws_lambda_function" "notes_put" {
+  filename         = "${data.archive_file.notes_put.output_path}"
+  function_name    = "notesPut"
+  handler          = "notesPut.handler"
+  role             = "${aws_iam_role.lambda_exec.arn}"
+  runtime          = "nodejs8.10"
+  source_code_hash = "${base64sha256(file("${data.archive_file.notes_put.output_path}"))}"
 }
 
 resource "aws_lambda_function" "notes_post" {
@@ -62,6 +77,14 @@ resource "aws_lambda_permission" "notes_get" {
 resource "aws_lambda_permission" "notes_post" {
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.notes_post.arn}"
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_deployment.prod.execution_arn}/*/*"
+  statement_id  = "AllowAPIGatewayInvoke"
+}
+
+resource "aws_lambda_permission" "notes_put" {
+  action        = "lambda:InvokeFunction"
+  function_name = "${aws_lambda_function.notes_put.arn}"
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_deployment.prod.execution_arn}/*/*"
   statement_id  = "AllowAPIGatewayInvoke"
