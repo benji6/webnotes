@@ -95,7 +95,7 @@ resource "aws_api_gateway_integration" "notes_get" {
   resource_id             = "${aws_api_gateway_resource.notes.id}"
   rest_api_id             = "${aws_api_gateway_rest_api.api.id}"
   type                    = "AWS_PROXY"
-  uri                     = "${aws_lambda_function.notes.invoke_arn}"
+  uri                     = "${aws_lambda_function.notes_get.invoke_arn}"
 }
 
 resource "aws_api_gateway_integration" "notes_options" {
