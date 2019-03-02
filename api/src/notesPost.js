@@ -15,11 +15,14 @@ exports.handler = (event, context, callback) => {
     return callback(e)
   }
 
+  const date = new Date().toISOString()
+
   dynamodb.putItem(
     {
       Item: {
         body: { S: note.body },
-        dateCreated: { S: new Date().toISOString() },
+        dateCreated: { S: date },
+        dateUpdated: { S: date },
         userId: { S: userId },
       },
       TableName: 'webnotes_notes',
