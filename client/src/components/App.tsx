@@ -1,3 +1,4 @@
+import { Link, Router } from '@reach/router'
 import { Header, ButtonGroup, Button, Spinner } from 'eri'
 import * as React from 'react'
 import NoteForm from './NoteForm'
@@ -47,8 +48,19 @@ export default function App() {
                 Sign out
               </Button>
             </ButtonGroup>
-            <NoteForm />
-            <Notes />
+            <h3>Links</h3>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="create">Add note</Link>
+              </li>
+            </ul>
+            <Router>
+              <Notes path="/" />
+              <NoteForm path="create" />
+            </Router>
           </>
         ) : (
           <>
