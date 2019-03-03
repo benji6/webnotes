@@ -1,10 +1,11 @@
 import { Link, Router } from '@reach/router'
-import { Header, ButtonGroup, Button, Spinner, MenuButton, Menu } from 'eri'
+import { Header, ButtonGroup, Button, Spinner, MenuButton } from 'eri'
 import * as React from 'react'
 import _404 from './pages/_404'
 import About from './pages/About'
 import AddNote from './pages/AddNote'
 import Home from './pages/Home'
+import Menu from './Menu'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
@@ -37,25 +38,7 @@ export default function App() {
         </h1>
         <MenuButton onClick={handleMenuOpen} />
       </Header>
-      <Menu onClose={handleMenuClose} open={isMenuOpen}>
-        <ul>
-          <li>
-            <Link onClick={handleMenuClose} to="/">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link onClick={handleMenuClose} to="about">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link onClick={handleMenuClose} to="add">
-              Add note
-            </Link>
-          </li>
-        </ul>
-      </Menu>
+      <Menu handleMenuClose={handleMenuClose} open={isMenuOpen} />
       <main>
         {userDataLoading ? (
           <Spinner variant="page" />
