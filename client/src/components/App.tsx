@@ -1,5 +1,5 @@
 import { Link, Router } from '@reach/router'
-import { Header, ButtonGroup, Button, Spinner, MenuButton } from 'eri'
+import { Header, Spinner, MenuButton } from 'eri'
 import * as React from 'react'
 import _404 from './pages/_404'
 import About from './pages/About'
@@ -9,7 +9,7 @@ import Menu from './Menu'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
-import { userPool, getIdToken } from '../cognito'
+import { getIdToken } from '../cognito'
 
 export default function App() {
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
@@ -38,31 +38,22 @@ export default function App() {
         </h1>
         <MenuButton onClick={handleMenuOpen} />
       </Header>
-      <Menu handleMenuClose={handleMenuClose} open={isMenuOpen} />
+      <Menu
+        handleMenuClose={handleMenuClose}
+        open={isMenuOpen}
+        setUserEmail={setUserEmail}
+        userEmail={userEmail}
+      />
       <main>
         {userDataLoading ? (
           <Spinner variant="page" />
         ) : isSignedIn ? (
-          <>
-            <p>Logged in as {userEmail}</p>
-            <ButtonGroup>
-              <Button
-                onClick={() => {
-                  const currentUser = userPool.getCurrentUser()
-                  if (currentUser) currentUser.signOut()
-                  setUserEmail(undefined)
-                }}
-              >
-                Sign out
-              </Button>
-            </ButtonGroup>
-            <Router>
-              <_404 default />
-              <Home path="/" />
-              <About path="about" />
-              <AddNote path="add" />
-            </Router>
-          </>
+          <Router>
+            <_404 default />
+            <Home path="/" />
+            <About path="about" />
+            <AddNote path="add" />
+          </Router>
         ) : (
           <>
             <SignIn setUserEmail={setUserEmail} />
