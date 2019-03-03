@@ -23,11 +23,16 @@ exports.handler = (event, context, callback) => {
       if (error) return callback(error)
       callback(null, {
         body: JSON.stringify(
-          data.Items.map(({ body, dateCreated, userId }) => ({
+          data.Items.map(({ body, dateCreated, dateUpdated, userId }) => ({
             body: body.S,
             dateCreated: dateCreated.S,
+            dateUpdated: dateUpdated.S,
             userId: userId.S,
-          })),
+          })).sort((a, b) => {
+            if (a.dateUpdated < b.dateUpdated) return 1
+            if (a.dateUpdated > b.dateUpdated) return -1
+            return 0
+          }),
         ),
         headers: {
           'Access-Control-Allow-Origin': '*',

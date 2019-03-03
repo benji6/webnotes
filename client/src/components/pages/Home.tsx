@@ -6,21 +6,14 @@ import Note from '../Note'
 interface INote {
   body: string
   dateCreated: string
+  dateUpdated: string
   userId: string
 }
 
 export default function Home() {
   const [notes, setNotes] = React.useState<INote[] | undefined>(undefined)
   React.useEffect(() => {
-    getNotes().then((notes: INote[]) =>
-      setNotes(
-        notes.sort((a, b) => {
-          if (a.dateCreated > b.dateCreated) return 1
-          if (a.dateCreated < b.dateCreated) return -1
-          return 0
-        }),
-      ),
-    )
+    getNotes().then(setNotes)
   }, [])
   return (
     <>
