@@ -1,3 +1,4 @@
+import { Link } from '@reach/router'
 import * as React from 'react'
 import { TextArea, ButtonGroup, Button } from 'eri'
 import { Form, Field } from 'react-final-form'
@@ -16,6 +17,7 @@ export default function AddNote() {
           />
           <ButtonGroup>
             <Button>Add note</Button>
+            <Link to="/">Cancel</Link>
           </ButtonGroup>
         </form>
       )}
