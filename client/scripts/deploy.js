@@ -47,7 +47,7 @@ const main = async () => {
         CacheControl: `public, ${
           filename.endsWith('.html')
             ? 'max-age=0, must-revalidate'
-            : 'max-age=31536000'
+            : 'max-age=31536000, immutable'
         }`,
         ContentType: mime.getType(filename),
         Key: filename,
