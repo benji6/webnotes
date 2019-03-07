@@ -1,20 +1,10 @@
 import { CardGroup, Spinner } from 'eri'
 import * as React from 'react'
-import { getNotes } from '../../api'
 import Note from '../Note'
-
-interface INote {
-  body: string
-  dateCreated: string
-  dateUpdated: string
-  userId: string
-}
+import { NotesContext } from '../contexts'
 
 export default function Home() {
-  const [notes, setNotes] = React.useState<INote[] | undefined>(undefined)
-  React.useEffect(() => {
-    getNotes().then(setNotes)
-  }, [])
+  const notes = React.useContext(NotesContext)
   return (
     <>
       <h2>Notes</h2>

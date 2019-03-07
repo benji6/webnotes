@@ -11,6 +11,7 @@ import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
 import { getIdToken } from '../cognito'
+import NotesContainer from './containers/NotesContainer'
 
 export default function App() {
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
@@ -18,6 +19,7 @@ export default function App() {
   )
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const [userDataLoading, setUserDataLoading] = React.useState(true)
+
   React.useEffect(() => {
     getIdToken().then(
       idToken => {
@@ -27,12 +29,13 @@ export default function App() {
       () => setUserDataLoading(false),
     )
   }, [])
+
   const isSignedIn = Boolean(userEmail)
   const handleMenuClose = () => setIsMenuOpen(false)
   const handleMenuOpen = () => setIsMenuOpen(true)
 
   return (
-    <>
+    <NotesContainer>
       <Header>
         <h1>
           <Link to="/">Webnotes</Link>
@@ -64,6 +67,6 @@ export default function App() {
           </>
         )}
       </main>
-    </>
+    </NotesContainer>
   )
 }
