@@ -1,13 +1,12 @@
-import { Link, NavigateFn } from '@reach/router'
+import { Link, NavigateFn, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
 import { TextArea, ButtonGroup, Button, Spinner } from 'eri'
 import { Form, Field } from 'react-final-form'
 import { putNote } from '../../api'
 import { NotesContext, SetNotesContext } from '../contexts'
 
-interface IProps {
-  dateCreated: string
-  navigate: NavigateFn
+interface IProps extends RouteComponentProps {
+  dateCreated?: string
 }
 
 export default function EditNote({ dateCreated, navigate }: IProps) {
@@ -18,7 +17,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
 
   const handleSubmit = async ({ body }: any) => {
     setIsSubmitting(true)
-    const newNote = await putNote({ body, dateCreated })
+    const newNote = await putNote({ body, dateCreated: dateCreated as string })
     setNotes(notes => {
       if (!notes) return [newNote]
       const index = notes.findIndex(
@@ -26,7 +25,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
       )
       return [newNote, ...notes.slice(0, index), ...notes.slice(index + 1)]
     })
-    navigate('/')
+    ;(navigate as NavigateFn)('/')
   }
 
   return note ? (

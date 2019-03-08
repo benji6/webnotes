@@ -1,17 +1,14 @@
-import { Link, Router } from '@reach/router'
+import { Link } from '@reach/router'
 import { Header, Spinner, MenuButton } from 'eri'
 import * as React from 'react'
 import _404 from './pages/_404'
-import About from './pages/About'
-import AddNote from './pages/AddNote'
-import EditNote from './pages/EditNote'
-import Home from './pages/Home'
 import Menu from './Menu'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import VerifyUser from './VerifyUser'
 import { getIdToken } from '../cognito'
 import NotesContainer from './containers/NotesContainer'
+import Router from './Router'
 
 export default function App() {
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
@@ -52,13 +49,7 @@ export default function App() {
         {userDataLoading ? (
           <Spinner variant="page" />
         ) : isSignedIn ? (
-          <Router>
-            <_404 default />
-            <Home path="/" />
-            <About path="about" />
-            <AddNote path="add" />
-            <EditNote path="edit/:dateCreated" />
-          </Router>
+          <Router />
         ) : (
           <>
             <SignIn setUserEmail={setUserEmail} />
