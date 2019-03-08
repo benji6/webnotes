@@ -1,3 +1,4 @@
+import { Link } from '@reach/router'
 import { CardGroup, Spinner } from 'eri'
 import * as React from 'react'
 import Note from '../Note'
@@ -10,11 +11,20 @@ export default function Home() {
       <h2>Notes</h2>
       <CardGroup>
         {notes ? (
-          notes.map(({ body, dateCreated }) => (
-            <Note dateCreated={dateCreated} key={dateCreated}>
-              {body}
-            </Note>
-          ))
+          notes.length ? (
+            notes.map(({ body, dateCreated }) => (
+              <Note dateCreated={dateCreated} key={dateCreated}>
+                {body}
+              </Note>
+            ))
+          ) : (
+            <div>
+              <p>You have no notes!</p>
+              <p>
+                <Link to="add">Click here to add your first one</Link>
+              </p>
+            </div>
+          )
         ) : (
           <Spinner variant="page" />
         )}
