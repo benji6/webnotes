@@ -8,7 +8,9 @@ export default function NotesContainer(props: Object) {
   const [notes, setNotes] = React.useState<INote[] | undefined>(undefined)
 
   React.useEffect(() => {
-    getNotes().then(setNotes)
+    getNotes().then(apiNotes =>
+      setNotes(notes => (notes ? [...apiNotes, ...notes] : apiNotes)),
+    )
   }, [])
 
   return (

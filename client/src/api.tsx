@@ -1,14 +1,17 @@
 import { apiUri } from './constants'
 import { getIdToken } from './cognito'
+import { INote } from './types'
 
 const getAuthorizationHeader = async () => {
   const idToken = await getIdToken()
   return `Bearer ${idToken.getJwtToken()}`
 }
 
-export const deleteNote = async (body: { dateCreated: string }) => {
+export const deleteNote = async (body: {
+  dateCreated: string
+}): Promise<void> => {
   const Authorization = await getAuthorizationHeader()
-  return fetch(`${apiUri}/notes`, {
+  await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(body),
     headers: {
       Authorization,
@@ -17,7 +20,7 @@ export const deleteNote = async (body: { dateCreated: string }) => {
     method: 'DELETE',
   })
 }
-export const getNotes = async () => {
+export const getNotes = async (): Promise<INote[]> => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {
     headers: { Authorization },
@@ -25,7 +28,7 @@ export const getNotes = async () => {
   return response.json()
 }
 
-export const postNote = async (note: { body: string }) => {
+export const postNote = async (note: { body: string }): Promise<INote> => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(note),
@@ -38,7 +41,10 @@ export const postNote = async (note: { body: string }) => {
   return response.json()
 }
 
-export const putNote = async (note: { body: string; dateCreated: string }) => {
+export const putNote = async (note: {
+  body: string
+  dateCreated: string
+}): Promise<INote> => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(note),

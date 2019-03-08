@@ -16,8 +16,8 @@ export default function Note({ children, dateCreated }: IProps) {
   const handleDelete = async () => {
     setIsDeleting(true)
     await deleteNote({ dateCreated })
-    setNotes((notes: INote[]) =>
-      notes.filter(note => note.dateCreated !== dateCreated),
+    setNotes(notes =>
+      (notes as INote[]).filter(note => note.dateCreated !== dateCreated),
     )
   }
 
