@@ -2,8 +2,9 @@ import { Link, NavigateFn, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
 import { TextArea, ButtonGroup, Button, Spinner } from 'eri'
 import { Form, Field } from 'react-final-form'
-import { putNote } from '../../api'
+import { putNote, deleteNote } from '../../api'
 import { NotesContext, SetNotesContext } from '../contexts'
+import { INote } from '../../types'
 
 interface IProps extends RouteComponentProps {
   dateCreated?: string
@@ -12,11 +13,11 @@ interface IProps extends RouteComponentProps {
 export default function EditNote({ dateCreated, navigate }: IProps) {
   const notes = React.useContext(NotesContext)
   const setNotes = React.useContext(SetNotesContext)
-  const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
   const note = (notes || []).find(note => note.dateCreated === dateCreated)
 
   const handleSubmit = async ({ body }: any) => {
-    setIsSubmitting(true)
+    setIsLoading(true)
     const newNote = await putNote({ body, dateCreated: dateCreated as string })
     setNotes(notes => {
       if (!notes) return [newNote]
@@ -25,6 +26,15 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
       )
       return [newNote, ...notes.slice(0, index), ...notes.slice(index + 1)]
     })
+    ;(navigate as NavigateFn)('/')
+  }
+
+  const handleDelete = async () => {
+    setIsLoading(true)
+    await deleteNote({ dateCreated } as { dateCreated: string })
+    setNotes(notes =>
+      (notes as INote[]).filter(note => note.dateCreated !== dateCreated),
+    )
     ;(navigate as NavigateFn)('/')
   }
 
@@ -42,8 +52,16 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
             )}
           />
           <ButtonGroup>
-            <Button disabled={isSubmitting}>Save</Button>
+            <Button disabled={isLoading}>Save</Button>
             <Link to="/">Cancel</Link>
+            <Button
+              disabled={isLoading}
+              onClick={handleDelete}
+              sentiment="negative"
+              variant="secondary"
+            >
+              Delete
+            </Button>
           </ButtonGroup>
         </form>
       )}

@@ -1,8 +1,8 @@
 import { Link, RouteComponentProps } from '@reach/router'
 import { CardGroup, Spinner } from 'eri'
 import * as React from 'react'
-import Note from '../Note'
-import { NotesContext } from '../contexts'
+import Note from './Note'
+import { NotesContext } from '../../contexts'
 
 export default function Home(_: RouteComponentProps) {
   const notes = React.useContext(NotesContext)
