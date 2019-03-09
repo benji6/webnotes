@@ -958,10 +958,10 @@ atob@^2.1.1:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-aws-sdk@^2.415.0:
-  version "2.417.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.417.0.tgz#44cda55cbbfde83dab87fbd37e1190fc925c5dc7"
-  integrity sha512-05bynZKhzRLhMrWHAWW/hSeA0MftkE4GxwNUJ0A4Usf10UOZHEm40Y0+AujefHBZimAAM33iRH8tdIjKAN/GHA==
+aws-sdk@^2.418.0:
+  version "2.418.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.418.0.tgz#840c4562c28fc63e99a9195a4644d0021f5b3e35"
+  integrity sha512-15aCtqqCsiyMW+CDwo6Fq3V5jDzpgb5//aPMosL+5FQnQu65t2GiLidcIPx4fWvsYpRiE/i4enz3a0Kqtt2acQ==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -2026,10 +2026,10 @@ entities@^1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
 
-eri@^7.7.3:
-  version "7.7.3"
-  resolved "https://registry.yarnpkg.com/eri/-/eri-7.7.3.tgz#066cad1661a44210c7655a0afccf91c576efeaa1"
-  integrity sha512-/lrzS5mxy9+Yfu5UXdxT+ik+/wVFCV9KAodyJxLhdFtla/XbyQNdwoHrVaJE/hMT2FUNDvss0W7ZoS0kSLq6XQ==
+eri@^7.7.4:
+  version "7.7.4"
+  resolved "https://registry.yarnpkg.com/eri/-/eri-7.7.4.tgz#84bc6097cdad56bfcaa8f3fbef4c231e95faf941"
+  integrity sha512-Ew3+8WvBt5CZldNxiLWIefRjXvnfdDgSLZ2f2y/NYVdF0FIgMzRncsUchR6KhBsWfC3H1sMz10+moDBq1VP7Cw==
   dependencies:
     classnames "^2.2.6"
 

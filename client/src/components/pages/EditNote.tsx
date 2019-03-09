@@ -37,7 +37,9 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
           <h2>Edit note</h2>
           <Field
             name="body"
-            render={({ input }) => <TextArea {...input} label="Note" />}
+            render={({ input }) => (
+              <TextArea {...input} label="Note" rows={12} />
+            )}
           />
           <ButtonGroup>
             <Button disabled={isSubmitting}>Save</Button>

@@ -22,7 +22,9 @@ export default function AddNote({ navigate }: RouteComponentProps) {
           <h2>Add note</h2>
           <Field
             name="body"
-            render={({ input }) => <TextArea {...input} label="Note" />}
+            render={({ input }) => (
+              <TextArea {...input} label="Note" rows={12} />
+            )}
           />
           <ButtonGroup>
             <Button disabled={isAdding}>Add note</Button>
