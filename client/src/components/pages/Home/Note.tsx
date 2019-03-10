@@ -1,19 +1,17 @@
-import { ButtonGroup, Card } from 'eri'
+import { NavigateFn } from '@reach/router'
+import { Card } from 'eri'
 import * as React from 'react'
-import { Link } from '@reach/router'
 
 interface IProps {
   children: string
   dateCreated: string
+  navigate: NavigateFn
 }
 
-export default function Note({ children, dateCreated }: IProps) {
+export default function Note({ children, dateCreated, navigate }: IProps) {
   return (
-    <Card e-util="pre-line">
-      <p>{children}</p>
-      <ButtonGroup>
-        <Link to={`edit/${dateCreated}`}>Edit</Link>
-      </ButtonGroup>
+    <Card onClick={() => navigate(`edit/${dateCreated}`)}>
+      <p e-util="pre-line">{children}</p>
     </Card>
   )
 }
