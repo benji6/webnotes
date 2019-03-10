@@ -5,7 +5,9 @@
   "author": "benji6",
   "private": true,
   "scripts": {
-    "build": "rm -rf dist && parcel build --experimental-scope-hoisting src/index.html",
+    "build": "rm -rf dist && mkdir dist && run-p build:*",
+    "build:js": "parcel build --experimental-scope-hoisting src/index.html",
+    "build:robots": "touch dist/robots.txt",
     "deploy": "yarn build && node scripts/deploy",
     "start": "parcel src/index.html",
     "test": "run-p test:*",
