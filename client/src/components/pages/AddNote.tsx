@@ -4,8 +4,10 @@ import { TextArea, ButtonGroup, Button } from 'eri'
 import { Form, Field } from 'react-final-form'
 import { postNote } from '../../api'
 import { SetNotesContext } from '../contexts'
+import useRedirectUnauthed from '../hooks/useRedirectUnauthed'
 
 export default function AddNote({ navigate }: RouteComponentProps) {
+  useRedirectUnauthed()
   const [isAdding, setIsAdding] = React.useState(false)
   const setNotes = React.useContext(SetNotesContext)
   const handleSubmit = async (noteData: { body: string }) => {
@@ -14,6 +16,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
     setNotes(notes => (notes ? [note, ...notes] : [note]))
     ;(navigate as NavigateFn)('/')
   }
+
   return (
     <Form
       onSubmit={handleSubmit as any}

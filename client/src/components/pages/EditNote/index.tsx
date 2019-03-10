@@ -5,12 +5,14 @@ import { Form, Field } from 'react-final-form'
 import { putNote } from '../../../api'
 import { NotesContext, SetNotesContext } from '../../contexts'
 import DeleteDialog from './DeleteDialog'
+import useRedirectUnauthed from '../../hooks/useRedirectUnauthed'
 
 interface IProps extends RouteComponentProps {
   dateCreated?: string
 }
 
 export default function EditNote({ dateCreated, navigate }: IProps) {
+  useRedirectUnauthed()
   const notes = React.useContext(NotesContext)
   const note = (notes || []).find(note => note.dateCreated === dateCreated)
   const setNotes = React.useContext(SetNotesContext)
