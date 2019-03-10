@@ -3,10 +3,36 @@ import { TextField, Button, ButtonGroup } from 'eri'
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
 import { Form, Field } from 'react-final-form'
 import { userPool } from '../../cognito'
-import { RouteComponentProps, Link, NavigateFn } from '@reach/router'
+import { RouteComponentProps, Link, navigate } from '@reach/router'
+import {
+  composeValidators,
+  emailValidator,
+  passwordValidator,
+  requiredValidator,
+} from '../../validators'
+import { FORM_ERROR } from 'final-form'
 
-export default function SignUp({ navigate }: RouteComponentProps) {
-  const handleSubmit = ({ email, password }: any) => {
+const signUp = ({
+  attributeList,
+  email,
+  password,
+}: {
+  attributeList: CognitoUserAttribute[]
+  email: string
+  password: string
+}) =>
+  new Promise((resolve, reject) => {
+    userPool.signUp(
+      email,
+      password,
+      attributeList,
+      null as any,
+      (err: Error | void, result) => (err ? reject(err) : resolve(result)),
+    )
+  })
+
+export default function SignUp(_: RouteComponentProps) {
+  const handleSubmit = async ({ email, password }: any) => {
     const attributeList = [
       new CognitoUserAttribute({
         Name: 'email',
@@ -14,30 +40,36 @@ export default function SignUp({ navigate }: RouteComponentProps) {
       }),
     ]
 
-    userPool.signUp(
-      email,
-      password,
-      attributeList,
-      null as any,
-      (err: Error | void, result) => {
-        if (err) return console.error(err)
-        ;(navigate as NavigateFn)('/')
-      },
-    )
+    try {
+      await signUp({ attributeList, email, password })
+      navigate('/')
+    } catch (e) {
+      if (e.code === 'UsernameExistsException')
+        return {
+          [FORM_ERROR]: 'Username already exists, try signing in instead',
+        }
+
+      return {
+        [FORM_ERROR]:
+          'Something has gone wrong, please check the data you have entered and try again',
+      }
+    }
   }
 
   return (
     <Form
       onSubmit={handleSubmit}
-      render={({ handleSubmit }) => (
+      render={({ handleSubmit, submitError }) => (
         <form noValidate onSubmit={handleSubmit}>
           <h2>Sign up</h2>
           <Field
             name="email"
-            render={({ input }) => (
+            validate={composeValidators(requiredValidator, emailValidator)}
+            render={({ input, meta }) => (
               <TextField
                 {...input}
                 autoComplete="email"
+                error={meta.error && meta.touched ? meta.error : undefined}
                 label="Email"
                 type="email"
               />
@@ -45,10 +77,19 @@ export default function SignUp({ navigate }: RouteComponentProps) {
           />
           <Field
             name="password"
-            render={({ input }) => (
-              <TextField {...input} label="Password" type="password" />
+            validate={composeValidators(requiredValidator, passwordValidator)}
+            render={({ input, meta }) => (
+              <TextField
+                {...input}
+                error={meta.error && meta.touched ? meta.error : undefined}
+                label="Password"
+                type="password"
+              />
             )}
           />
+          <p e-util="center">
+            <small e-util="negative">{submitError}</small>
+          </p>
           <ButtonGroup>
             <Button>Sign up</Button>
           </ButtonGroup>
