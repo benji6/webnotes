@@ -1,6 +1,10 @@
 import * as React from 'react'
 import { TextField, Button, ButtonGroup } from 'eri'
-import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
+import {
+  AuthenticationDetails,
+  CognitoUser,
+  CognitoUserSession,
+} from 'amazon-cognito-identity-js'
 import { Form, Field } from 'react-final-form'
 import { userPool } from '../../cognito'
 import { SetUserEmailContext } from '../../contexts'
@@ -11,37 +15,59 @@ import {
   errorProp,
   requiredValidator,
 } from '../../validators'
+import { FORM_ERROR } from 'final-form'
+
+const authenticate = ({
+  email,
+  password,
+}: {
+  email: string
+  password: string
+}): Promise<CognitoUserSession> => {
+  const authenticationDetails = new AuthenticationDetails({
+    Password: password,
+    Username: email,
+  })
+
+  const cognitoUser = new CognitoUser({
+    Pool: userPool,
+    Username: email,
+  })
+
+  return new Promise((resolve, reject) => {
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onFailure: reject,
+      onSuccess: resolve,
+    })
+  })
+}
 
 export default function SignIn({ navigate }: RouteComponentProps) {
+  const [isLoading, setIsLoading] = React.useState(false)
   const setUserEmail = React.useContext(SetUserEmailContext)
 
-  const handleSubmit = ({ email, password }: any) => {
-    const authenticationDetails = new AuthenticationDetails({
-      Password: password,
-      Username: email,
-    })
-
-    const cognitoUser = new CognitoUser({
-      Pool: userPool,
-      Username: email,
-    })
-
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onFailure: err => {
-        // TODO - handle errors
-        console.error(err)
-      },
-      onSuccess: result => {
-        setUserEmail(result.getIdToken().payload.email)
-        ;(navigate as NavigateFn)('/')
-      },
-    })
+  const handleSubmit = async ({ email, password }: any) => {
+    setIsLoading(true)
+    try {
+      const result = await authenticate({ email, password })
+      setUserEmail(result.getIdToken().payload.email)
+      ;(navigate as NavigateFn)('/')
+    } catch (e) {
+      setIsLoading(false)
+      if (e.code === 'NetworkError')
+        return {
+          [FORM_ERROR]: 'Network error, please check your internet connection',
+        }
+      return {
+        [FORM_ERROR]: 'Invalid username/password',
+      }
+    }
   }
 
   return (
     <Form
       onSubmit={handleSubmit}
-      render={({ handleSubmit }) => (
+      render={({ handleSubmit, submitError }) => (
         <form noValidate onSubmit={handleSubmit}>
           <h2>Sign in</h2>
           <Field
@@ -69,8 +95,13 @@ export default function SignIn({ navigate }: RouteComponentProps) {
               />
             )}
           />
+          {submitError && (
+            <p e-util="center">
+              <small e-util="negative">{submitError}</small>
+            </p>
+          )}
           <ButtonGroup>
-            <Button>Sign in</Button>
+            <Button disabled={isLoading}>Sign in</Button>
           </ButtonGroup>
           <p e-util="center">
             <small>

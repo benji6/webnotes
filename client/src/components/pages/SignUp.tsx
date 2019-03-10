@@ -33,7 +33,10 @@ const signUp = ({
   })
 
 export default function SignUp(_: RouteComponentProps) {
+  const [isLoading, setIsLoading] = React.useState(false)
+
   const handleSubmit = async ({ email, password }: any) => {
+    setIsLoading(true)
     const attributeList = [
       new CognitoUserAttribute({
         Name: 'email',
@@ -45,6 +48,11 @@ export default function SignUp(_: RouteComponentProps) {
       await signUp({ attributeList, email, password })
       navigate('/')
     } catch (e) {
+      setIsLoading(false)
+      if (e.code === 'NetworkError')
+        return {
+          [FORM_ERROR]: 'Network error, please check your internet connection',
+        }
       if (e.code === 'UsernameExistsException')
         return {
           [FORM_ERROR]: 'Username already exists, try signing in instead',
@@ -88,11 +96,13 @@ export default function SignUp(_: RouteComponentProps) {
               />
             )}
           />
-          <p e-util="center">
-            <small e-util="negative">{submitError}</small>
-          </p>
+          {submitError && (
+            <p e-util="center">
+              <small e-util="negative">{submitError}</small>
+            </p>
+          )}
           <ButtonGroup>
-            <Button>Sign up</Button>
+            <Button disabled={isLoading}>Sign up</Button>
           </ButtonGroup>
           <p e-util="center">
             <small>
