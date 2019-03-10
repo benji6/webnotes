@@ -6,7 +6,7 @@ export default function About(_: RouteComponentProps) {
     <>
       <h2>About</h2>
       <p>
-        Webnotes helps your manage your notes easily and on all your devices.
+        Webnotes helps you manage your notes easily and on all your devices.
       </p>
       <p>It is currently under construction.</p>
     </>
