@@ -3,7 +3,7 @@ import * as React from 'react'
 import { TextArea, ButtonGroup, Button, Spinner } from 'eri'
 import { Form, Field } from 'react-final-form'
 import { putNote } from '../../../api'
-import { NotesContext, SetNotesContext } from '../../contexts'
+import { NotesContext, SetNotesContext } from '../../../contexts'
 import DeleteDialog from './DeleteDialog'
 import useRedirectUnauthed from '../../hooks/useRedirectUnauthed'
 

@@ -3,7 +3,7 @@ import * as React from 'react'
 import { TextArea, ButtonGroup, Button } from 'eri'
 import { Form, Field } from 'react-final-form'
 import { postNote } from '../../api'
-import { SetNotesContext } from '../contexts'
+import { SetNotesContext } from '../../contexts'
 import useRedirectUnauthed from '../hooks/useRedirectUnauthed'
 
 export default function AddNote({ navigate }: RouteComponentProps) {

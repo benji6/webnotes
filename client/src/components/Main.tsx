@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Spinner } from 'eri'
-import { UserLoadingContext } from './contexts'
+import { UserLoadingContext } from '../contexts'
 import Router from './Router'
 
 export default function Main() {

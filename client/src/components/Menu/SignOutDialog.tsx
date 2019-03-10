@@ -1,6 +1,6 @@
 import { Dialog, ButtonGroup, Button } from 'eri'
 import * as React from 'react'
-import { SetUserEmailContext } from '../contexts'
+import { SetUserEmailContext } from '../../contexts'
 import { userPool } from '../../cognito'
 import { navigate } from '@reach/router'
 

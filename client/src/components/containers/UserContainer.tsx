@@ -4,7 +4,7 @@ import {
   UserEmailContext,
   UserLoadingContext,
   SetUserEmailContext,
-} from '../contexts'
+} from '../../contexts'
 import { getIdToken } from '../../cognito'
 
 export default function UserContainer(props: Object) {

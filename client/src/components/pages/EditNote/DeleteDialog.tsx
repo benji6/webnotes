@@ -1,7 +1,7 @@
 import { Dialog, ButtonGroup, Button } from 'eri'
 import * as React from 'react'
 import { deleteNote } from '../../../api'
-import { SetNotesContext } from '../../contexts'
+import { SetNotesContext } from '../../../contexts'
 import { INote } from '../../../types'
 import { NavigateFn } from '@reach/router'
 

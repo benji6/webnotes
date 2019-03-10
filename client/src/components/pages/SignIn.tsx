@@ -3,7 +3,7 @@ import { TextField, Button, ButtonGroup } from 'eri'
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 import { Form, Field } from 'react-final-form'
 import { userPool } from '../../cognito'
-import { SetUserEmailContext } from '../contexts'
+import { SetUserEmailContext } from '../../contexts'
 import { RouteComponentProps, Link, NavigateFn } from '@reach/router'
 
 export default function SignIn({ navigate }: RouteComponentProps) {

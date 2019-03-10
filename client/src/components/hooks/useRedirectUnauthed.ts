@@ -1,6 +1,6 @@
 import { navigate } from '@reach/router'
 import * as React from 'react'
-import { UserEmailContext } from '../contexts'
+import { UserEmailContext } from '../../contexts'
 
 export default function useRedirectUnauthed() {
   const userEmail = React.useContext(UserEmailContext)

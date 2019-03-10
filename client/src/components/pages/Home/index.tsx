@@ -2,7 +2,7 @@ import { Link, RouteComponentProps, NavigateFn } from '@reach/router'
 import { CardGroup, Spinner } from 'eri'
 import * as React from 'react'
 import Note from './Note'
-import { NotesContext, UserEmailContext } from '../../contexts'
+import { NotesContext, UserEmailContext } from '../../../contexts'
 
 export default function Home({ navigate }: RouteComponentProps) {
   const userEmail = React.useContext(UserEmailContext)
