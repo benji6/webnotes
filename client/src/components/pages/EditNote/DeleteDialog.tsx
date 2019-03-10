@@ -31,7 +31,12 @@ export default function DeleteDialog({
   }
 
   return (
-    <Dialog onClose={onClose} open={open} title="Delete note?">
+    <Dialog
+      disableClose={isLoading}
+      onClose={onClose}
+      open={open}
+      title="Delete note?"
+    >
       <ButtonGroup>
         <Button
           disabled={isLoading}

@@ -2027,9 +2027,9 @@ entities@^1.1.1:
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
 
 eri@^7.7.4:
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/eri/-/eri-7.8.0.tgz#d9055a06b0f662799b65b807402c9582f9d62c77"
-  integrity sha512-E6WK+d+8dlyxKtRshngI9U0uW1/8PpdUg/6uBPgugVo72R/Vnap4dKXgiodG7GxL5SJmRIlb434KpcV17f1BlQ==
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/eri/-/eri-7.9.0.tgz#e8237910facd230270035073d05daa8069b4014e"
+  integrity sha512-nJOFUTvilw1fzuuh5wBs2U7OpgQDU93yfS2334n2QFbikXwCUzCcn54B6kjS8m/laFpEvuGr4xJ4j57ypee+xA==
   dependencies:
     classnames "^2.2.6"
 
