@@ -11,7 +11,7 @@ interface IProps {
 export default function Note({ children, dateCreated, navigate }: IProps) {
   return (
     <Card onClick={() => navigate(`edit/${dateCreated}`)}>
-      <p e-util="pre-line">{children}</p>
+      <p>{children.split(/[\r\n]+/, 1)[0]}</p>
     </Card>
   )
 }
