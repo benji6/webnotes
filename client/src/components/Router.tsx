@@ -5,6 +5,9 @@ import About from './pages/About'
 import AddNote from './pages/AddNote'
 import EditNote from './pages/EditNote'
 import Home from './pages/Home'
+import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
+import VerifyUser from './pages/VerifyUser'
 
 export default function Router() {
   return (
@@ -14,6 +17,9 @@ export default function Router() {
       <About path="about" />
       <AddNote path="add" />
       <EditNote path="edit/:dateCreated" />
+      <SignIn path="sign-in" />
+      <SignUp path="sign-up" />
+      <VerifyUser path="verify-user" />
     </ReachRouter>
   )
 }

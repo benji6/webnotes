@@ -6,7 +6,8 @@ export default function About(_: RouteComponentProps) {
     <>
       <h2>About</h2>
       <p>
-        Webnotes helps you manage your notes easily and on all your devices.
+        Webnotes is a free app that helps you manage your notes. It works across
+        all your devices, is easy to use and is safe and secure.
       </p>
       <p>It is currently under construction.</p>
     </>

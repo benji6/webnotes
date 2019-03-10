@@ -5,6 +5,7 @@ import _404 from './pages/_404'
 import Menu from './Menu'
 import UserContainer from './containers/UserContainer'
 import Main from './Main'
+import NotesContainer from './containers/NotesContainer'
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -14,14 +15,16 @@ export default function App() {
 
   return (
     <UserContainer>
-      <Header>
-        <h1>
-          <Link to="/">Webnotes</Link>
-        </h1>
-        <MenuButton onClick={handleMenuOpen} />
-      </Header>
-      <Menu handleMenuClose={handleMenuClose} open={isMenuOpen} />
-      <Main />
+      <NotesContainer>
+        <Header>
+          <h1>
+            <Link to="/">Webnotes</Link>
+          </h1>
+          <MenuButton onClick={handleMenuOpen} />
+        </Header>
+        <Menu handleMenuClose={handleMenuClose} open={isMenuOpen} />
+        <Main />
+      </NotesContainer>
     </UserContainer>
   )
 }

@@ -1,4 +1,4 @@
-import { Link, NavigateFn, RouteComponentProps } from '@reach/router'
+import { Link, RouteComponentProps, NavigateFn } from '@reach/router'
 import * as React from 'react'
 import { TextArea, ButtonGroup, Button } from 'eri'
 import { Form, Field } from 'react-final-form'
