@@ -9,9 +9,7 @@ export default function NotesContainer(props: Object) {
   const userEmail = React.useContext(UserEmailContext)
 
   React.useEffect(() => {
-    getNotes().then(apiNotes =>
-      setNotes(notes => (notes ? [...apiNotes, ...notes] : apiNotes)),
-    )
+    if (userEmail) getNotes().then(setNotes)
   }, [userEmail])
 
   return (
