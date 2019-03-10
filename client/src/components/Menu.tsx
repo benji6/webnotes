@@ -2,21 +2,17 @@ import { Menu as EriMenu } from 'eri'
 import * as React from 'react'
 import { Link } from '@reach/router'
 import { userPool } from '../cognito'
-import { SetStateAction } from 'react'
+import { UserEmailContext, SetUserEmailContext } from './contexts'
 
 interface IProps {
   open: boolean
   handleMenuClose(): void
-  userEmail?: string
-  setUserEmail: React.Dispatch<SetStateAction<string | undefined>>
 }
 
-export default function Menu({
-  handleMenuClose,
-  open,
-  setUserEmail,
-  userEmail,
-}: IProps) {
+export default function Menu({ handleMenuClose, open }: IProps) {
+  const userEmail = React.useContext(UserEmailContext)
+  const setUserEmail = React.useContext(SetUserEmailContext)
+
   const handleSignOut = () => {
     const currentUser = userPool.getCurrentUser()
     if (currentUser) currentUser.signOut()

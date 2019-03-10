@@ -3,12 +3,11 @@ import { TextField, Button, ButtonGroup } from 'eri'
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 import { Form, Field } from 'react-final-form'
 import { userPool } from '../cognito'
+import { SetUserEmailContext } from './contexts'
 
-export default function SignIn({
-  setUserEmail,
-}: {
-  setUserEmail: React.Dispatch<React.SetStateAction<string | undefined>>
-}) {
+export default function SignIn() {
+  const setUserEmail = React.useContext(SetUserEmailContext)
+
   return (
     <Form
       onSubmit={({ email, password }: any) => {
