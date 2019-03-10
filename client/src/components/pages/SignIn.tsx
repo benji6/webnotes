@@ -5,6 +5,12 @@ import { Form, Field } from 'react-final-form'
 import { userPool } from '../../cognito'
 import { SetUserEmailContext } from '../../contexts'
 import { RouteComponentProps, Link, NavigateFn } from '@reach/router'
+import {
+  composeValidators,
+  emailValidator,
+  errorProp,
+  requiredValidator,
+} from '../../validators'
 
 export default function SignIn({ navigate }: RouteComponentProps) {
   const setUserEmail = React.useContext(SetUserEmailContext)
@@ -40,10 +46,12 @@ export default function SignIn({ navigate }: RouteComponentProps) {
           <h2>Sign in</h2>
           <Field
             name="email"
-            render={({ input }) => (
+            validate={composeValidators(requiredValidator, emailValidator)}
+            render={({ input, meta }) => (
               <TextField
                 {...input}
                 autoComplete="email"
+                error={errorProp(meta)}
                 label="Email"
                 type="email"
               />
@@ -51,8 +59,14 @@ export default function SignIn({ navigate }: RouteComponentProps) {
           />
           <Field
             name="password"
-            render={({ input }) => (
-              <TextField {...input} label="Password" type="password" />
+            validate={requiredValidator}
+            render={({ input, meta }) => (
+              <TextField
+                {...input}
+                error={errorProp(meta)}
+                label="Password"
+                type="password"
+              />
             )}
           />
           <ButtonGroup>

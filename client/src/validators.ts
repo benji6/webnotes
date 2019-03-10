@@ -1,5 +1,8 @@
 type TValidator<A> = (_: A) => string | undefined
 
+export const errorProp = (meta: any): string | undefined =>
+  meta.error && meta.touched ? meta.error : undefined
+
 export const emailValidator: TValidator<string> = value =>
   /.+@.+/.test(value) ? undefined : 'Not a valid email address'
 

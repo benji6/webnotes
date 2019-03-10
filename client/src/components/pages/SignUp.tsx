@@ -9,6 +9,7 @@ import {
   emailValidator,
   passwordValidator,
   requiredValidator,
+  errorProp,
 } from '../../validators'
 import { FORM_ERROR } from 'final-form'
 
@@ -69,7 +70,7 @@ export default function SignUp(_: RouteComponentProps) {
               <TextField
                 {...input}
                 autoComplete="email"
-                error={meta.error && meta.touched ? meta.error : undefined}
+                error={errorProp(meta)}
                 label="Email"
                 type="email"
               />
@@ -81,7 +82,7 @@ export default function SignUp(_: RouteComponentProps) {
             render={({ input, meta }) => (
               <TextField
                 {...input}
-                error={meta.error && meta.touched ? meta.error : undefined}
+                error={errorProp(meta)}
                 label="Password"
                 type="password"
               />
