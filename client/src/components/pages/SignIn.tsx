@@ -59,7 +59,7 @@ export default function SignIn({ navigate }: RouteComponentProps) {
           [FORM_ERROR]: 'Network error, please check your internet connection',
         }
       return {
-        [FORM_ERROR]: 'Invalid username/password',
+        [FORM_ERROR]: 'Invalid email/password',
       }
     }
   }
