@@ -11,8 +11,8 @@ data "archive_file" "notes_get" {
 }
 
 data "archive_file" "notes_post" {
-  output_path = "../api/dist/notesPost.zip"
-  source_file = "../api/src/notesPost.js"
+  output_path = "../api/dist/notes_post.zip"
+  source_file = "../api/src/notes_post.py"
   type        = "zip"
 }
 
@@ -51,10 +51,10 @@ resource "aws_lambda_function" "notes_put" {
 
 resource "aws_lambda_function" "notes_post" {
   filename         = "${data.archive_file.notes_post.output_path}"
-  function_name    = "notesPost"
-  handler          = "notesPost.handler"
+  function_name    = "notes_post"
+  handler          = "notes_post.handler"
   role             = "${aws_iam_role.lambda_exec.arn}"
-  runtime          = "nodejs8.10"
+  runtime          = "python3.7"
   source_code_hash = "${base64sha256(file("${data.archive_file.notes_post.output_path}"))}"
 }
 
