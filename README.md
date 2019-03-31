@@ -6,6 +6,28 @@ Webnotes is a free app that helps you manage your notes. It works across all you
 
 [Check it out here](https://webnotes.link)
 
+## Deploying
+
+### Backend and infrastructure
+
+```sh
+cd terraform
+terraform apply
+```
+
+**N.B. making changes to the API doesn't trigger a new deployment, but you can trigger a manual deployment by copying the `deploy_api_command` terraform output and running that.**
+
+```sh
+aws apigateway create-deployment --rest-api-id a6zs5gaxx6 --stage-name prod
+```
+
+### UI
+
+```sh
+cd client
+yarn deploy
+```
+
 ## Acknowledgements
 
 - Teddy for user acceptance testing

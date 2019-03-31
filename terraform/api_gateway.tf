@@ -44,6 +44,10 @@ resource "aws_api_gateway_deployment" "prod" {
   stage_name  = "prod"
 }
 
+output "deploy_api_command" {
+  value = "aws apigateway create-deployment --rest-api-id ${aws_api_gateway_rest_api.api.id} --stage-name prod"
+}
+
 output "api_gateway_url" {
   value = "${aws_api_gateway_deployment.prod.invoke_url}"
 }
