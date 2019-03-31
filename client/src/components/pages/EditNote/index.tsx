@@ -55,6 +55,15 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
         render={({ handleSubmit, submitError }) => (
           <form noValidate onSubmit={handleSubmit}>
             <h2>Edit note</h2>
+            <p>
+              <small>
+                Created: {new Date(note.dateCreated).toLocaleDateString()}
+              </small>
+              ,{' '}
+              <small>
+                last updated: {new Date(note.dateUpdated).toLocaleDateString()}
+              </small>
+            </p>
             <Field
               name="body"
               validate={requiredValidator}
