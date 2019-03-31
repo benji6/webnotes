@@ -1,6 +1,6 @@
-import { Link, NavigateFn, RouteComponentProps } from '@reach/router'
+import { NavigateFn, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
-import { TextArea, ButtonGroup, Button, Spinner } from 'eri'
+import { Button, ButtonGroup, Fab, Icon, Spinner, TextArea } from 'eri'
 import { Form, Field } from 'react-final-form'
 import { putNote } from '../../../api'
 import { NotesContext, SetNotesContext } from '../../../contexts'
@@ -63,7 +63,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
                   {...input}
                   error={errorProp(meta)}
                   label="Note"
-                  rows={12}
+                  rows={16}
                 />
               )}
             />
@@ -72,9 +72,10 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
                 <small e-util="negative">{submitError}</small>
               </p>
             )}
+            <Fab aria-label="save" disabled={isLoading}>
+              <Icon name="save" size="4" />
+            </Fab>
             <ButtonGroup>
-              <Button disabled={isLoading}>Save</Button>
-              <Link to="/">Cancel</Link>
               <Button
                 disabled={isLoading}
                 onClick={() => setIsDialogOpen(true)}
