@@ -1,6 +1,6 @@
-import { Link, RouteComponentProps, NavigateFn } from '@reach/router'
+import { RouteComponentProps, NavigateFn } from '@reach/router'
 import * as React from 'react'
-import { TextArea, ButtonGroup, Button } from 'eri'
+import { Fab, Icon, TextArea } from 'eri'
 import { Form, Field } from 'react-final-form'
 import { postNote } from '../../api'
 import { SetNotesContext } from '../../contexts'
@@ -41,7 +41,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
                 {...input}
                 error={errorProp(meta)}
                 label="Note"
-                rows={12}
+                rows={16}
               />
             )}
           />
@@ -50,10 +50,9 @@ export default function AddNote({ navigate }: RouteComponentProps) {
               <small e-util="negative">{submitError}</small>
             </p>
           )}
-          <ButtonGroup>
-            <Button disabled={isLoading}>Add note</Button>
-            <Link to="/">Cancel</Link>
-          </ButtonGroup>
+          <Fab aria-label="save" disabled={isLoading}>
+            <Icon name="save" size="4" />
+          </Fab>
         </form>
       )}
     />
