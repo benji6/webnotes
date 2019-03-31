@@ -5,8 +5,8 @@ data "archive_file" "notes_delete" {
 }
 
 data "archive_file" "notes_get" {
-  output_path = "../api/dist/notesGet.zip"
-  source_file = "../api/src/notesGet.js"
+  output_path = "../api/dist/notes_get.zip"
+  source_file = "../api/src/notes_get.py"
   type        = "zip"
 }
 
@@ -33,10 +33,10 @@ resource "aws_lambda_function" "notes_delete" {
 
 resource "aws_lambda_function" "notes_get" {
   filename         = "${data.archive_file.notes_get.output_path}"
-  function_name    = "notesGet"
-  handler          = "notesGet.handler"
+  function_name    = "notes_get"
+  handler          = "notes_get.handler"
   role             = "${aws_iam_role.lambda_exec.arn}"
-  runtime          = "nodejs8.10"
+  runtime          = "python3.7"
   source_code_hash = "${base64sha256(file("${data.archive_file.notes_get.output_path}"))}"
 }
 
