@@ -1,5 +1,5 @@
 import { Link, RouteComponentProps, NavigateFn } from '@reach/router'
-import { CardGroup, Spinner } from 'eri'
+import { CardGroup, Fab, Icon, Spinner } from 'eri'
 import * as React from 'react'
 import Note from './Note'
 import { NotesContext, UserEmailContext } from '../../../contexts'
@@ -34,6 +34,12 @@ export default function Home({ navigate }: RouteComponentProps) {
           <Spinner variant="page" />
         )}
       </CardGroup>
+      <Fab
+        aria-label="add new note"
+        onClick={() => (navigate as NavigateFn)('add')}
+      >
+        <Icon name="plus" size="4" />
+      </Fab>
     </>
   ) : (
     <>
