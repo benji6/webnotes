@@ -2085,10 +2085,10 @@ entities@^1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
 
-eri@^7.12.1:
-  version "7.12.2"
-  resolved "https://registry.yarnpkg.com/eri/-/eri-7.12.2.tgz#a072adf7123fef8f1902ab4e6e278cb3092b92f2"
-  integrity sha512-Ve3x2O6rHVb2+zEYutGTkdL73HhKuLkPUfjyaiUgU8mBqNOgZNG0XxT0U6u/TBdge3Q0DwZ1y/hafGVaYn5d4A==
+eri@^7.13.0:
+  version "7.13.0"
+  resolved "https://registry.yarnpkg.com/eri/-/eri-7.13.0.tgz#15fa69a88111c2cbe3e91894f1575ff5c30b318c"
+  integrity sha512-gwLdSAUZKTeRoCHjbYTQds2enGAiW5GgeJIIQbTeyro0UpVkLhtdrdppSuyNwPiKrAVaTO4obJVIN2pFqIkGhg==
   dependencies:
     classnames "^2.2.6"
 
