@@ -1,0 +1,11 @@
+{
+  "background_color": "#2d2f30",
+  "categories": ["lifestyle", "tool", "utilities"],
+  "description": "Webnotes is a free app that helps you manage your notes. It works across all your devices, is easy to use and is safe and secure.",
+  "display": "standalone",
+  "lang": "en",
+  "name": "Webnotes",
+  "short_name": "Webnotes",
+  "start_url": "./",
+  "theme_color": "#2d2f30"
+}
