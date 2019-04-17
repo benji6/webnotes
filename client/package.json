@@ -5,8 +5,8 @@
   "author": "benji6",
   "private": true,
   "scripts": {
-    "build": "rm -rf dist && mkdir dist && run-p build:*",
-    "build:js": "parcel build --experimental-scope-hoisting src/index.html",
+    "build": "rm -rf dist && mkdir dist && run-p build:* && node scripts/injectCacheList",
+    "build:js": "CACHE_LIST=CACHE_LIST parcel build --experimental-scope-hoisting src/index.html",
     "build:robots": "touch dist/robots.txt",
     "deploy": "yarn build && node scripts/deploy",
     "start": "parcel src/index.html",
@@ -24,6 +24,7 @@
     "react-final-form": "^4.1.0"
   },
   "devDependencies": {
+    "@types/node": "^11.13.5",
     "@types/reach__router": "^1.2.3",
     "@types/react": "^16.8.6",
     "@types/react-dom": "^16.8.2",

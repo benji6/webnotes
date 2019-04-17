@@ -2,9 +2,9 @@ const AWS = require('aws-sdk')
 const fs = require('fs')
 const mime = require('mime')
 const path = require('path')
+const { buildPath } = require('./constants')
 
 const Bucket = 'webnotes.link'
-const buildPath = path.join(__dirname, '..', 'dist')
 const s3 = new AWS.S3({ apiVersion: '2006-03-01', region: 'us-east-1' })
 
 const deleteFromS3 = Key =>
