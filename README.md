@@ -2,7 +2,7 @@
 
 ## What?
 
-Webnotes is a free app that helps you manage your notes. It works across all your devices, is easy to use and is safe and secure.
+Webnotes is a free app that lets you create and manage notes. It's simple to use and because it runs in your browser you can use it across all your devices!
 
 [Check it out here](https://webnotes.link)
 
