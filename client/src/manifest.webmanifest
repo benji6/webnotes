@@ -3,6 +3,28 @@
   "categories": ["lifestyle", "tool", "utilities"],
   "description": "Webnotes is a free app that lets you create and manage notes. It's simple to use and because it runs in your browser you can use it across all your devices!",
   "display": "standalone",
+  "icons": [
+    {
+      "src": "icons/icon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "icons/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
   "lang": "en",
   "name": "Webnotes",
   "short_name": "Webnotes",
