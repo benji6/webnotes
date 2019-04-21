@@ -7,6 +7,13 @@ const { buildPath } = require('./constants')
 const Bucket = 'webnotes.link'
 const s3 = new AWS.S3({ apiVersion: '2006-03-01', region: 'us-east-1' })
 
+const noCacheList = [
+  'index.html',
+  'manifest.webmanifest',
+  'robots.txt',
+  'serviceWorker.js',
+]
+
 const deleteFromS3 = Key =>
   new Promise((resolve, reject) =>
     s3.deleteObject({ Bucket, Key }, (err, data) => {
@@ -45,7 +52,7 @@ const main = async () => {
       uploadToS3({
         Body: fs.createReadStream(path.join(buildPath, filename)),
         CacheControl: `public, ${
-          filename.endsWith('.html')
+          noCacheList.includes(filename)
             ? 'max-age=0, must-revalidate'
             : 'max-age=31536000, immutable'
         }`,
