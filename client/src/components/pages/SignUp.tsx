@@ -90,6 +90,7 @@ export default function SignUp(_: RouteComponentProps) {
             render={({ input, meta }) => (
               <TextField
                 {...input}
+                autoComplete="new-password"
                 error={errorProp(meta)}
                 label="Password"
                 type="password"

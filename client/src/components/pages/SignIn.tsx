@@ -89,6 +89,7 @@ export default function SignIn({ navigate }: RouteComponentProps) {
             render={({ input, meta }) => (
               <TextField
                 {...input}
+                autoComplete="current-password"
                 error={errorProp(meta)}
                 label="Password"
                 type="password"
