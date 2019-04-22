@@ -12,7 +12,7 @@
     "icons": "node scripts/icons",
     "start": "parcel src/index.html",
     "test": "run-p test:*",
-    "test:format": "prettier --list-different \"src/**/*\"",
+    "test:format": "prettier --check \"src/**/*\"",
     "test:types": "tsc --noEmit"
   },
   "dependencies": {
