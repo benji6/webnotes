@@ -8,6 +8,8 @@ import useRedirectUnauthed from '../hooks/useRedirectUnauthed'
 import { FORM_ERROR } from 'final-form'
 import { requiredValidator, errorProp } from '../../validators'
 
+const bodyFieldName = 'body'
+
 export default function AddNote({ navigate }: RouteComponentProps) {
   useRedirectUnauthed()
   const [isLoading, setIsLoading] = React.useState(false)
@@ -34,7 +36,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
         <form noValidate onSubmit={handleSubmit}>
           <h2>Add note</h2>
           <Field
-            name="body"
+            name={bodyFieldName}
             validate={requiredValidator}
             render={({ input, meta }) => (
               <TextArea
@@ -50,9 +52,15 @@ export default function AddNote({ navigate }: RouteComponentProps) {
               <small e-util="negative">{submitError}</small>
             </p>
           )}
-          <Fab aria-label="save" disabled={isLoading}>
-            <Icon name="save" size="4" />
-          </Fab>
+          <Field name={bodyFieldName} subscription={{ value: true }}>
+            {({ input: { value } }) =>
+              value ? (
+                <Fab aria-label="save" disabled={isLoading}>
+                  <Icon name="save" size="4" />
+                </Fab>
+              ) : null
+            }
+          </Field>
         </form>
       )}
     />

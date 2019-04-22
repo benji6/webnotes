@@ -13,6 +13,8 @@ interface IProps extends RouteComponentProps {
   dateCreated?: string
 }
 
+const bodyFieldName = 'body'
+
 export default function EditNote({ dateCreated, navigate }: IProps) {
   useRedirectUnauthed()
   const notes = React.useContext(NotesContext)
@@ -65,7 +67,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
               </small>
             </p>
             <Field
-              name="body"
+              name={bodyFieldName}
               validate={requiredValidator}
               render={({ input, meta }) => (
                 <TextArea
@@ -81,9 +83,15 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
                 <small e-util="negative">{submitError}</small>
               </p>
             )}
-            <Fab aria-label="save" disabled={isLoading}>
-              <Icon name="save" size="4" />
-            </Fab>
+            <Field name={bodyFieldName} subscription={{ value: true }}>
+              {({ input: { value } }) =>
+                value && value !== note.body ? (
+                  <Fab aria-label="save" disabled={isLoading}>
+                    <Icon name="save" size="4" />
+                  </Fab>
+                ) : null
+              }
+            </Field>
             <ButtonGroup>
               <Button
                 disabled={isLoading}
