@@ -7,12 +7,14 @@ const { buildPath } = require('./constants')
 const Bucket = 'webnotes.link'
 const s3 = new AWS.S3({ apiVersion: '2006-03-01', region: 'us-east-1' })
 
-const noCacheList = [
-  'index.html',
-  'manifest.webmanifest',
-  'robots.txt',
-  'serviceWorker.js',
-]
+const fileExtensionsToCache = ['css', 'ico', 'js', 'png', 'svg']
+
+const shouldCacheFile = filename => {
+  if (filename === 'serviceWorker.js') return false
+  return fileExtensionsToCache.some(extension =>
+    filename.endsWith(`.${extension}`),
+  )
+}
 
 const deleteFromS3 = Key =>
   new Promise((resolve, reject) =>
@@ -39,28 +41,37 @@ const uploadToS3 = params =>
   )
 
 const main = async () => {
-  const [filenamesToUpload, s3Keys] = await Promise.all([
+  const [filenamesInBuildDir, s3Keys] = await Promise.all([
     fs.promises.readdir(buildPath),
     listS3Keys(),
   ])
-  const keysToRemove = s3Keys.filter(key => !filenamesToUpload.includes(key))
+  const keysToRemove = s3Keys.filter(key => !filenamesInBuildDir.includes(key))
+  const s3Args = filenamesInBuildDir
+    .filter(filename => {
+      if (s3Keys.includes(filename) && shouldCacheFile(filename)) return false
+      return true
+    })
+    .map(filename => ({
+      Body: fs.createReadStream(path.join(buildPath, filename)),
+      CacheControl: `public, ${
+        shouldCacheFile(filename)
+          ? 'max-age=31536000, immutable'
+          : 'max-age=0, must-revalidate'
+      }`,
+      ContentType: mime.getType(filename),
+      Key: filename,
+    }))
 
-  console.log({ filenamesToUpload, s3Keys, keysToRemove })
+  console.log({
+    'Current keys': s3Keys,
+    'Keys to remove': keysToRemove,
+    'Files to upload': s3Args.map(({ CacheControl, Key }) => ({
+      Key,
+      CacheControl,
+    })),
+  })
 
-  await Promise.all(
-    filenamesToUpload.map(filename =>
-      uploadToS3({
-        Body: fs.createReadStream(path.join(buildPath, filename)),
-        CacheControl: `public, ${
-          noCacheList.includes(filename)
-            ? 'max-age=0, must-revalidate'
-            : 'max-age=31536000, immutable'
-        }`,
-        ContentType: mime.getType(filename),
-        Key: filename,
-      }),
-    ),
-  )
+  await Promise.all(s3Args.map(uploadToS3))
 
   for (const filename of keysToRemove) deleteFromS3(filename)
 }
