@@ -5,6 +5,7 @@ import { Form, Field } from 'react-final-form'
 import { postNote } from '../../api'
 import { SetNotesContext } from '../../contexts'
 import useRedirectUnauthed from '../hooks/useRedirectUnauthed'
+import useNotePlaceholder from '../hooks/useNotePlaceholder'
 import { FORM_ERROR } from 'final-form'
 import { requiredValidator, errorProp } from '../../validators'
 
@@ -14,6 +15,8 @@ export default function AddNote({ navigate }: RouteComponentProps) {
   useRedirectUnauthed()
   const [isLoading, setIsLoading] = React.useState(false)
   const setNotes = React.useContext(SetNotesContext)
+  const placeholder = useNotePlaceholder()
+
   const handleSubmit = async (noteData: { body: string }) => {
     setIsLoading(true)
     try {
@@ -43,6 +46,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
                 {...input}
                 error={errorProp(meta)}
                 label="Note"
+                placeholder={placeholder}
                 rows={16}
               />
             )}

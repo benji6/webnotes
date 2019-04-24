@@ -5,6 +5,7 @@ import { Form, Field } from 'react-final-form'
 import { putNote } from '../../../api'
 import { NotesContext, SetNotesContext } from '../../../contexts'
 import DeleteDialog from './DeleteDialog'
+import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnauthed from '../../hooks/useRedirectUnauthed'
 import { FORM_ERROR } from 'final-form'
 import { requiredValidator, errorProp } from '../../../validators'
@@ -22,6 +23,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
   const setNotes = React.useContext(SetNotesContext)
   const [isLoading, setIsLoading] = React.useState(false)
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+  const placeholder = useNotePlaceholder()
 
   if (!note) return <Spinner variant="page" />
 
@@ -74,6 +76,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
                   {...input}
                   error={errorProp(meta)}
                   label="Note"
+                  placeholder={placeholder}
                   rows={16}
                 />
               )}
