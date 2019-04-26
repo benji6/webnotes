@@ -2,7 +2,6 @@ const favicons = require('favicons')
 const fs = require('fs')
 const path = require('path')
 
-const sizes = ['144x144', '180x180', '192x192', '512x512']
 const iconsPath = path.join(__dirname, '..', 'src', 'icons')
 const source = path.join(iconsPath, 'icon.svg')
 
@@ -12,7 +11,7 @@ const configuration = {
   icons: {
     android: true,
     appleIcon: true,
-    appleStartup: true,
+    appleStartup: false,
     coast: false,
     favicons: true,
     firefox: false,
@@ -25,15 +24,15 @@ favicons(source, configuration, (err, response) => {
   if (err) throw err
 
   response.images
-    .filter(({ name }) => {
-      if (
-        name.includes('favicon.ico') ||
-        name.includes('apple-touch-startup-image')
-      )
-        return true
-      for (const size of sizes) if (name.includes(size)) return true
-      return false
-    })
+    .filter(({ name }) =>
+      [
+        'android-chrome-144x144.png',
+        'android-chrome-192x192.png',
+        'android-chrome-512x512.png',
+        'apple-touch-icon.png',
+        'favicon.ico',
+      ].includes(name),
+    )
     .map(({ contents, name }) => ({
       contents,
       name: name.replace('android-chrome', 'icon'),
