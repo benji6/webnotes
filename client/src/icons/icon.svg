@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width=".125" viewBox="0 0 5 5" >
-  <rect height="5" stroke-width=".25" width="5" fill="#ffffff"/>
-  <rect height="1" width="1" x="1" y="1" fill="#2575d0" />
-  <rect height="1" width="1" x="1" y="2" fill="#3bd075" />
-  <rect height="1" width="1" x="1" y="3" fill="#00e4f5" />
-  <rect height="1" width="1" x="2" y="1" fill="#f655f6" />
-  <rect height="1" width="1" x="3" y="1" fill="#ffa033" />
-  <rect height="1" width="1" x="3" y="2" fill="#bfe602" />
-  <rect height="1" width="1" x="3" y="3" fill="#ab58ff" />
+<svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25" viewBox="0 0 8 8" >
+  <rect height="8" stroke="none" width="8" fill="#ffffff"/>
+  <rect height="2" width="2" x="1" y="1" fill="#2575d0" />
+  <rect height="2" width="2" x="1" y="3" fill="#3bd075" />
+  <rect height="2" width="2" x="1" y="5" fill="#00e4f5" />
+  <rect height="2" width="2" x="3" y="1" fill="#f655f6" />
+  <rect height="2" width="2" x="5" y="1" fill="#ffa033" />
+  <rect height="2" width="2" x="5" y="3" fill="#bfe602" />
+  <rect height="2" width="2" x="5" y="5" fill="#ab58ff" />
 </svg>
