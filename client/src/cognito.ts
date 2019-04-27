@@ -15,8 +15,12 @@ export const getIdToken = (): Promise<CognitoIdToken> =>
     if (!currentUser) return reject(Error('no current user'))
     currentUser.getSession(
       async (err: Error | void, session: CognitoUserSession) => {
-        if (err) return reject(err)
-        resolve(session.getIdToken())
+        if (!err) return resolve(session.getIdToken())
+        if (err.message === 'User does not exist.') {
+          currentUser.signOut()
+          return reject(Error('no current user'))
+        }
+        reject(err)
       },
     )
   })
