@@ -2,36 +2,45 @@ import { Link, RouteComponentProps, NavigateFn } from '@reach/router'
 import { CardGroup, Fab, Icon, Spinner } from 'eri'
 import * as React from 'react'
 import Note from './Note'
-import { NotesContext, UserEmailContext } from '../../../contexts'
+import {
+  NotesContext,
+  UserEmailContext,
+  NotesLoadingStateContext,
+} from '../../../contexts'
 
 export default function Home({ navigate }: RouteComponentProps) {
   const userEmail = React.useContext(UserEmailContext)
   const notes = React.useContext(NotesContext)
+  const notesLoadingState = React.useContext(NotesLoadingStateContext)
+
   return userEmail ? (
     <>
       <h2>Notes</h2>
       <CardGroup>
-        {notes ? (
-          notes.length ? (
-            notes.map(({ body, dateCreated }) => (
-              <Note
-                dateCreated={dateCreated}
-                key={dateCreated}
-                navigate={navigate as NavigateFn}
-              >
-                {body}
-              </Note>
-            ))
-          ) : (
-            <div>
-              <p>You have no notes!</p>
-              <p>
-                <Link to="add">Click here to add your first one</Link>
-              </p>
-            </div>
-          )
-        ) : (
+        {notesLoadingState === 'error' ? (
+          <p>
+            Network error, please check your internet connection and try
+            refreshing the page
+          </p>
+        ) : notesLoadingState === 'loading' ? (
           <Spinner variant="page" />
+        ) : notes && notes.length ? (
+          notes.map(({ body, dateCreated }) => (
+            <Note
+              dateCreated={dateCreated}
+              key={dateCreated}
+              navigate={navigate as NavigateFn}
+            >
+              {body}
+            </Note>
+          ))
+        ) : (
+          <div>
+            <p>You have no notes!</p>
+            <p>
+              <Link to="add">Click here to add your first one</Link>
+            </p>
+          </div>
         )}
       </CardGroup>
       <Fab

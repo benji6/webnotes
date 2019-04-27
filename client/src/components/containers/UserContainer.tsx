@@ -9,7 +9,7 @@ import {
 import { getIdToken } from '../../cognito'
 
 export default function UserContainer(props: Object) {
-  const [userLoading, setUserLoadingState] = React.useState<TLoadingState>(
+  const [userLoadingState, setUserLoadingState] = React.useState<TLoadingState>(
     'loading',
   )
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
@@ -30,7 +30,7 @@ export default function UserContainer(props: Object) {
   }, [])
 
   return (
-    <UserLoadingStateContext.Provider value={userLoading}>
+    <UserLoadingStateContext.Provider value={userLoadingState}>
       <UserEmailContext.Provider value={userEmail}>
         <SetUserEmailContext.Provider {...props} value={setUserEmail} />
       </UserEmailContext.Provider>
