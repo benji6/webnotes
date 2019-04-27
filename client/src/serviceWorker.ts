@@ -8,6 +8,18 @@ const cacheListWithHost = cacheList.map(resource =>
   pathJoin(location.host, resource),
 )
 
+const throwAfter = (t: number): Promise<never> =>
+  new Promise((_, reject) =>
+    setTimeout(() => reject(Error(`Timed out after ${t}ms`)), t),
+  )
+
+const customFetch = async (request: Request): Promise<Response> => {
+  const response = await Promise.race([fetch(request), throwAfter(5000)])
+  const { status } = response
+  if (status >= 500 && status < 600) throw Error(String(status))
+  return response
+}
+
 sw.oninstall = (event: any) => {
   event.waitUntil(
     (async () => {
@@ -23,9 +35,7 @@ sw.onfetch = (event: any) => {
     (async () => {
       const cache = await caches.open(cacheName)
       try {
-        const networkResponse = await fetch(event.request)
-        const { status } = networkResponse
-        if (status >= 500 && status < 600) throw Error(String(status))
+        const networkResponse = await customFetch(event.request)
         event.waitUntil(cache.put(event.request, networkResponse.clone()))
         return networkResponse
       } catch (e) {
