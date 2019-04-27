@@ -1,10 +1,11 @@
-import * as React from 'react'
-import { TextField, Button, ButtonGroup } from 'eri'
 import {
   AuthenticationDetails,
   CognitoUser,
   CognitoUserSession,
 } from 'amazon-cognito-identity-js'
+import { TextField, Button, ButtonGroup } from 'eri'
+import { FORM_ERROR } from 'final-form'
+import * as React from 'react'
 import { Form, Field } from 'react-final-form'
 import { userPool } from '../../cognito'
 import { SetUserEmailContext } from '../../contexts'
@@ -15,7 +16,7 @@ import {
   errorProp,
   requiredValidator,
 } from '../../validators'
-import { FORM_ERROR } from 'final-form'
+import { networkErrorMessage } from '../../constants'
 
 const authenticate = ({
   email,
@@ -56,7 +57,7 @@ export default function SignIn({ navigate }: RouteComponentProps) {
       setIsLoading(false)
       if (e.code === 'NetworkError')
         return {
-          [FORM_ERROR]: 'Network error, please check your internet connection',
+          [FORM_ERROR]: networkErrorMessage,
         }
       return {
         [FORM_ERROR]: 'Invalid email/password',

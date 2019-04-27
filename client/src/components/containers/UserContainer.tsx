@@ -3,12 +3,15 @@ import _404 from '../pages/_404'
 import {
   SetUserEmailContext,
   UserEmailContext,
-  UserLoadingContext,
+  UserLoadingStateContext,
+  TLoadingState,
 } from '../../contexts'
 import { getIdToken } from '../../cognito'
 
 export default function UserContainer(props: Object) {
-  const [userLoading, setUserLoading] = React.useState(true)
+  const [userLoading, setUserLoadingState] = React.useState<TLoadingState>(
+    'loading',
+  )
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
     undefined,
   )
@@ -17,17 +20,20 @@ export default function UserContainer(props: Object) {
     getIdToken().then(
       idToken => {
         setUserEmail(idToken.payload.email)
-        setUserLoading(false)
+        setUserLoadingState('done')
       },
-      () => setUserLoading(false),
+      (e: Error) => {
+        console.error(e)
+        setUserLoadingState('error')
+      },
     )
   }, [])
 
   return (
-    <UserLoadingContext.Provider value={userLoading}>
+    <UserLoadingStateContext.Provider value={userLoading}>
       <UserEmailContext.Provider value={userEmail}>
         <SetUserEmailContext.Provider {...props} value={setUserEmail} />
       </UserEmailContext.Provider>
-    </UserLoadingContext.Provider>
+    </UserLoadingStateContext.Provider>
   )
 }

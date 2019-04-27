@@ -1,9 +1,10 @@
-import * as React from 'react'
-import { TextField, Button, ButtonGroup } from 'eri'
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
+import { TextField, Button, ButtonGroup } from 'eri'
+import { FORM_ERROR } from 'final-form'
+import { RouteComponentProps, Link, navigate } from '@reach/router'
+import * as React from 'react'
 import { Form, Field } from 'react-final-form'
 import { userPool } from '../../cognito'
-import { RouteComponentProps, Link, navigate } from '@reach/router'
 import {
   composeValidators,
   emailValidator,
@@ -11,7 +12,7 @@ import {
   requiredValidator,
   errorProp,
 } from '../../validators'
-import { FORM_ERROR } from 'final-form'
+import { networkErrorMessage } from '../../constants'
 
 const signUp = ({
   attributeList,
@@ -51,7 +52,7 @@ export default function SignUp(_: RouteComponentProps) {
       setIsLoading(false)
       if (e.code === 'NetworkError')
         return {
-          [FORM_ERROR]: 'Network error, please check your internet connection',
+          [FORM_ERROR]: networkErrorMessage,
         }
       if (e.code === 'UsernameExistsException')
         return {

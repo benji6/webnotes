@@ -1,16 +1,17 @@
-import * as React from 'react'
-import { TextField, Button, ButtonGroup } from 'eri'
 import { CognitoUser } from 'amazon-cognito-identity-js'
+import { TextField, Button, ButtonGroup } from 'eri'
+import { FORM_ERROR } from 'final-form'
+import { RouteComponentProps, NavigateFn } from '@reach/router'
+import * as React from 'react'
 import { Form, Field } from 'react-final-form'
 import { userPool } from '../../cognito'
-import { RouteComponentProps, NavigateFn } from '@reach/router'
 import {
   requiredValidator,
   errorProp,
   composeValidators,
   emailValidator,
 } from '../../validators'
-import { FORM_ERROR } from 'final-form'
+import { networkErrorMessage } from '../../constants'
 
 const confirmRegistration = ({
   code,
@@ -43,7 +44,7 @@ export default function VerifyUser({ navigate }: RouteComponentProps) {
       setIsLoading(false)
       if (e.code === 'NetworkError')
         return {
-          [FORM_ERROR]: 'Network error, please check your internet connection',
+          [FORM_ERROR]: networkErrorMessage,
         }
       if (e.code === 'NotAuthorizedException')
         return {
