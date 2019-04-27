@@ -10,6 +10,12 @@ resource "aws_cognito_user_pool" "main" {
     require_symbols   = false
     require_uppercase = true
   }
+
+  verification_message_template {
+    default_email_option  = "CONFIRM_WITH_LINK"
+    email_message_by_link = "{##Follow this link##} to complete your signup with Webnotes"
+    email_subject_by_link = "Webnotes email verification"
+  }
 }
 
 resource "aws_cognito_user_pool_client" "main" {
@@ -25,6 +31,11 @@ resource "aws_cognito_identity_pool" "main" {
     client_id     = "${aws_cognito_user_pool_client.main.id}"
     provider_name = "${aws_cognito_user_pool.main.endpoint}"
   }
+}
+
+resource "aws_cognito_user_pool_domain" "main" {
+  domain       = "webnotes"
+  user_pool_id = "${aws_cognito_user_pool.main.id}"
 }
 
 output "cognito_user_pool_id" {
