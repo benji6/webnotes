@@ -23,6 +23,7 @@ export default function UserContainer(props: Object) {
         setUserLoadingState('done')
       },
       (e: Error) => {
+        if (e.message === 'no current user') return setUserLoadingState('done')
         console.error(e)
         setUserLoadingState('error')
       },
