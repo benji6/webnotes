@@ -7,7 +7,7 @@ import EditNote from './pages/EditNote'
 import Home from './pages/Home'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
-import VerifyUser from './pages/VerifyUser'
+import Verify from './pages/Verify'
 
 export default function Router() {
   return (
@@ -19,7 +19,7 @@ export default function Router() {
       <EditNote path="edit/:dateCreated" />
       <SignIn path="sign-in" />
       <SignUp path="sign-up" />
-      <VerifyUser path="verify-user" />
+      <Verify path="verify" />
     </ReachRouter>
   )
 }

@@ -47,7 +47,7 @@ export default function SignUp(_: RouteComponentProps) {
 
     try {
       await signUp({ attributeList, email, password })
-      navigate('/')
+      navigate('/verify')
     } catch (e) {
       setIsLoading(false)
       if (e.code === 'NetworkError')
