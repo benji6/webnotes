@@ -16,7 +16,6 @@ export const getIdToken = (): Promise<CognitoIdToken> =>
     currentUser.getSession(
       async (err: Error | void, session: CognitoUserSession) => {
         if (err) return reject(err)
-        if (!session.isValid()) return reject(Error('session is not valid'))
         resolve(session.getIdToken())
       },
     )
