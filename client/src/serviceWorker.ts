@@ -14,7 +14,7 @@ const throwAfter = (t: number): Promise<never> =>
   )
 
 const customFetch = async (request: Request): Promise<Response> => {
-  const response = await Promise.race([fetch(request), throwAfter(5000)])
+  const response = await Promise.race([fetch(request), throwAfter(3000)])
   const { status } = response
   if (status >= 500 && status < 600) throw Error(String(status))
   return response
