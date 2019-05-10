@@ -26,7 +26,7 @@ resource "aws_api_gateway_integration_response" "notes_get_200" {
   resource_id = "${aws_api_gateway_resource.notes.id}"
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Access-Control-Allow-Origin" = "${var.access_control_allow_origin}"
   }
 
   rest_api_id = "${aws_api_gateway_rest_api.api.id}"
@@ -43,7 +43,7 @@ resource "aws_api_gateway_integration_response" "notes_get_500" {
   resource_id = "${aws_api_gateway_resource.notes.id}"
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Access-Control-Allow-Origin" = "${var.access_control_allow_origin}"
   }
 
   rest_api_id       = "${aws_api_gateway_rest_api.api.id}"
