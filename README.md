@@ -23,10 +23,7 @@ aws apigateway create-deployment --rest-api-id a6zs5gaxx6 --stage-name prod
 
 ### UI
 
-```sh
-cd client
-yarn deploy
-```
+Master is automatically deployed with [Netlify](http://netlify.com).
 
 **N.B. because icons take a long time to generate and do not change often they are created from the master svg file by running `yarn icons` in the `/client` dir and committed to version control.**
 

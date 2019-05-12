@@ -1,7 +1,3 @@
 variable "access_control_allow_origin" {
-  default = "'*'"
-}
-
-variable "domain_name" {
-  default = "webnotes.link"
+  default = "'http://localhost:1234'"
 }

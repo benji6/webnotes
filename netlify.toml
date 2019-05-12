@@ -1,0 +1,19 @@
+[build]
+  publish = "client/dist"
+  command = "cd client && yarn build"
+[[headers]]
+  for = "*.(css|ico|png|svg)"
+  [headers.values]
+    Cache-Control = "public,max-age=31536000,immutable"
+[[headers]]
+  for = "src.*.js"
+  [headers.values]
+    Cache-Control = "public,max-age=31536000,immutable"
+[[redirects]]
+  from = "/api/*"
+  status = 200
+  to = "https://a6zs5gaxx6.execute-api.us-east-1.amazonaws.com/prod/:splat"
+[[redirects]]
+  from = "/*"
+  status = 200
+  to = "/"

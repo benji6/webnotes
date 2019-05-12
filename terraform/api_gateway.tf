@@ -10,21 +10,6 @@ resource "aws_api_gateway_authorizer" "api" {
   type          = "COGNITO_USER_POOLS"
 }
 
-resource "aws_api_gateway_base_path_mapping" "api" {
-  api_id      = "${aws_api_gateway_rest_api.api.id}"
-  domain_name = "${aws_api_gateway_domain_name.api.domain_name}"
-  stage_name  = "${aws_api_gateway_deployment.prod.stage_name}"
-}
-
-resource "aws_api_gateway_domain_name" "api" {
-  domain_name              = "api.${var.domain_name}"
-  regional_certificate_arn = "${data.aws_acm_certificate.site.arn}"
-
-  endpoint_configuration {
-    types = ["REGIONAL"]
-  }
-}
-
 resource "aws_api_gateway_resource" "notes" {
   parent_id   = "${aws_api_gateway_rest_api.api.root_resource_id}"
   path_part   = "notes"
