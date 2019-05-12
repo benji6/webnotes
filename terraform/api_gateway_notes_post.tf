@@ -56,8 +56,13 @@ resource "aws_api_gateway_method" "notes_post" {
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = "${aws_api_gateway_authorizer.api.id}"
   http_method   = "POST"
-  resource_id   = "${aws_api_gateway_resource.notes.id}"
-  rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
+
+  request_models = {
+    "application/json" = "${aws_api_gateway_model.notes_post.name}"
+  }
+
+  resource_id = "${aws_api_gateway_resource.notes.id}"
+  rest_api_id = "${aws_api_gateway_rest_api.api.id}"
 }
 
 resource "aws_api_gateway_method_response" "notes_post_200" {
@@ -84,4 +89,20 @@ resource "aws_api_gateway_method_response" "notes_post_500" {
 
   rest_api_id = "${aws_api_gateway_rest_api.api.id}"
   status_code = 500
+}
+
+resource "aws_api_gateway_model" "notes_post" {
+  content_type = "application/json"
+  name         = "notespost"
+  rest_api_id  = "${aws_api_gateway_rest_api.api.id}"
+
+  schema = <<EOF
+{
+  "properties": {
+    "body": { "type": "string" }
+  },
+  "required": ["body"],
+  "type": "object"
+}
+EOF
 }
