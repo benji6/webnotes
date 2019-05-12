@@ -1,5 +1,7 @@
 # Webnotes
 
+[![Build Status](https://travis-ci.org/benji6/webnotes.svg?branch=master)](https://travis-ci.org/benji6/webnotes)
+
 ## About
 
 Webnotes is a free and open source app that lets you create and manage notes. It's simple to use and because it runs in your browser you can use it across all your devices!
