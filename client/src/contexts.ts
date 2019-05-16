@@ -1,12 +1,8 @@
 import * as React from 'react'
 import { INote } from './types'
 
-export type TLoadingState = 'done' | 'error' | 'loading'
-
 export const NotesContext = React.createContext<INote[] | undefined>(undefined)
-export const NotesLoadingStateContext = React.createContext<TLoadingState>(
-  'loading',
-)
+export const NotesLoadingErrorContext = React.createContext(false)
 export const SetNotesContext = React.createContext<
   React.Dispatch<React.SetStateAction<INote[] | undefined>>
 >(() => {})

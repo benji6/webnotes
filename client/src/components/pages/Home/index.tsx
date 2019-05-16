@@ -4,27 +4,27 @@ import * as React from 'react'
 import Note from './Note'
 import {
   NotesContext,
+  NotesLoadingErrorContext,
   UserEmailContext,
-  NotesLoadingStateContext,
 } from '../../../contexts'
 
 export default function Home({ navigate }: RouteComponentProps) {
   const userEmail = React.useContext(UserEmailContext)
   const notes = React.useContext(NotesContext)
-  const notesLoadingState = React.useContext(NotesLoadingStateContext)
+  const notesLoadingError = React.useContext(NotesLoadingErrorContext)
 
   return userEmail ? (
     <>
       <h2>Notes</h2>
       <CardGroup>
-        {notesLoadingState === 'error' ? (
+        {notesLoadingError ? (
           <p>
             Something went wrong, check your internet connection and{' '}
             <a href="/">try again</a>.
           </p>
-        ) : notesLoadingState === 'loading' ? (
+        ) : !notes ? (
           <Spinner variant="page" />
-        ) : notes && notes.length ? (
+        ) : notes.length ? (
           notes.map(({ body, dateCreated }) => (
             <Note
               dateCreated={dateCreated}
