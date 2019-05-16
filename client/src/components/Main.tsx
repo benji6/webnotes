@@ -1,20 +1,17 @@
 import * as React from 'react'
-import { Spinner } from 'eri'
-import { UserLoadingStateContext } from '../contexts'
+import { UserLoadingErrorContext } from '../contexts'
 import Router from './Router'
 
 export default function Main() {
-  const userLoadingState = React.useContext(UserLoadingStateContext)
+  const userLoadingError = React.useContext(UserLoadingErrorContext)
 
   return (
     <main>
-      {userLoadingState === 'error' ? (
+      {userLoadingError ? (
         <p>
-          Network error, please check your internet connection and try
-          refreshing the page
+          Something went wrong, check your internet connection and{' '}
+          <a href="/">try again</a>.
         </p>
-      ) : userLoadingState === 'loading' ? (
-        <Spinner variant="page" />
       ) : (
         <Router />
       )}

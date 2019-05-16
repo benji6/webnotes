@@ -19,8 +19,8 @@ export default function Home({ navigate }: RouteComponentProps) {
       <CardGroup>
         {notesLoadingState === 'error' ? (
           <p>
-            Network error, please check your internet connection and try
-            refreshing the page
+            Something went wrong, check your internet connection and{' '}
+            <a href="/">try again</a>.
           </p>
         ) : notesLoadingState === 'loading' ? (
           <Spinner variant="page" />

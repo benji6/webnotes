@@ -13,9 +13,7 @@ export const SetNotesContext = React.createContext<
 export const UserEmailContext = React.createContext<string | undefined>(
   undefined,
 )
-export const UserLoadingStateContext = React.createContext<TLoadingState>(
-  'loading',
-)
+export const UserLoadingErrorContext = React.createContext(false)
 export const SetUserEmailContext = React.createContext<
   React.Dispatch<React.SetStateAction<string | undefined>>
 >(() => {})

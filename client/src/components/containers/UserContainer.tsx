@@ -3,38 +3,45 @@ import _404 from '../pages/_404'
 import {
   SetUserEmailContext,
   UserEmailContext,
-  UserLoadingStateContext,
-  TLoadingState,
+  UserLoadingErrorContext,
 } from '../../contexts'
 import { getIdToken } from '../../cognito'
 
+const storageKey = 'userEmail'
+const storedUserEmail = localStorage.getItem(storageKey)
+const initialUserEmail = storedUserEmail ? storedUserEmail : undefined
+
 export default function UserContainer(props: Object) {
-  const [userLoadingState, setUserLoadingState] = React.useState<TLoadingState>(
-    'loading',
-  )
+  const [userLoadingError, setUserLoadingError] = React.useState(false)
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
-    undefined,
+    initialUserEmail,
   )
+
+  React.useEffect(() => {
+    if (!userEmail) return localStorage.removeItem(storageKey)
+    localStorage.setItem(storageKey, userEmail)
+  }, [userEmail])
 
   React.useEffect(() => {
     getIdToken().then(
       idToken => {
         setUserEmail(idToken.payload.email)
-        setUserLoadingState('done')
+        setUserLoadingError(false)
       },
       (e: Error) => {
-        if (e.message === 'no current user') return setUserLoadingState('done')
+        if (e.message === 'no current user') return setUserLoadingError(false)
         console.error(e)
-        setUserLoadingState('error')
+        setUserEmail(undefined)
+        setUserLoadingError(true)
       },
     )
   }, [])
 
   return (
-    <UserLoadingStateContext.Provider value={userLoadingState}>
+    <UserLoadingErrorContext.Provider value={userLoadingError}>
       <UserEmailContext.Provider value={userEmail}>
         <SetUserEmailContext.Provider {...props} value={setUserEmail} />
       </UserEmailContext.Provider>
-    </UserLoadingStateContext.Provider>
+    </UserLoadingErrorContext.Provider>
   )
 }

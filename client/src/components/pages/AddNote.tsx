@@ -8,6 +8,7 @@ import useRedirectUnauthed from '../hooks/useRedirectUnauthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
 import { FORM_ERROR } from 'final-form'
 import { requiredValidator, errorProp } from '../../validators'
+import { networkErrorMessage } from '../../constants'
 
 const bodyFieldName = 'body'
 
@@ -26,8 +27,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
     } catch (e) {
       setIsLoading(false)
       return {
-        [FORM_ERROR]:
-          'Something went wrong, please check your internet connection and try again',
+        [FORM_ERROR]: networkErrorMessage,
       }
     }
   }

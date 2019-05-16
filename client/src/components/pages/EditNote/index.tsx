@@ -9,6 +9,7 @@ import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnauthed from '../../hooks/useRedirectUnauthed'
 import { FORM_ERROR } from 'final-form'
 import { requiredValidator, errorProp } from '../../../validators'
+import { networkErrorMessage } from '../../../constants'
 
 interface IProps extends RouteComponentProps {
   dateCreated?: string
@@ -45,8 +46,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
     } catch (e) {
       setIsLoading(false)
       return {
-        [FORM_ERROR]:
-          'Something went wrong, please check your internet connection and try again',
+        [FORM_ERROR]: networkErrorMessage,
       }
     }
   }
