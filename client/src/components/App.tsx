@@ -2,10 +2,10 @@ import { Link } from '@reach/router'
 import { Header, MenuButton } from 'eri'
 import * as React from 'react'
 import _404 from './pages/_404'
-import Menu from './Menu'
-import UserContainer from './containers/UserContainer'
+import { NotesContainer } from './containers/Notes'
+import { UserContainer } from './containers/User'
 import Main from './Main'
-import NotesContainer from './containers/NotesContainer'
+import Menu from './Menu'
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)

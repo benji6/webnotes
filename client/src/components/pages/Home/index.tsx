@@ -2,27 +2,18 @@ import { Link, RouteComponentProps, NavigateFn } from '@reach/router'
 import { CardGroup, Fab, Icon, Spinner } from 'eri'
 import * as React from 'react'
 import Note from './Note'
-import {
-  NotesContext,
-  NotesLoadingErrorContext,
-  UserEmailContext,
-} from '../../../contexts'
+import { useNotes } from '../../containers/Notes'
+import { useUserEmail } from '../../containers/User'
 
 export default function Home({ navigate }: RouteComponentProps) {
-  const userEmail = React.useContext(UserEmailContext)
-  const notes = React.useContext(NotesContext)
-  const notesLoadingError = React.useContext(NotesLoadingErrorContext)
+  const [userEmail] = useUserEmail()
+  const [notes] = useNotes()
 
   return userEmail ? (
     <>
       <h2>Notes</h2>
       <CardGroup>
-        {notesLoadingError ? (
-          <p>
-            Something went wrong, check your internet connection and{' '}
-            <a href="/">try again</a>.
-          </p>
-        ) : !notes ? (
+        {!notes ? (
           <Spinner variant="page" />
         ) : notes.length ? (
           notes.map(({ body, dateCreated }) => (

@@ -1,18 +1,18 @@
 import * as React from 'react'
 import _404 from '../pages/_404'
-import {
-  SetUserEmailContext,
-  UserEmailContext,
-  UserLoadingErrorContext,
-} from '../../contexts'
 import { getIdToken } from '../../cognito'
+
+const UserEmailContext = React.createContext<
+  [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>]
+>([undefined, () => {}])
 
 const storageKey = 'userEmail'
 const storedUserEmail = localStorage.getItem(storageKey)
 const initialUserEmail = storedUserEmail ? storedUserEmail : undefined
 
-export default function UserContainer(props: Object) {
-  const [userLoadingError, setUserLoadingError] = React.useState(false)
+export const useUserEmail = () => React.useContext(UserEmailContext)
+
+export const UserContainer = (props: Object) => {
   const [userEmail, setUserEmail] = React.useState<string | undefined>(
     initialUserEmail,
   )
@@ -26,22 +26,15 @@ export default function UserContainer(props: Object) {
     getIdToken().then(
       idToken => {
         setUserEmail(idToken.payload.email)
-        setUserLoadingError(false)
       },
       (e: Error) => {
-        if (e.message === 'no current user') return setUserLoadingError(false)
+        if (e.message === 'no current user') return setUserEmail(undefined)
         console.error(e)
-        setUserEmail(undefined)
-        setUserLoadingError(true)
       },
     )
   }, [])
 
   return (
-    <UserLoadingErrorContext.Provider value={userLoadingError}>
-      <UserEmailContext.Provider value={userEmail}>
-        <SetUserEmailContext.Provider {...props} value={setUserEmail} />
-      </UserEmailContext.Provider>
-    </UserLoadingErrorContext.Provider>
+    <UserEmailContext.Provider {...props} value={[userEmail, setUserEmail]} />
   )
 }

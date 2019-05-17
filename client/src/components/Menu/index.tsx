@@ -1,8 +1,8 @@
 import { Menu as EriMenu, Button, ButtonGroup } from 'eri'
 import * as React from 'react'
 import { Link } from '@reach/router'
-import { UserEmailContext } from '../../contexts'
 import SignOutDialog from './SignOutDialog'
+import { useUserEmail } from '../containers/User'
 
 interface IProps {
   open: boolean
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export default function Menu({ handleMenuClose, open }: IProps) {
-  const userEmail = React.useContext(UserEmailContext)
+  const [userEmail] = useUserEmail()
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
 
   const handleDialogClose = () => {

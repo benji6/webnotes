@@ -8,7 +8,6 @@ import { FORM_ERROR } from 'final-form'
 import * as React from 'react'
 import { Form, Field } from 'react-final-form'
 import { userPool } from '../../cognito'
-import { SetUserEmailContext } from '../../contexts'
 import { RouteComponentProps, Link, NavigateFn } from '@reach/router'
 import {
   composeValidators,
@@ -17,6 +16,7 @@ import {
   requiredValidator,
 } from '../../validators'
 import { networkErrorMessage } from '../../constants'
+import { useUserEmail } from '../containers/User'
 
 const authenticate = ({
   email,
@@ -45,7 +45,7 @@ const authenticate = ({
 
 export default function SignIn({ navigate }: RouteComponentProps) {
   const [isLoading, setIsLoading] = React.useState(false)
-  const setUserEmail = React.useContext(SetUserEmailContext)
+  const [, setUserEmail] = useUserEmail()
 
   const handleSubmit = async ({ email, password }: any) => {
     setIsLoading(true)

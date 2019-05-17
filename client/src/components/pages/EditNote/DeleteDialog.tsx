@@ -1,9 +1,9 @@
+import { NavigateFn } from '@reach/router'
 import { Dialog, ButtonGroup, Button } from 'eri'
 import * as React from 'react'
 import { deleteNote } from '../../../api'
-import { SetNotesContext } from '../../../contexts'
 import { INote } from '../../../types'
-import { NavigateFn } from '@reach/router'
+import { useNotes } from '../../containers/Notes'
 
 interface IProps {
   dateCreated: string
@@ -19,7 +19,7 @@ export default function DeleteDialog({
   open,
 }: IProps) {
   const [isLoading, setIsLoading] = React.useState(false)
-  const setNotes = React.useContext(SetNotesContext)
+  const [, setNotes] = useNotes()
 
   const handleDelete = async () => {
     setIsLoading(true)

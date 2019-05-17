@@ -2,12 +2,14 @@ import * as React from 'react'
 import _404 from '../pages/_404'
 import { getNotes } from '../../api'
 import { INote } from '../../types'
-import {
-  NotesContext,
-  NotesLoadingErrorContext,
-  SetNotesContext,
-  UserEmailContext,
-} from '../../contexts'
+import { useUserEmail } from './User'
+
+const NotesContext = React.createContext<
+  [
+    INote[] | undefined,
+    React.Dispatch<React.SetStateAction<INote[] | undefined>>
+  ]
+>([undefined, () => {}])
 
 const storageKey = 'notes'
 const storedNotesString = localStorage.getItem(storageKey)
@@ -24,10 +26,11 @@ if (storedNotesString) {
 
 const initialNotes = storedNotes ? storedNotes : undefined
 
-export default function NotesContainer(props: Object) {
-  const [notesLoadingError, setNotesLoadingError] = React.useState(false)
+export const useNotes = () => React.useContext(NotesContext)
+
+export const NotesContainer = (props: Object) => {
   const [notes, setNotes] = React.useState<INote[] | undefined>(initialNotes)
-  const userEmail = React.useContext(UserEmailContext)
+  const [userEmail] = useUserEmail()
 
   React.useEffect(() => {
     if (!notes) return localStorage.removeItem(storageKey)
@@ -35,20 +38,8 @@ export default function NotesContainer(props: Object) {
   }, [notes])
 
   React.useEffect(() => {
-    if (userEmail)
-      getNotes()
-        .then(notes => {
-          setNotes(notes)
-          setNotesLoadingError(false)
-        })
-        .catch(() => setNotesLoadingError(true))
+    if (userEmail) getNotes().then(setNotes, () => {})
   }, [userEmail])
 
-  return (
-    <NotesLoadingErrorContext.Provider value={notesLoadingError}>
-      <NotesContext.Provider value={notes}>
-        <SetNotesContext.Provider {...props} value={setNotes} />
-      </NotesContext.Provider>
-    </NotesLoadingErrorContext.Provider>
-  )
+  return <NotesContext.Provider {...props} value={[notes, setNotes]} />
 }

@@ -3,13 +3,13 @@ import * as React from 'react'
 import { Button, ButtonGroup, Fab, Icon, Spinner, TextArea } from 'eri'
 import { Form, Field } from 'react-final-form'
 import { putNote } from '../../../api'
-import { NotesContext, SetNotesContext } from '../../../contexts'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnauthed from '../../hooks/useRedirectUnauthed'
 import { FORM_ERROR } from 'final-form'
 import { requiredValidator, errorProp } from '../../../validators'
 import { networkErrorMessage } from '../../../constants'
+import { useNotes } from '../../containers/Notes'
 
 interface IProps extends RouteComponentProps {
   dateCreated?: string
@@ -19,9 +19,8 @@ const bodyFieldName = 'body'
 
 export default function EditNote({ dateCreated, navigate }: IProps) {
   useRedirectUnauthed()
-  const notes = React.useContext(NotesContext)
+  const [notes, setNotes] = useNotes()
   const note = (notes || []).find(note => note.dateCreated === dateCreated)
-  const setNotes = React.useContext(SetNotesContext)
   const [isLoading, setIsLoading] = React.useState(false)
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const placeholder = useNotePlaceholder()

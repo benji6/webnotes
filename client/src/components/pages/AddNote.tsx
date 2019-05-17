@@ -3,19 +3,19 @@ import * as React from 'react'
 import { Fab, Icon, TextArea } from 'eri'
 import { Form, Field } from 'react-final-form'
 import { postNote } from '../../api'
-import { SetNotesContext } from '../../contexts'
 import useRedirectUnauthed from '../hooks/useRedirectUnauthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
 import { FORM_ERROR } from 'final-form'
 import { requiredValidator, errorProp } from '../../validators'
 import { networkErrorMessage } from '../../constants'
+import { useNotes } from '../containers/Notes'
 
 const bodyFieldName = 'body'
 
 export default function AddNote({ navigate }: RouteComponentProps) {
   useRedirectUnauthed()
   const [isLoading, setIsLoading] = React.useState(false)
-  const setNotes = React.useContext(SetNotesContext)
+  const [, setNotes] = useNotes()
   const placeholder = useNotePlaceholder()
 
   const handleSubmit = async (noteData: { body: string }) => {
