@@ -57,13 +57,11 @@ export default function AddNote({ navigate }: RouteComponentProps) {
             </p>
           )}
           <Field name={bodyFieldName} subscription={{ value: true }}>
-            {({ input: { value } }) =>
-              value ? (
-                <Fab aria-label="save" disabled={isLoading}>
-                  <Icon name="save" size="4" />
-                </Fab>
-              ) : null
-            }
+            {({ input: { value } }) => (
+              <Fab aria-label="save" disabled={isLoading} hide={!value}>
+                <Icon name="save" size="4" />
+              </Fab>
+            )}
           </Field>
         </form>
       )}

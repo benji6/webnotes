@@ -86,13 +86,15 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
               </p>
             )}
             <Field name={bodyFieldName} subscription={{ value: true }}>
-              {({ input: { value } }) =>
-                value && value !== note.body ? (
-                  <Fab aria-label="save" disabled={isLoading}>
-                    <Icon name="save" size="4" />
-                  </Fab>
-                ) : null
-              }
+              {({ input: { value } }) => (
+                <Fab
+                  aria-label="save"
+                  disabled={isLoading}
+                  hide={!value || value === note.body}
+                >
+                  <Icon name="save" size="4" />
+                </Fab>
+              )}
             </Field>
             <ButtonGroup>
               <Button
