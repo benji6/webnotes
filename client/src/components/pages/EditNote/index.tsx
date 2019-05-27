@@ -25,7 +25,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const placeholder = useNotePlaceholder()
 
-  if (!note) return <Spinner variant="page" />
+  if (!note) return <Spinner />
 
   const handleSubmit = async ({ body }: any) => {
     setIsLoading(true)

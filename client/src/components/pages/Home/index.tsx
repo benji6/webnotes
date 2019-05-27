@@ -14,7 +14,7 @@ export default function Home({ navigate }: RouteComponentProps) {
       <h2>Notes</h2>
       <CardGroup>
         {!notes ? (
-          <Spinner variant="page" />
+          <Spinner />
         ) : notes.length ? (
           notes.map(({ body, dateCreated }) => (
             <Note
