@@ -6,7 +6,7 @@ import { useUserEmail } from './User'
 const NotesContext = React.createContext<
   [
     INote[] | undefined,
-    React.Dispatch<React.SetStateAction<INote[] | undefined>>
+    React.Dispatch<React.SetStateAction<INote[] | undefined>>,
   ]
 >([undefined, () => {}])
 
