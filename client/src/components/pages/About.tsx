@@ -29,7 +29,7 @@ export default function About(_: RouteComponentProps) {
         </a>
         .
       </p>
-      <p>I hope you enjoy the app :)</p>
+      <p>I hope you enjoy the app 🙂</p>
     </>
   )
 }
