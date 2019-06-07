@@ -11,7 +11,7 @@ export const deleteNote = async (body: {
   dateCreated: string
 }): Promise<void> => {
   const Authorization = await getAuthorizationHeader()
-  await fetch(`${apiUri}/notes`, {
+  const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(body),
     headers: {
       Authorization,
@@ -19,6 +19,7 @@ export const deleteNote = async (body: {
     },
     method: 'DELETE',
   })
+  if (!response.ok) throw Error(String(response.status))
 }
 
 export const getNotes = async (): Promise<INote[]> => {
@@ -26,6 +27,7 @@ export const getNotes = async (): Promise<INote[]> => {
   const response = await fetch(`${apiUri}/notes`, {
     headers: { Authorization },
   })
+  if (!response.ok) throw Error(String(response.status))
   return response.json()
 }
 
@@ -43,6 +45,7 @@ export const postNote = async (note: {
     },
     method: 'POST',
   })
+  if (!response.ok) throw Error(String(response.status))
   return response.json()
 }
 
@@ -60,5 +63,6 @@ export const putNote = async (note: {
     },
     method: 'PUT',
   })
+  if (!response.ok) throw Error(String(response.status))
   return response.json()
 }
