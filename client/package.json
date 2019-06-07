@@ -19,10 +19,10 @@
     "@reach/router": "^1.2.1",
     "amazon-cognito-identity-js": "^3.0.11",
     "eri": "^9.0.3",
-    "final-form": "^4.12.0",
+    "final-form": "^4.13.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-final-form": "^5.0.1"
+    "react-final-form": "^6.0.1"
   },
   "devDependencies": {
     "@types/node": "^12.0.7",
