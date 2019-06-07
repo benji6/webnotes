@@ -33,6 +33,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
       const newNote = await putNote({
         body,
         dateCreated: dateCreated as string,
+        dateUpdated: new Date().toISOString(),
       })
       setNotes(notes => {
         if (!notes) return [newNote]

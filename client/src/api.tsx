@@ -20,6 +20,7 @@ export const deleteNote = async (body: {
     method: 'DELETE',
   })
 }
+
 export const getNotes = async (): Promise<INote[]> => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {
@@ -28,7 +29,11 @@ export const getNotes = async (): Promise<INote[]> => {
   return response.json()
 }
 
-export const postNote = async (note: { body: string }): Promise<INote> => {
+export const postNote = async (note: {
+  body: string
+  dateCreated: string
+  dateUpdated: string
+}): Promise<INote> => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(note),
@@ -44,6 +49,7 @@ export const postNote = async (note: { body: string }): Promise<INote> => {
 export const putNote = async (note: {
   body: string
   dateCreated: string
+  dateUpdated: string
 }): Promise<INote> => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {

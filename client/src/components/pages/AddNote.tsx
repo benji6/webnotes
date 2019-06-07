@@ -18,10 +18,15 @@ export default function AddNote({ navigate }: RouteComponentProps) {
   const [, setNotes] = useNotes()
   const placeholder = useNotePlaceholder()
 
-  const handleSubmit = async (noteData: { body: string }) => {
+  const handleSubmit = async (formData: { body: string }) => {
     setIsLoading(true)
+    const dateCreated = new Date().toISOString()
     try {
-      const note = await postNote(noteData)
+      const note = await postNote({
+        body: formData.body,
+        dateCreated,
+        dateUpdated: dateCreated,
+      })
       setNotes(notes => (notes ? [note, ...notes] : [note]))
       ;(navigate as NavigateFn)('/')
     } catch (e) {

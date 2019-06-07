@@ -6,6 +6,8 @@ resource "aws_api_gateway_integration" "notes_post" {
     "application/json" = <<EOF
 {
   "body": $input.json('$.body'),
+  "dateCreated": $input.json('$.dateCreated'),
+  "dateUpdated": $input.json('$.dateUpdated'),
   "userId": "$context.authorizer.claims.sub"
 }
 EOF
@@ -100,12 +102,17 @@ resource "aws_api_gateway_model" "notes_post" {
   schema = <<EOF
 {
   "properties": {
-    "body": { "type": "string" }
+    "body": { "type": "string" },
+    "dateCreated": { "type": "string" },
+    "dateUpdated": { "type": "string" }
   },
-  "required": ["body"],
+  "required": [
+    "body",
+    "dateCreated",
+    "dateUpdated"
+  ],
   "type": "object"
 }
 EOF
 
 }
-
