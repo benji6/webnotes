@@ -4,13 +4,14 @@ resource "aws_dynamodb_table" "notes" {
   name         = "webnotes_notes"
   range_key    = "dateCreated"
 
-  attribute = {
+  attribute {
     name = "dateCreated"
     type = "S"
   }
 
-  attribute = {
+  attribute {
     name = "userId"
     type = "S"
   }
 }
+

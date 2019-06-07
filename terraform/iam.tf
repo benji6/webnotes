@@ -14,6 +14,7 @@ resource "aws_iam_role" "lambda_exec" {
 }
 EOF
 
+
   name = "lambda_exec"
 }
 
@@ -32,14 +33,16 @@ resource "aws_iam_policy" "lambda_policy" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
-  policy_arn = "${aws_iam_policy.lambda_policy.arn}"
-  role       = "${aws_iam_role.lambda_exec.name}"
+policy_arn = aws_iam_policy.lambda_policy.arn
+role       = aws_iam_role.lambda_exec.name
 }
 
 resource "aws_iam_role_policy_attachment" "aws_lambda_basic_execution_role_attachment" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role       = "${aws_iam_role.lambda_exec.name}"
+policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+role       = aws_iam_role.lambda_exec.name
 }
+

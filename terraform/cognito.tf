@@ -20,7 +20,7 @@ resource "aws_cognito_user_pool" "main" {
 
 resource "aws_cognito_user_pool_client" "main" {
   name         = "webnotes"
-  user_pool_id = "${aws_cognito_user_pool.main.id}"
+  user_pool_id = aws_cognito_user_pool.main.id
 }
 
 resource "aws_cognito_identity_pool" "main" {
@@ -28,20 +28,21 @@ resource "aws_cognito_identity_pool" "main" {
   allow_unauthenticated_identities = false
 
   cognito_identity_providers {
-    client_id     = "${aws_cognito_user_pool_client.main.id}"
-    provider_name = "${aws_cognito_user_pool.main.endpoint}"
+    client_id     = aws_cognito_user_pool_client.main.id
+    provider_name = aws_cognito_user_pool.main.endpoint
   }
 }
 
 resource "aws_cognito_user_pool_domain" "main" {
   domain       = "webnotes"
-  user_pool_id = "${aws_cognito_user_pool.main.id}"
+  user_pool_id = aws_cognito_user_pool.main.id
 }
 
 output "cognito_user_pool_id" {
-  value = "${aws_cognito_user_pool.main.id}"
+  value = aws_cognito_user_pool.main.id
 }
 
 output "cognito_app_client_id" {
-  value = "${aws_cognito_user_pool_client.main.id}"
+  value = aws_cognito_user_pool_client.main.id
 }
+
