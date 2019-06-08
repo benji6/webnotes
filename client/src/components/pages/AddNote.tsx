@@ -2,39 +2,29 @@ import { RouteComponentProps, NavigateFn } from '@reach/router'
 import * as React from 'react'
 import { Fab, Icon, TextArea } from 'eri'
 import { Form, Field } from 'react-final-form'
-import { postNote } from '../../api'
 import useRedirectUnauthed from '../hooks/useRedirectUnauthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
-import { FORM_ERROR } from 'final-form'
 import { requiredValidator, errorProp } from '../../validators'
-import { networkErrorMessage } from '../../constants'
 import { useNotes } from '../containers/Notes'
+import { INoteLocal } from '../../types'
 
 const bodyFieldName = 'body'
 
 export default function AddNote({ navigate }: RouteComponentProps) {
   useRedirectUnauthed()
-  const [isLoading, setIsLoading] = React.useState(false)
   const [, setNotes] = useNotes()
   const placeholder = useNotePlaceholder()
 
   const handleSubmit = async (formData: { body: string }) => {
-    setIsLoading(true)
     const dateCreated = new Date().toISOString()
-    try {
-      const note = await postNote({
-        body: formData.body,
-        dateCreated,
-        dateUpdated: dateCreated,
-      })
-      setNotes(notes => (notes ? [note, ...notes] : [note]))
-      ;(navigate as NavigateFn)('/')
-    } catch (e) {
-      setIsLoading(false)
-      return {
-        [FORM_ERROR]: networkErrorMessage,
-      }
+    const note: INoteLocal = {
+      body: formData.body,
+      dateCreated,
+      dateUpdated: dateCreated,
+      syncState: 'created',
     }
+    setNotes(notes => (notes ? [note, ...notes] : [note]))
+    ;(navigate as NavigateFn)('/')
   }
 
   return (
@@ -63,7 +53,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
           )}
           <Field name={bodyFieldName} subscription={{ value: true }}>
             {({ input: { value } }) => (
-              <Fab aria-label="save" disabled={isLoading} hide={!value}>
+              <Fab aria-label="save" hide={!value}>
                 <Icon name="save" size="4" />
               </Fab>
             )}

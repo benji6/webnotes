@@ -2,14 +2,12 @@ import { NavigateFn, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
 import { Button, ButtonGroup, Fab, Icon, Spinner, TextArea } from 'eri'
 import { Form, Field } from 'react-final-form'
-import { putNote } from '../../../api'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnauthed from '../../hooks/useRedirectUnauthed'
-import { FORM_ERROR } from 'final-form'
 import { requiredValidator, errorProp } from '../../../validators'
-import { networkErrorMessage } from '../../../constants'
 import { useNotes } from '../../containers/Notes'
+import { INoteLocal } from '../../../types'
 
 interface IProps extends RouteComponentProps {
   dateCreated?: string
@@ -21,34 +19,26 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
   useRedirectUnauthed()
   const [notes, setNotes] = useNotes()
   const note = (notes || []).find(note => note.dateCreated === dateCreated)
-  const [isLoading, setIsLoading] = React.useState(false)
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const placeholder = useNotePlaceholder()
 
   if (!note) return <Spinner />
 
   const handleSubmit = async ({ body }: any) => {
-    setIsLoading(true)
-    try {
-      const newNote = await putNote({
-        body,
-        dateCreated: dateCreated as string,
-        dateUpdated: new Date().toISOString(),
-      })
-      setNotes(notes => {
-        if (!notes) return [newNote]
-        const index = notes.findIndex(
-          ({ dateCreated }) => newNote.dateCreated === dateCreated,
-        )
-        return [newNote, ...notes.slice(0, index), ...notes.slice(index + 1)]
-      })
-      ;(navigate as NavigateFn)('/')
-    } catch (e) {
-      setIsLoading(false)
-      return {
-        [FORM_ERROR]: networkErrorMessage,
-      }
+    const newNote: INoteLocal = {
+      body,
+      dateCreated: dateCreated as string,
+      dateUpdated: new Date().toISOString(),
+      syncState: 'updated',
     }
+    setNotes(notes => {
+      if (!notes) return [newNote]
+      const index = notes.findIndex(
+        ({ dateCreated }) => newNote.dateCreated === dateCreated,
+      )
+      return [newNote, ...notes.slice(0, index), ...notes.slice(index + 1)]
+    })
+    ;(navigate as NavigateFn)('/')
   }
 
   return (
@@ -88,18 +78,13 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
             )}
             <Field name={bodyFieldName} subscription={{ value: true }}>
               {({ input: { value } }) => (
-                <Fab
-                  aria-label="save"
-                  disabled={isLoading}
-                  hide={!value || value === note.body}
-                >
+                <Fab aria-label="save" hide={!value || value === note.body}>
                   <Icon name="save" size="4" />
                 </Fab>
               )}
             </Field>
             <ButtonGroup>
               <Button
-                disabled={isLoading}
                 onClick={() => setIsDialogOpen(true)}
                 sentiment="negative"
                 type="button"

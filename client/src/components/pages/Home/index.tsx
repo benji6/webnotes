@@ -16,15 +16,17 @@ export default function Home({ navigate }: RouteComponentProps) {
         {!notes ? (
           <Spinner />
         ) : notes.length ? (
-          notes.map(({ body, dateCreated }) => (
-            <Note
-              dateCreated={dateCreated}
-              key={dateCreated}
-              navigate={navigate as NavigateFn}
-            >
-              {body}
-            </Note>
-          ))
+          notes
+            .filter(({ syncState }) => syncState !== 'deleted')
+            .map(({ body, dateCreated }) => (
+              <Note
+                dateCreated={dateCreated}
+                key={dateCreated}
+                navigate={navigate as NavigateFn}
+              >
+                {body}
+              </Note>
+            ))
         ) : (
           <div>
             <p>You have no notes!</p>
