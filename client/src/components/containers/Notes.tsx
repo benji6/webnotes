@@ -1,39 +1,29 @@
 import * as React from 'react'
 import { getNotes } from '../../api'
-import { INote } from '../../types'
+import { INoteLocal } from '../../types'
 import { useUserEmail } from './User'
+import { notesDelete, notesGet, notesSet } from '../../localStorage'
 
 const NotesContext = React.createContext<
   [
-    INote[] | undefined,
-    React.Dispatch<React.SetStateAction<INote[] | undefined>>,
+    INoteLocal[] | undefined,
+    React.Dispatch<React.SetStateAction<INoteLocal[] | undefined>>,
   ]
 >([undefined, () => {}])
 
-const storageKey = 'notes'
-const storedNotesString = localStorage.getItem(storageKey)
-let storedNotes
-
-if (storedNotesString) {
-  try {
-    storedNotes = JSON.parse(storedNotesString)
-  } catch (e) {
-    console.error(`localStorage ${storageKey} corrupt: `, e)
-    localStorage.removeItem(storageKey)
-  }
-}
-
-const initialNotes = storedNotes ? storedNotes : undefined
+const initialNotes = notesGet()
 
 export const useNotes = () => React.useContext(NotesContext)
 
 export const NotesContainer = (props: Object) => {
-  const [notes, setNotes] = React.useState<INote[] | undefined>(initialNotes)
+  const [notes, setNotes] = React.useState<INoteLocal[] | undefined>(
+    initialNotes,
+  )
   const [userEmail] = useUserEmail()
 
   React.useEffect(() => {
-    if (!notes) return localStorage.removeItem(storageKey)
-    localStorage.setItem(storageKey, JSON.stringify(notes))
+    if (!notes) return notesDelete()
+    notesSet(notes)
   }, [notes])
 
   React.useEffect(() => {
