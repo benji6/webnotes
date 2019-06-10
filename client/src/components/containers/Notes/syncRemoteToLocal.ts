@@ -6,11 +6,15 @@ export default function syncRemoteToLocal(
 ): INoteLocal[] {
   let syncedNotes: INoteLocal[] = []
   for (const localNote of localNotes) {
+    if (localNote.syncState === 'created') {
+      syncedNotes.push(localNote)
+      continue
+    }
     const remoteNote = remoteNotes.find(
       ({ dateCreated }) => dateCreated === localNote.dateCreated,
     )
-    if (!remoteNote && localNote.syncState !== 'created') continue
-    if (remoteNote && remoteNote.dateUpdated > localNote.dateUpdated) {
+    if (!remoteNote) continue
+    if (remoteNote.dateUpdated > localNote.dateUpdated) {
       syncedNotes.push(remoteNote)
       continue
     }
