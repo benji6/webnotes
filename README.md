@@ -4,7 +4,7 @@
 
 ## About
 
-Webnotes is a free and open source app that lets you create and manage notes. It's simple to use and because it runs in your browser you can use it across all your devices!
+Webnotes is a free and open source app that lets you create and manage notes. It's simple to use, works offline and because it runs in your browser you can use it across all your devices!
 
 [Check it out here](https://webnotes.link)
 
