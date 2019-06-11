@@ -3,7 +3,11 @@ import { INote, INoteLocal } from '../../../types'
 export default function syncRemoteToLocal(
   localNotes: INoteLocal[],
   remoteNotes: INote[],
-): INoteLocal[] {
+): {
+  notes: INoteLocal[]
+  notesUpdated: boolean
+} {
+  let notesUpdated = false
   let syncedNotes: INoteLocal[] = []
   for (const localNote of localNotes) {
     if (localNote.syncState === 'created') {
@@ -13,9 +17,13 @@ export default function syncRemoteToLocal(
     const remoteNote = remoteNotes.find(
       ({ dateCreated }) => dateCreated === localNote.dateCreated,
     )
-    if (!remoteNote) continue
+    if (!remoteNote) {
+      notesUpdated = true
+      continue
+    }
     if (remoteNote.dateUpdated > localNote.dateUpdated) {
       syncedNotes.push(remoteNote)
+      notesUpdated = true
       continue
     }
     syncedNotes.push(localNote)
@@ -27,9 +35,17 @@ export default function syncRemoteToLocal(
       )
     ) {
       syncedNotes.push(remoteNote)
+      notesUpdated = true
     }
   }
-  return syncedNotes.sort((a, b) =>
-    a.dateUpdated > b.dateUpdated ? -1 : a.dateUpdated < b.dateUpdated ? 1 : 0,
-  )
+  return {
+    notes: syncedNotes.sort((a, b) =>
+      a.dateUpdated > b.dateUpdated
+        ? -1
+        : a.dateUpdated < b.dateUpdated
+        ? 1
+        : 0,
+    ),
+    notesUpdated,
+  }
 }

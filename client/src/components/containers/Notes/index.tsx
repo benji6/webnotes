@@ -18,8 +18,6 @@ const NotesContext = React.createContext<
 
 const initialNotes = notesGet()
 
-let timeoutId: NodeJS.Timeout
-
 export const useNotes = () => React.useContext(NotesContext)
 
 export const NotesContainer = (props: Object) => {
@@ -31,28 +29,31 @@ export const NotesContainer = (props: Object) => {
   React.useEffect(() => {
     if (!notes) return notesDelete()
     notesSet(notes)
-    syncLocalToRemote(notes).then(({ error, notes, notesUpdated }) => {
-      if (error) {
-        clearTimeout(timeoutId)
-        // trigger another sync attempt in 1 minute
-        timeoutId = setTimeout(
-          () => setNotes(notes => notes && [...notes]),
-          syncInterval,
-        )
-      }
-      if (!notesUpdated) return
-      setNotes(notes)
-    })
   }, [notes])
-  const fetchNotes = React.useRef(() => {
+
+  const fetchNotes = () => {
     if (!userEmail) return
-    getNotes().then(
-      remoteNotes =>
-        setNotes(notes ? syncRemoteToLocal(notes, remoteNotes) : remoteNotes),
-      () => {},
-    )
-  })
-  React.useEffect(fetchNotes.current, [userEmail])
-  useInterval(fetchNotes.current, syncInterval)
+    getNotes().then(remoteNotes => {
+      if (!notes) return setNotes(remoteNotes)
+      const { notes: newNotes, notesUpdated } = syncRemoteToLocal(
+        notes,
+        remoteNotes,
+      )
+      if (notesUpdated) setNotes(newNotes)
+    })
+  }
+  const updateNotes = async () => {
+    if (!userEmail || !notes || !notes.some(({ syncState }) => syncState))
+      return
+    const { notes: newNotes, notesUpdated } = await syncLocalToRemote(notes)
+    if (notesUpdated) setNotes(newNotes)
+  }
+
+  React.useEffect(fetchNotes, [userEmail])
+  React.useEffect(() => {
+    updateNotes()
+  }, [notes])
+  useInterval(fetchNotes, syncInterval)
+  useInterval(updateNotes, syncInterval)
   return <NotesContext.Provider {...props} value={[notes, setNotes]} />
 }

@@ -4,12 +4,10 @@ import { postNote, putNote, deleteNote } from '../../../api'
 export default async function syncLocalToRemote(
   notes: INoteLocal[],
 ): Promise<{
-  error: boolean
   notes: INoteLocal[]
   notesUpdated: boolean
 }> {
   let notesUpdated = false
-  let error = false
   const newNotes = await Promise.all(
     notes.map(async note => {
       if (!note.syncState) return note
@@ -39,13 +37,11 @@ export default async function syncLocalToRemote(
           }
         }
       } catch {
-        error = true
         return note
       }
     }),
   )
   return {
-    error,
     notes: newNotes.filter(Boolean) as INoteLocal[],
     notesUpdated,
   }
