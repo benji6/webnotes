@@ -2472,12 +2472,12 @@ entities@^1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
 
-eri@^9.0.4:
-  version "9.0.4"
-  resolved "https://registry.yarnpkg.com/eri/-/eri-9.0.4.tgz#e865248cdbec3037e6f9e2bcb860969c734c49a4"
-  integrity sha512-fT1qWIK0oBU/LThsVBtfvakxPOMoQPr2nyOdW0cS83aNPFmOFQBwVpZteW/7XxYacaLN6dya4pxHlItDB9daMQ==
+eri@^10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/eri/-/eri-10.1.0.tgz#4e44ab231ebfe3185f0a6e2d09fd880fc776c7b2"
+  integrity sha512-aAL13lrTmPUKxRU6Nn0kbUy6Qs0ar7kVRaxgBUDo6Ic5oFqVmDyYMxIuXQ2/u/friRQGTKIOUPB89zAC5t32nQ==
   dependencies:
-    react-transition-group "^4.0.1"
+    react-transition-group "^4.1.1"
 
 error-ex@^1.3.1:
   version "1.3.2"
@@ -5119,11 +5119,12 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-transition-group@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.0.1.tgz#8cb8d58763e259da465385bb83b3b41b3ecba629"
-  integrity sha512-SsLcBYhO4afXJC9esL8XMxi/y0ZvEc7To0TvtrBELqzpjXQHPZOTxvuPh2/4EhYc0uSMfp2SExIxsyJ0pBdNzg==
+react-transition-group@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.1.1.tgz#16efe9ac8c68306f6bef59c7da5a96b4dfd9fb32"
+  integrity sha512-K/N1wqJ2GRP2yj3WBqEUYa0KV5fiaAWpUfU9SpHOHefeKvyrO+VrnMBML21M19QZoVbDZKmuQFHZYoMMi1xuJA==
   dependencies:
+    "@babel/runtime" "^7.4.5"
     dom-helpers "^3.4.0"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"

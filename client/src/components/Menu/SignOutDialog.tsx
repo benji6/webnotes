@@ -34,11 +34,7 @@ export default function SignOutDialog({ onClose, open }: IProps) {
       title="Sign out?"
     >
       <ButtonGroup>
-        <Button
-          disabled={isLoading}
-          onClick={handleSignOut}
-          sentiment="negative"
-        >
+        <Button danger disabled={isLoading} onClick={handleSignOut}>
           Sign out
         </Button>
         <Button disabled={isLoading} onClick={onClose} variant="secondary">

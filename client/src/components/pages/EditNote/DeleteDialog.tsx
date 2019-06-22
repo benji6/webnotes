@@ -33,7 +33,7 @@ export default function DeleteDialog({
   return (
     <Dialog onClose={onClose} open={open} title="Delete note?">
       <ButtonGroup>
-        <Button onClick={handleDelete} sentiment="negative">
+        <Button danger onClick={handleDelete}>
           Delete
         </Button>
         <Button onClick={onClose} variant="secondary">

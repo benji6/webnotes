@@ -30,8 +30,8 @@ export default function Menu({ handleMenuClose, open }: IProps) {
             </p>
             <ButtonGroup>
               <Button
+                danger
                 onClick={() => setIsDialogOpen(true)}
-                sentiment="negative"
                 variant="secondary"
               >
                 Sign out

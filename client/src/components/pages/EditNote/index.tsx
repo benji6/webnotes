@@ -85,8 +85,8 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
             </Field>
             <ButtonGroup>
               <Button
+                danger
                 onClick={() => setIsDialogOpen(true)}
-                sentiment="negative"
                 type="button"
                 variant="secondary"
               >
