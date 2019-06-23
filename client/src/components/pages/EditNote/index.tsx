@@ -24,9 +24,9 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
 
   if (!note) return <Spinner />
 
-  const handleSubmit = async ({ body }: any) => {
+  const handleSubmit = async ({ body }: { body: string }) => {
     const newNote: INoteLocal = {
-      body,
+      body: body.trim(),
       dateCreated: dateCreated as string,
       dateUpdated: new Date().toISOString(),
       syncState: 'updated',

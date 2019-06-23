@@ -15,10 +15,10 @@ export default function AddNote({ navigate }: RouteComponentProps) {
   const [, setNotes] = useNotes()
   const placeholder = useNotePlaceholder()
 
-  const handleSubmit = async (formData: { body: string }) => {
+  const handleSubmit = async ({ body }: { body: string }) => {
     const dateCreated = new Date().toISOString()
     const note: INoteLocal = {
-      body: formData.body,
+      body: body.trim(),
       dateCreated,
       dateUpdated: dateCreated,
       syncState: 'created',
