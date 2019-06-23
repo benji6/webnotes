@@ -42,7 +42,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
                 error={errorProp(meta)}
                 label="Note"
                 placeholder={placeholder}
-                rows={16}
+                rows={14}
               />
             )}
           />

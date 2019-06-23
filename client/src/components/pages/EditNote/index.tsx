@@ -67,7 +67,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
                   error={errorProp(meta)}
                   label="Note"
                   placeholder={placeholder}
-                  rows={16}
+                  rows={14}
                 />
               )}
             />
