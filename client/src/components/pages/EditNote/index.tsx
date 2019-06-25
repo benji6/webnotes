@@ -78,7 +78,10 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
             )}
             <Field name={bodyFieldName} subscription={{ value: true }}>
               {({ input: { value } }) => (
-                <Fab aria-label="save" hide={!value || value === note.body}>
+                <Fab
+                  aria-label="save"
+                  hide={!value || value.trim() === note.body}
+                >
                   <Icon name="save" size="4" />
                 </Fab>
               )}
