@@ -3,7 +3,7 @@ import { TextField, Button, ButtonGroup } from 'eri'
 import { FORM_ERROR } from 'final-form'
 import { RouteComponentProps, Link, navigate } from '@reach/router'
 import * as React from 'react'
-import { Form, Field } from 'react-final-form'
+import { Form, Field, FieldRenderProps } from 'react-final-form'
 import { userPool } from '../../cognito'
 import {
   composeValidators,
@@ -64,7 +64,10 @@ export default function ResendVerification(_: RouteComponentProps) {
           <Field
             name="email"
             validate={composeValidators(requiredValidator, emailValidator)}
-            render={({ input, meta }) => (
+            render={({
+              input,
+              meta,
+            }: FieldRenderProps<string, HTMLElement>) => (
               <TextField
                 {...input}
                 autoComplete="email"

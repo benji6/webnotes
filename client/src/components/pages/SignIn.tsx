@@ -6,7 +6,7 @@ import {
 import { TextField, Button, ButtonGroup } from 'eri'
 import { FORM_ERROR } from 'final-form'
 import * as React from 'react'
-import { Form, Field } from 'react-final-form'
+import { Form, Field, FieldRenderProps } from 'react-final-form'
 import { userPool } from '../../cognito'
 import { RouteComponentProps, Link, NavigateFn } from '@reach/router'
 import {
@@ -74,7 +74,10 @@ export default function SignIn({ navigate }: RouteComponentProps) {
           <Field
             name="email"
             validate={composeValidators(requiredValidator, emailValidator)}
-            render={({ input, meta }) => (
+            render={({
+              input,
+              meta,
+            }: FieldRenderProps<string, HTMLElement>) => (
               <TextField
                 {...input}
                 autoComplete="email"
@@ -87,7 +90,10 @@ export default function SignIn({ navigate }: RouteComponentProps) {
           <Field
             name="password"
             validate={requiredValidator}
-            render={({ input, meta }) => (
+            render={({
+              input,
+              meta,
+            }: FieldRenderProps<string, HTMLElement>) => (
               <TextField
                 {...input}
                 autoComplete="current-password"

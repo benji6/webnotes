@@ -1,7 +1,7 @@
 import { RouteComponentProps, NavigateFn } from '@reach/router'
 import * as React from 'react'
 import { Fab, Icon, TextArea } from 'eri'
-import { Form, Field } from 'react-final-form'
+import { Form, Field, FieldRenderProps } from 'react-final-form'
 import useRedirectUnauthed from '../hooks/useRedirectUnauthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
 import { requiredValidator, errorProp } from '../../validators'
@@ -36,7 +36,10 @@ export default function AddNote({ navigate }: RouteComponentProps) {
           <Field
             name={bodyFieldName}
             validate={requiredValidator}
-            render={({ input, meta }) => (
+            render={({
+              input,
+              meta,
+            }: FieldRenderProps<string, HTMLElement>) => (
               <TextArea
                 {...input}
                 error={errorProp(meta)}
@@ -53,7 +56,11 @@ export default function AddNote({ navigate }: RouteComponentProps) {
           )}
           <Field name={bodyFieldName} subscription={{ value: true }}>
             {({ input: { value } }) => (
-              <Fab aria-label="save" hide={!(value && value.trim())}>
+              <Fab
+                aria-label="save"
+                hide={!(value && value.trim())}
+                onClick={handleSubmit as any}
+              >
                 <Icon name="save" size="4" />
               </Fab>
             )}

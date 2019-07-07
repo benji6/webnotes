@@ -1,7 +1,7 @@
 import { NavigateFn, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
 import { Button, ButtonGroup, Fab, Icon, Spinner, TextArea } from 'eri'
-import { Form, Field } from 'react-final-form'
+import { Form, Field, FieldRenderProps } from 'react-final-form'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnauthed from '../../hooks/useRedirectUnauthed'
@@ -61,7 +61,10 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
             <Field
               name={bodyFieldName}
               validate={requiredValidator}
-              render={({ input, meta }) => (
+              render={({
+                input,
+                meta,
+              }: FieldRenderProps<string, HTMLElement>) => (
                 <TextArea
                   {...input}
                   error={errorProp(meta)}
@@ -81,6 +84,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
                 <Fab
                   aria-label="save"
                   hide={!value || value.trim() === note.body}
+                  onClick={handleSubmit as any}
                 >
                   <Icon name="save" size="4" />
                 </Fab>
