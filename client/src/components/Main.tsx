@@ -1,13 +1,15 @@
-import { Paper } from 'eri'
+import { Paper, PaperGroup } from 'eri'
 import * as React from 'react'
 import Router from './Router'
 
 export default function Main() {
   return (
     <main>
-      <Paper>
-        <Router />
-      </Paper>
+      <PaperGroup>
+        <Paper>
+          <Router />
+        </Paper>
+      </PaperGroup>
     </main>
   )
 }
