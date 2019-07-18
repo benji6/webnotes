@@ -55,12 +55,22 @@ export default function SignIn({ navigate }: RouteComponentProps) {
       ;(navigate as NavigateFn)('/')
     } catch (e) {
       setIsLoading(false)
-      if (e.code === 'NetworkError')
-        return {
-          [FORM_ERROR]: networkErrorMessage,
-        }
-      return {
-        [FORM_ERROR]: 'Invalid email/password',
+      switch (e.code) {
+        case 'NetworkError':
+          return { [FORM_ERROR]: networkErrorMessage }
+        case 'UserNotConfirmedException':
+          return {
+            [FORM_ERROR]:
+              'Please check your email to verify your email address before continuing',
+          }
+        case 'NotAuthorizedException':
+        case 'UserNotFoundException':
+          return { [FORM_ERROR]: 'Incorrect email/password' }
+        default:
+          return {
+            [FORM_ERROR]:
+              'Something has gone wrong, please check the data you have entered and try again',
+          }
       }
     }
   }

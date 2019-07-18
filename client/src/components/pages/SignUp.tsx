@@ -50,18 +50,15 @@ export default function SignUp(_: RouteComponentProps) {
       navigate('/verify')
     } catch (e) {
       setIsLoading(false)
-      if (e.code === 'NetworkError')
-        return {
-          [FORM_ERROR]: networkErrorMessage,
-        }
-      if (e.code === 'UsernameExistsException')
-        return {
-          [FORM_ERROR]: 'Username already exists, try signing in instead',
-        }
-
-      return {
-        [FORM_ERROR]:
-          'Something has gone wrong, please check the data you have entered and try again',
+      switch (e.code) {
+        case 'NetworkError':
+          return { [FORM_ERROR]: networkErrorMessage }
+        case 'UsernameExistsException':
+          return {
+            [FORM_ERROR]: 'Username already exists, try signing in instead',
+          }
+        default:
+          return 'Something has gone wrong, please check the data you have entered and try again'
       }
     }
   }
