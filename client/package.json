@@ -18,14 +18,14 @@
   "dependencies": {
     "@reach/router": "^1.2.1",
     "amazon-cognito-identity-js": "^3.0.11",
-    "eri": "^10.8.2",
-    "final-form": "^4.13.1",
+    "eri": "^10.8.3",
+    "final-form": "^4.18.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-final-form": "^6.0.1"
   },
   "devDependencies": {
-    "@types/node": "^12.0.7",
+    "@types/node": "^12.6.8",
     "@types/reach__router": "^1.2.4",
     "@types/react": "^16.8.6",
     "@types/react-dom": "^16.8.4",
