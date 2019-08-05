@@ -1,6 +1,6 @@
-import { NavigateFn, RouteComponentProps } from '@reach/router'
+import { NavigateFn, Redirect, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
-import { Button, ButtonGroup, Fab, Icon, Spinner, TextArea } from 'eri'
+import { Button, ButtonGroup, Fab, Icon, TextArea } from 'eri'
 import { Form, Field, FieldRenderProps } from 'react-final-form'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
@@ -22,7 +22,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const placeholder = useNotePlaceholder()
 
-  if (!note) return <Spinner />
+  if (!note) return <Redirect to="/" />
 
   const handleSubmit = async ({ body }: any) => {
     const newNote: INoteLocal = {
