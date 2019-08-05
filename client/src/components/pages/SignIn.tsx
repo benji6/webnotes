@@ -61,7 +61,7 @@ export default function SignIn({ navigate }: RouteComponentProps) {
         case 'UserNotConfirmedException':
           return {
             [FORM_ERROR]:
-              'Please check your email to verify your email address before continuing',
+              'Check your email to verify your email address before continuing',
           }
         case 'NotAuthorizedException':
         case 'UserNotFoundException':
@@ -69,7 +69,7 @@ export default function SignIn({ navigate }: RouteComponentProps) {
         default:
           return {
             [FORM_ERROR]:
-              'Something has gone wrong, please check the data you have entered and try again',
+              'Something has gone wrong, check the data you have entered and try again',
           }
       }
     }
