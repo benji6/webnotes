@@ -39,7 +39,7 @@ export default function ResendVerification(_: RouteComponentProps) {
         return {
           [FORM_ERROR]: networkErrorMessage,
         }
-      if (e.message == 'User is already confirmed.')
+      if (e.code === 'UserNotFoundException')
         return {
           [FORM_ERROR]:
             'Email address has already been confirmed, please sign in',
