@@ -1,6 +1,6 @@
 [build]
-  publish = "client/dist"
   command = "cd client && yarn build"
+  publish = "client/dist"
 [[headers]]
   for = "*"
   [headers.values]
