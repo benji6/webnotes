@@ -58,7 +58,7 @@ export default function SignUp(_: RouteComponentProps) {
             [FORM_ERROR]: 'Username already exists, try signing in instead',
           }
         default:
-          return 'Something has gone wrong, check the data you have entered and try again'
+          return 'Something went wrong, check the data you have entered and try again'
       }
     }
   }

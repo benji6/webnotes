@@ -69,7 +69,7 @@ export default function SignIn({ navigate }: RouteComponentProps) {
         default:
           return {
             [FORM_ERROR]:
-              'Something has gone wrong, check the data you have entered and try again',
+              'Something went wrong, check the data you have entered and try again',
           }
       }
     }

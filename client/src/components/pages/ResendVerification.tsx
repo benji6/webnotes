@@ -39,18 +39,18 @@ export default function ResendVerification(_: RouteComponentProps) {
         return {
           [FORM_ERROR]: networkErrorMessage,
         }
+      if (e.code === 'InvalidParameterException')
+        return {
+          [FORM_ERROR]: 'Email address not recognised, try signing up instead',
+        }
       if (e.code === 'UserNotFoundException')
         return {
           [FORM_ERROR]:
             'Email address has already been confirmed, please sign in',
         }
-      if (e.code === 'UserNotFoundException')
-        return {
-          [FORM_ERROR]: 'Email address not recognised, try signing up instead',
-        }
       return {
         [FORM_ERROR]:
-          'Something has gone wrong, check the data you have entered and try again',
+          'Something went wrong, check the data you have entered and try again',
       }
     }
   }
