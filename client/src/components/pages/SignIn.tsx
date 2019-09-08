@@ -17,6 +17,7 @@ import {
 } from '../../validators'
 import { networkErrorMessage } from '../../constants'
 import { useUserEmail } from '../containers/User'
+import useRedirectAuthed from '../hooks/useRedirectAuthed'
 
 const authenticate = ({
   email,
@@ -44,6 +45,7 @@ const authenticate = ({
 }
 
 export default function SignIn({ navigate }: RouteComponentProps) {
+  useRedirectAuthed()
   const [isLoading, setIsLoading] = React.useState(false)
   const [, setUserEmail] = useUserEmail()
 

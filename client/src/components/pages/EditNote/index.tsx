@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Fab, Icon, TextArea } from 'eri'
 import { Form, Field, FieldRenderProps } from 'react-final-form'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
-import useRedirectUnauthed from '../../hooks/useRedirectUnauthed'
+import useRedirectUnAuthed from '../../hooks/useRedirectUnAuthed'
 import { requiredValidator, errorProp } from '../../../validators'
 import { useNotes } from '../../containers/Notes'
 import { INoteLocal } from '../../../types'
@@ -16,7 +16,7 @@ interface IProps extends RouteComponentProps {
 const bodyFieldName = 'body'
 
 export default function EditNote({ dateCreated, navigate }: IProps) {
-  useRedirectUnauthed()
+  useRedirectUnAuthed()
   const [notes, setNotes] = useNotes()
   const note = (notes || []).find(note => note.dateCreated === dateCreated)
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)

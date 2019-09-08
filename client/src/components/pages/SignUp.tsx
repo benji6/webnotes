@@ -13,6 +13,7 @@ import {
   errorProp,
 } from '../../validators'
 import { networkErrorMessage } from '../../constants'
+import useRedirectAuthed from '../hooks/useRedirectAuthed'
 
 const signUp = ({
   attributeList,
@@ -34,6 +35,7 @@ const signUp = ({
   })
 
 export default function SignUp(_: RouteComponentProps) {
+  useRedirectAuthed()
   const [isLoading, setIsLoading] = React.useState(false)
 
   const handleSubmit = async ({ email, password }: any) => {

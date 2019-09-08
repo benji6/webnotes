@@ -1,7 +1,9 @@
 import { Link, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
+import useRedirectAuthed from '../hooks/useRedirectAuthed'
 
 export default function Verify(_: RouteComponentProps) {
+  useRedirectAuthed()
   return (
     <>
       <h2>Verification email sent!</h2>

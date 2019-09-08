@@ -2,7 +2,7 @@ import { RouteComponentProps, NavigateFn } from '@reach/router'
 import * as React from 'react'
 import { Fab, Icon, TextArea } from 'eri'
 import { Form, Field, FieldRenderProps } from 'react-final-form'
-import useRedirectUnauthed from '../hooks/useRedirectUnauthed'
+import useRedirectUnAuthed from '../hooks/useRedirectUnAuthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
 import { requiredValidator, errorProp } from '../../validators'
 import { useNotes } from '../containers/Notes'
@@ -11,7 +11,7 @@ import { INoteLocal } from '../../types'
 const bodyFieldName = 'body'
 
 export default function AddNote({ navigate }: RouteComponentProps) {
-  useRedirectUnauthed()
+  useRedirectUnAuthed()
   const [, setNotes] = useNotes()
   const placeholder = useNotePlaceholder()
 

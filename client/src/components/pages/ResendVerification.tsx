@@ -12,6 +12,7 @@ import {
   errorProp,
 } from '../../validators'
 import { networkErrorMessage } from '../../constants'
+import useRedirectAuthed from '../hooks/useRedirectAuthed'
 
 const resendConfirmation = ({ email }: { email: string }) =>
   new Promise((resolve, reject) => {
@@ -25,6 +26,7 @@ const resendConfirmation = ({ email }: { email: string }) =>
   })
 
 export default function ResendVerification(_: RouteComponentProps) {
+  useRedirectAuthed()
   const [isLoading, setIsLoading] = React.useState(false)
 
   const handleSubmit = async ({ email }: any) => {
