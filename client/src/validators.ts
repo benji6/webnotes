@@ -4,7 +4,7 @@ export const errorProp = (meta: any): string | undefined =>
   meta.error && meta.touched ? meta.error : undefined
 
 export const emailValidator: TValidator<string> = value =>
-  /.+@.+/.test(value) ? undefined : 'Not a valid email address'
+  /.+@.+/.test(value) ? undefined : 'Email address not valid'
 
 export const passwordValidator: TValidator<string> = value => {
   if (value.length < 8) return 'Password must be at least 8 characters long'
