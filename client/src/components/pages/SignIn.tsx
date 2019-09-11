@@ -62,8 +62,14 @@ export default function SignIn({ navigate }: RouteComponentProps) {
           return { [FORM_ERROR]: networkErrorMessage }
         case 'UserNotConfirmedException':
           return {
-            [FORM_ERROR]:
-              'Check your email to verify your email address before continuing',
+            [FORM_ERROR]: (
+              <>
+                Check your email to verify your email address or{' '}
+                <Link to="/resend-verification">
+                  resend the verification email
+                </Link>
+              </>
+            ),
           }
         case 'NotAuthorizedException':
         case 'UserNotFoundException':
