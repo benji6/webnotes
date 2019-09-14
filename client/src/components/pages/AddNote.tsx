@@ -1,12 +1,12 @@
 import { RouteComponentProps, NavigateFn } from '@reach/router'
 import * as React from 'react'
-import { Fab, Icon, TextArea, PaperGroup, Paper } from 'eri'
+import { Fab, Icon, TextArea, PaperGroup, Paper, requiredValidator } from 'eri'
 import { Form, Field, FieldRenderProps } from 'react-final-form'
 import useRedirectUnAuthed from '../hooks/useRedirectUnAuthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
-import { requiredValidator, errorProp } from '../../validators'
 import { useNotes } from '../containers/Notes'
 import { INoteLocal } from '../../types'
+import { errorProp } from '../../utils'
 
 const bodyFieldName = 'body'
 

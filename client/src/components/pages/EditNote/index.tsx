@@ -8,14 +8,15 @@ import {
   TextArea,
   PaperGroup,
   Paper,
+  requiredValidator,
 } from 'eri'
 import { Form, Field, FieldRenderProps } from 'react-final-form'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnAuthed from '../../hooks/useRedirectUnAuthed'
-import { requiredValidator, errorProp } from '../../../validators'
 import { useNotes } from '../../containers/Notes'
 import { INoteLocal } from '../../../types'
+import { errorProp } from '../../../utils'
 
 interface IProps extends RouteComponentProps {
   dateCreated?: string

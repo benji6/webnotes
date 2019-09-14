@@ -1,16 +1,8 @@
 import { CognitoUser } from 'amazon-cognito-identity-js'
-import { TextField, Button, ButtonGroup, PaperGroup, Paper } from 'eri'
-import { FORM_ERROR } from 'final-form'
+import { ResendVerificationPage } from 'eri'
 import { RouteComponentProps, Link, navigate } from '@reach/router'
 import * as React from 'react'
-import { Form, Field, FieldRenderProps } from 'react-final-form'
 import { userPool } from '../../cognito'
-import {
-  composeValidators,
-  emailValidator,
-  requiredValidator,
-  errorProp,
-} from '../../validators'
 import { networkErrorMessage } from '../../constants'
 import useRedirectAuthed from '../hooks/useRedirectAuthed'
 
@@ -27,78 +19,36 @@ const resendConfirmation = ({ email }: { email: string }) =>
 
 export default function ResendVerification(_: RouteComponentProps) {
   useRedirectAuthed()
-  const [isLoading, setIsLoading] = React.useState(false)
-
-  const handleSubmit = async ({ email }: any) => {
-    setIsLoading(true)
-
-    try {
-      await resendConfirmation({ email })
-      navigate('/verify')
-    } catch (e) {
-      setIsLoading(false)
-      if (e.code === 'NetworkError')
-        return {
-          [FORM_ERROR]: networkErrorMessage,
-        }
-      if (e.code === 'InvalidParameterException')
-        return {
-          [FORM_ERROR]: 'Email address not recognised, try signing up instead',
-        }
-      if (e.code === 'UserNotFoundException')
-        return {
-          [FORM_ERROR]:
-            'Email address has already been confirmed, please sign in',
-        }
-      return {
-        [FORM_ERROR]:
-          'Something went wrong, check the data you have entered and try again',
-      }
-    }
-  }
-
   return (
-    <PaperGroup>
-      <Paper>
-        <Form
-          onSubmit={handleSubmit}
-          render={({ handleSubmit, submitError }) => (
-            <form noValidate onSubmit={handleSubmit}>
-              <h2>Resend verification email</h2>
-              <Field
-                name="email"
-                validate={composeValidators(requiredValidator, emailValidator)}
-                render={({
-                  input,
-                  meta,
-                }: FieldRenderProps<string, HTMLElement>) => (
-                  <TextField
-                    {...input}
-                    autoComplete="email"
-                    error={errorProp(meta)}
-                    label="Email"
-                    type="email"
-                  />
-                )}
-              />
-              {submitError && (
-                <p e-util="center">
-                  <small e-util="negative">{submitError}</small>
-                </p>
-              )}
-              <ButtonGroup>
-                <Button disabled={isLoading}>Resend</Button>
-              </ButtonGroup>
-              <p e-util="center">
-                <small>
-                  Looking for the <Link to="/sign-in">Sign in</Link> or{' '}
-                  <Link to="/sign-up">Sign up</Link> pages?
-                </small>
-              </p>
-            </form>
-          )}
-        />
-      </Paper>
-    </PaperGroup>
+    <ResendVerificationPage
+      onSubmit={async ({ email, setSubmitError }) => {
+        try {
+          await resendConfirmation({ email })
+          navigate('/verify')
+        } catch (e) {
+          switch (e.code) {
+            case 'NetworkError':
+              setSubmitError(networkErrorMessage)
+              break
+            case 'InvalidParameterException':
+              setSubmitError(
+                'Email address not recognised, try signing up instead',
+              )
+              break
+            case 'UserNotFoundException':
+              setSubmitError(
+                'Email address has already been confirmed, please sign in',
+              )
+              break
+            default:
+              setSubmitError(
+                'Something went wrong, check the data you have entered and try again',
+              )
+          }
+        }
+      }}
+      signInLink={<Link to="/sign-in">Sign in</Link>}
+      signUpLink={<Link to="/sign-up">Sign up</Link>}
+    />
   )
 }
