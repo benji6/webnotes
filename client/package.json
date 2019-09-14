@@ -18,8 +18,9 @@
   "dependencies": {
     "@reach/router": "^1.2.1",
     "amazon-cognito-identity-js": "^3.0.11",
-    "eri": "^10.10.3",
+    "eri": "^10.13.0",
     "final-form": "^4.18.5",
+    "formik": "^1.5.8",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-final-form": "^6.0.1"

@@ -1,6 +1,6 @@
 import { RouteComponentProps, NavigateFn } from '@reach/router'
 import * as React from 'react'
-import { Fab, Icon, TextArea } from 'eri'
+import { Fab, Icon, TextArea, PaperGroup, Paper } from 'eri'
 import { Form, Field, FieldRenderProps } from 'react-final-form'
 import useRedirectUnAuthed from '../hooks/useRedirectUnAuthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
@@ -28,45 +28,49 @@ export default function AddNote({ navigate }: RouteComponentProps) {
   }
 
   return (
-    <Form
-      onSubmit={handleSubmit as any}
-      render={({ handleSubmit, submitError }) => (
-        <form noValidate onSubmit={handleSubmit}>
-          <h2>Add note</h2>
-          <Field
-            name={bodyFieldName}
-            validate={requiredValidator}
-            render={({
-              input,
-              meta,
-            }: FieldRenderProps<string, HTMLElement>) => (
-              <TextArea
-                {...input}
-                error={errorProp(meta)}
-                label="Note"
-                placeholder={placeholder}
-                rows={14}
+    <PaperGroup>
+      <Paper>
+        <Form
+          onSubmit={handleSubmit as any}
+          render={({ handleSubmit, submitError }) => (
+            <form noValidate onSubmit={handleSubmit}>
+              <h2>Add note</h2>
+              <Field
+                name={bodyFieldName}
+                validate={requiredValidator}
+                render={({
+                  input,
+                  meta,
+                }: FieldRenderProps<string, HTMLElement>) => (
+                  <TextArea
+                    {...input}
+                    error={errorProp(meta)}
+                    label="Note"
+                    placeholder={placeholder}
+                    rows={14}
+                  />
+                )}
               />
-            )}
-          />
-          {submitError && (
-            <p e-util="center">
-              <small e-util="negative">{submitError}</small>
-            </p>
+              {submitError && (
+                <p e-util="center">
+                  <small e-util="negative">{submitError}</small>
+                </p>
+              )}
+              <Field name={bodyFieldName} subscription={{ value: true }}>
+                {({ input: { value } }) => (
+                  <Fab
+                    aria-label="save"
+                    hide={!(value && value.trim())}
+                    onClick={handleSubmit as any}
+                  >
+                    <Icon name="save" size="4" />
+                  </Fab>
+                )}
+              </Field>
+            </form>
           )}
-          <Field name={bodyFieldName} subscription={{ value: true }}>
-            {({ input: { value } }) => (
-              <Fab
-                aria-label="save"
-                hide={!(value && value.trim())}
-                onClick={handleSubmit as any}
-              >
-                <Icon name="save" size="4" />
-              </Fab>
-            )}
-          </Field>
-        </form>
-      )}
-    />
+        />
+      </Paper>
+    </PaperGroup>
   )
 }

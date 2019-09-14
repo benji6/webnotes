@@ -1,5 +1,5 @@
 import { CognitoUser } from 'amazon-cognito-identity-js'
-import { TextField, Button, ButtonGroup } from 'eri'
+import { TextField, Button, ButtonGroup, PaperGroup, Paper } from 'eri'
 import { FORM_ERROR } from 'final-form'
 import { RouteComponentProps, Link, navigate } from '@reach/router'
 import * as React from 'react'
@@ -58,43 +58,47 @@ export default function ResendVerification(_: RouteComponentProps) {
   }
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      render={({ handleSubmit, submitError }) => (
-        <form noValidate onSubmit={handleSubmit}>
-          <h2>Resend verification email</h2>
-          <Field
-            name="email"
-            validate={composeValidators(requiredValidator, emailValidator)}
-            render={({
-              input,
-              meta,
-            }: FieldRenderProps<string, HTMLElement>) => (
-              <TextField
-                {...input}
-                autoComplete="email"
-                error={errorProp(meta)}
-                label="Email"
-                type="email"
+    <PaperGroup>
+      <Paper>
+        <Form
+          onSubmit={handleSubmit}
+          render={({ handleSubmit, submitError }) => (
+            <form noValidate onSubmit={handleSubmit}>
+              <h2>Resend verification email</h2>
+              <Field
+                name="email"
+                validate={composeValidators(requiredValidator, emailValidator)}
+                render={({
+                  input,
+                  meta,
+                }: FieldRenderProps<string, HTMLElement>) => (
+                  <TextField
+                    {...input}
+                    autoComplete="email"
+                    error={errorProp(meta)}
+                    label="Email"
+                    type="email"
+                  />
+                )}
               />
-            )}
-          />
-          {submitError && (
-            <p e-util="center">
-              <small e-util="negative">{submitError}</small>
-            </p>
+              {submitError && (
+                <p e-util="center">
+                  <small e-util="negative">{submitError}</small>
+                </p>
+              )}
+              <ButtonGroup>
+                <Button disabled={isLoading}>Resend</Button>
+              </ButtonGroup>
+              <p e-util="center">
+                <small>
+                  Looking for the <Link to="/sign-in">Sign in</Link> or{' '}
+                  <Link to="/sign-up">Sign up</Link> pages?
+                </small>
+              </p>
+            </form>
           )}
-          <ButtonGroup>
-            <Button disabled={isLoading}>Resend</Button>
-          </ButtonGroup>
-          <p e-util="center">
-            <small>
-              Looking for the <Link to="/sign-in">Sign in</Link> or{' '}
-              <Link to="/sign-up">Sign up</Link> pages?
-            </small>
-          </p>
-        </form>
-      )}
-    />
+        />
+      </Paper>
+    </PaperGroup>
   )
 }

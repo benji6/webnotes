@@ -1,6 +1,14 @@
 import { NavigateFn, Redirect, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
-import { Button, ButtonGroup, Fab, Icon, TextArea } from 'eri'
+import {
+  Button,
+  ButtonGroup,
+  Fab,
+  Icon,
+  TextArea,
+  PaperGroup,
+  Paper,
+} from 'eri'
 import { Form, Field, FieldRenderProps } from 'react-final-form'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
@@ -42,73 +50,76 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
   }
 
   return (
-    <>
-      <Form
-        initialValues={{ body: note.body }}
-        onSubmit={handleSubmit}
-        render={({ handleSubmit, submitError }) => (
-          <form noValidate onSubmit={handleSubmit}>
-            <h2>Edit note</h2>
-            <p>
-              <small>
-                Created: {new Date(note.dateCreated).toLocaleDateString()}
-              </small>
-              ,{' '}
-              <small>
-                last updated: {new Date(note.dateUpdated).toLocaleDateString()}
-              </small>
-            </p>
-            <Field
-              name={bodyFieldName}
-              validate={requiredValidator}
-              render={({
-                input,
-                meta,
-              }: FieldRenderProps<string, HTMLElement>) => (
-                <TextArea
-                  {...input}
-                  error={errorProp(meta)}
-                  label="Note"
-                  placeholder={placeholder}
-                  rows={14}
-                />
-              )}
-            />
-            {submitError && (
-              <p e-util="center">
-                <small e-util="negative">{submitError}</small>
+    <PaperGroup>
+      <Paper>
+        <Form
+          initialValues={{ body: note.body }}
+          onSubmit={handleSubmit}
+          render={({ handleSubmit, submitError }) => (
+            <form noValidate onSubmit={handleSubmit}>
+              <h2>Edit note</h2>
+              <p>
+                <small>
+                  Created: {new Date(note.dateCreated).toLocaleDateString()}
+                </small>
+                ,{' '}
+                <small>
+                  last updated:{' '}
+                  {new Date(note.dateUpdated).toLocaleDateString()}
+                </small>
               </p>
-            )}
-            <Field name={bodyFieldName} subscription={{ value: true }}>
-              {({ input: { value } }) => (
-                <Fab
-                  aria-label="save"
-                  hide={!value || value.trim() === note.body}
-                  onClick={handleSubmit as any}
-                >
-                  <Icon name="save" size="4" />
-                </Fab>
+              <Field
+                name={bodyFieldName}
+                validate={requiredValidator}
+                render={({
+                  input,
+                  meta,
+                }: FieldRenderProps<string, HTMLElement>) => (
+                  <TextArea
+                    {...input}
+                    error={errorProp(meta)}
+                    label="Note"
+                    placeholder={placeholder}
+                    rows={14}
+                  />
+                )}
+              />
+              {submitError && (
+                <p e-util="center">
+                  <small e-util="negative">{submitError}</small>
+                </p>
               )}
-            </Field>
-            <ButtonGroup>
-              <Button
-                danger
-                onClick={() => setIsDialogOpen(true)}
-                type="button"
-                variant="secondary"
-              >
-                Delete
-              </Button>
-            </ButtonGroup>
-          </form>
-        )}
-      />
-      <DeleteDialog
-        dateCreated={dateCreated as string}
-        navigate={navigate as NavigateFn}
-        onClose={() => setIsDialogOpen(false)}
-        open={isDialogOpen}
-      />
-    </>
+              <Field name={bodyFieldName} subscription={{ value: true }}>
+                {({ input: { value } }) => (
+                  <Fab
+                    aria-label="save"
+                    hide={!value || value.trim() === note.body}
+                    onClick={handleSubmit as any}
+                  >
+                    <Icon name="save" size="4" />
+                  </Fab>
+                )}
+              </Field>
+              <ButtonGroup>
+                <Button
+                  danger
+                  onClick={() => setIsDialogOpen(true)}
+                  type="button"
+                  variant="secondary"
+                >
+                  Delete
+                </Button>
+              </ButtonGroup>
+            </form>
+          )}
+        />
+        <DeleteDialog
+          dateCreated={dateCreated as string}
+          navigate={navigate as NavigateFn}
+          onClose={() => setIsDialogOpen(false)}
+          open={isDialogOpen}
+        />
+      </Paper>
+    </PaperGroup>
   )
 }

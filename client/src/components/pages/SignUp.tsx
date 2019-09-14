@@ -1,5 +1,5 @@
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
-import { TextField, Button, ButtonGroup } from 'eri'
+import { TextField, Button, ButtonGroup, PaperGroup, Paper } from 'eri'
 import { FORM_ERROR } from 'final-form'
 import { RouteComponentProps, Link, navigate } from '@reach/router'
 import * as React from 'react'
@@ -66,58 +66,65 @@ export default function SignUp(_: RouteComponentProps) {
   }
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      render={({ handleSubmit, submitError }) => (
-        <form noValidate onSubmit={handleSubmit}>
-          <h2>Sign up</h2>
-          <Field
-            name="email"
-            validate={composeValidators(requiredValidator, emailValidator)}
-            render={({
-              input,
-              meta,
-            }: FieldRenderProps<string, HTMLElement>) => (
-              <TextField
-                {...input}
-                autoComplete="email"
-                error={errorProp(meta)}
-                label="Email"
-                type="email"
+    <PaperGroup>
+      <Paper>
+        <Form
+          onSubmit={handleSubmit}
+          render={({ handleSubmit, submitError }) => (
+            <form noValidate onSubmit={handleSubmit}>
+              <h2>Sign up</h2>
+              <Field
+                name="email"
+                validate={composeValidators(requiredValidator, emailValidator)}
+                render={({
+                  input,
+                  meta,
+                }: FieldRenderProps<string, HTMLElement>) => (
+                  <TextField
+                    {...input}
+                    autoComplete="email"
+                    error={errorProp(meta)}
+                    label="Email"
+                    type="email"
+                  />
+                )}
               />
-            )}
-          />
-          <Field
-            name="password"
-            validate={composeValidators(requiredValidator, passwordValidator)}
-            render={({
-              input,
-              meta,
-            }: FieldRenderProps<string, HTMLElement>) => (
-              <TextField
-                {...input}
-                autoComplete="new-password"
-                error={errorProp(meta)}
-                label="Password"
-                type="password"
+              <Field
+                name="password"
+                validate={composeValidators(
+                  requiredValidator,
+                  passwordValidator,
+                )}
+                render={({
+                  input,
+                  meta,
+                }: FieldRenderProps<string, HTMLElement>) => (
+                  <TextField
+                    {...input}
+                    autoComplete="new-password"
+                    error={errorProp(meta)}
+                    label="Password"
+                    type="password"
+                  />
+                )}
               />
-            )}
-          />
-          {submitError && (
-            <p e-util="center">
-              <small e-util="negative">{submitError}</small>
-            </p>
+              {submitError && (
+                <p e-util="center">
+                  <small e-util="negative">{submitError}</small>
+                </p>
+              )}
+              <ButtonGroup>
+                <Button disabled={isLoading}>Sign up</Button>
+              </ButtonGroup>
+              <p e-util="center">
+                <small>
+                  Already have an account? <Link to="/sign-in">Sign in</Link>!
+                </small>
+              </p>
+            </form>
           )}
-          <ButtonGroup>
-            <Button disabled={isLoading}>Sign up</Button>
-          </ButtonGroup>
-          <p e-util="center">
-            <small>
-              Already have an account? <Link to="/sign-in">Sign in</Link>!
-            </small>
-          </p>
-        </form>
-      )}
-    />
+        />
+      </Paper>
+    </PaperGroup>
   )
 }
