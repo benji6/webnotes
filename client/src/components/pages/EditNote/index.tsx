@@ -53,22 +53,21 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
   return (
     <PaperGroup>
       <Paper>
+        <h2>Edit note</h2>
+        <p>
+          <small>
+            Created: {new Date(note.dateCreated).toLocaleDateString()}
+          </small>
+          ,{' '}
+          <small>
+            last updated: {new Date(note.dateUpdated).toLocaleDateString()}
+          </small>
+        </p>
         <Form
           initialValues={{ body: note.body }}
           onSubmit={handleSubmit}
-          render={({ handleSubmit, submitError }) => (
+          render={({ handleSubmit }) => (
             <form noValidate onSubmit={handleSubmit}>
-              <h2>Edit note</h2>
-              <p>
-                <small>
-                  Created: {new Date(note.dateCreated).toLocaleDateString()}
-                </small>
-                ,{' '}
-                <small>
-                  last updated:{' '}
-                  {new Date(note.dateUpdated).toLocaleDateString()}
-                </small>
-              </p>
               <Field
                 name={bodyFieldName}
                 validate={requiredValidator}
@@ -85,11 +84,6 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
                   />
                 )}
               />
-              {submitError && (
-                <p e-util="center">
-                  <small e-util="negative">{submitError}</small>
-                </p>
-              )}
               <Field name={bodyFieldName} subscription={{ value: true }}>
                 {({ input: { value } }) => (
                   <Fab
@@ -101,19 +95,19 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
                   </Fab>
                 )}
               </Field>
-              <ButtonGroup>
-                <Button
-                  danger
-                  onClick={() => setIsDialogOpen(true)}
-                  type="button"
-                  variant="secondary"
-                >
-                  Delete
-                </Button>
-              </ButtonGroup>
             </form>
           )}
         />
+        <ButtonGroup>
+          <Button
+            danger
+            onClick={() => setIsDialogOpen(true)}
+            type="button"
+            variant="secondary"
+          >
+            Delete
+          </Button>
+        </ButtonGroup>
         <DeleteDialog
           dateCreated={dateCreated as string}
           navigate={navigate as NavigateFn}

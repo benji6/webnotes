@@ -30,11 +30,11 @@ export default function AddNote({ navigate }: RouteComponentProps) {
   return (
     <PaperGroup>
       <Paper>
+        <h2>Add note</h2>
         <Form
           onSubmit={handleSubmit as any}
-          render={({ handleSubmit, submitError }) => (
+          render={({ handleSubmit }) => (
             <form noValidate onSubmit={handleSubmit}>
-              <h2>Add note</h2>
               <Field
                 name={bodyFieldName}
                 validate={requiredValidator}
@@ -51,11 +51,6 @@ export default function AddNote({ navigate }: RouteComponentProps) {
                   />
                 )}
               />
-              {submitError && (
-                <p e-util="center">
-                  <small e-util="negative">{submitError}</small>
-                </p>
-              )}
               <Field name={bodyFieldName} subscription={{ value: true }}>
                 {({ input: { value } }) => (
                   <Fab
