@@ -9,6 +9,8 @@ Webnotes is a free and open source app that lets you create and manage notes. It
 
 [Check it out here](https://webnotes.link)
 
+The Webnotes UI was built using a component library I made called [Eri](https://github.com/benji6/eri).
+
 ## Deploying
 
 ### Backend and infrastructure

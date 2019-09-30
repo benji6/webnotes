@@ -31,6 +31,17 @@ export default function About(_: RouteComponentProps) {
           </a>
           .
         </p>
+        <p>
+          The UI was put together using a component library I built called{' '}
+          <a
+            href="https://github.com/benji6/eri"
+            rel="noopener"
+            target="_blank"
+          >
+            Eri
+          </a>
+          .
+        </p>
         <p>I hope you enjoy the app 🙂</p>
       </Paper>
     </PaperGroup>
