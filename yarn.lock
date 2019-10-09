@@ -2473,10 +2473,10 @@ entities@^2.0.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
   integrity sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==
 
-eri@^10.17.0:
-  version "10.18.0"
-  resolved "https://registry.yarnpkg.com/eri/-/eri-10.18.0.tgz#ee4c0d88a65e9ed09a5e2f61ae5dac70c367e22c"
-  integrity sha512-vgh4jakSyvc2MdtKiiSidQancHmkRIe7bxyLW50E7H1/PgWse37h+mJjOznd26ln6zTI1pGkGwKJ3fgnRE61WA==
+eri@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/eri/-/eri-11.0.0.tgz#5798f6576e74a8dc5184f800ee0b27eda1703e99"
+  integrity sha512-mKSCYqn3n2f1uoIlA6T4t6jWgVZG4HxHkTX58K9ewuyyL+N2F+pSIn09in6vCg9m+ixFK44EbBn4kjG1SUQi9w==
   dependencies:
     react-transition-group "^4.1.1"
 
