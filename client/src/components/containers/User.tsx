@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { getIdToken } from '../../cognito'
-import { emailDelete, emailGet, emailSet } from '../../localStorage'
+import { emailDelete, emailGet, emailSet } from '../../storage'
 
 const UserEmailContext = React.createContext<
   [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>]
