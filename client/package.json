@@ -19,7 +19,7 @@
     "@reach/router": "^1.2.1",
     "amazon-cognito-identity-js": "^3.0.11",
     "eri": "^11.0.0",
-    "formik": "^1.5.8",
+    "formik": "^2.0.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
