@@ -20,6 +20,7 @@
     "amazon-cognito-identity-js": "^3.0.11",
     "eri": "^11.0.0",
     "formik": "^1.5.8",
+    "idb-keyval": "^3.2.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
