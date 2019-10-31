@@ -16,44 +16,69 @@ const NotesContext = React.createContext<
   ]
 >([undefined, () => {}])
 
-const initialNotes = storage.getNotes()
-
 export const useNotes = () => React.useContext(NotesContext)
 
 export const NotesContainer = (props: Object) => {
-  const [notes, setNotes] = React.useState<INoteLocal[] | undefined>(
-    initialNotes,
-  )
+  const [isStorageLoading, setIsStorageLoading] = React.useState(true)
+  const [notes, setNotes] = React.useState<INoteLocal[] | undefined>()
   const [userEmail] = useUserEmail()
 
-  React.useEffect(() => {
-    if (!notes) return storage.deleteNotes()
-    storage.setNotes(notes)
-  }, [notes])
+  React.useEffect(
+    () =>
+      void (async () => {
+        try {
+          const oldNotes = storage.getNotesOld()
+          if (oldNotes) {
+            try {
+              await storage.setNotes(oldNotes)
+            } finally {
+              storage.deleteNotesOld()
+            }
+          }
+          setNotes(await storage.getNotes())
+        } finally {
+          setIsStorageLoading(false)
+        }
+      })(),
+    [],
+  )
 
-  const fetchNotes = () => {
-    if (!userEmail) return
-    getNotes().then(remoteNotes => {
+  React.useEffect(() => {
+    if (isStorageLoading) return
+    if (!notes) storage.deleteNotes()
+    else storage.setNotes(notes)
+  }, [isStorageLoading, notes])
+
+  const fetchNotes = () =>
+    void (async () => {
+      if (isStorageLoading || !userEmail) return
+      const remoteNotes = await getNotes()
       if (!notes) return setNotes(remoteNotes)
       const { notes: newNotes, notesUpdated } = syncRemoteToLocal(
         notes,
         remoteNotes,
       )
       if (notesUpdated) setNotes(newNotes)
-    })
-  }
-  const updateNotes = async () => {
-    if (!userEmail || !notes || !notes.some(({ syncState }) => syncState))
-      return
-    const { notes: newNotes, notesUpdated } = await syncLocalToRemote(notes)
-    if (notesUpdated) setNotes(newNotes)
-  }
+    })()
 
-  React.useEffect(fetchNotes, [userEmail])
-  React.useEffect(() => {
-    updateNotes()
-  }, [notes])
+  const updateNotes = () =>
+    void (async () => {
+      if (
+        isStorageLoading ||
+        !userEmail ||
+        !notes ||
+        !notes.some(({ syncState }) => syncState)
+      )
+        return
+      const { notes: newNotes, notesUpdated } = await syncLocalToRemote(notes)
+      if (notesUpdated) setNotes(newNotes)
+    })()
+
+  React.useEffect(fetchNotes, [isStorageLoading, userEmail])
+  React.useEffect(updateNotes, [isStorageLoading, notes])
   useInterval(fetchNotes, syncInterval)
   useInterval(updateNotes, syncInterval)
-  return <NotesContext.Provider {...props} value={[notes, setNotes]} />
+  return isStorageLoading ? null : (
+    <NotesContext.Provider {...props} value={[notes, setNotes]} />
+  )
 }

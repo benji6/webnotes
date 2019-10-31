@@ -1,17 +1,21 @@
+import { del, get, set } from 'idb-keyval'
 import { INoteLocal } from './types'
 
-const emailStorageKey = 'userEmail'
-const notesStorageKey = 'notes'
+const emailStorageKey = 'webnotes-user-email'
+const notesStorageKey = 'webnotes-notes'
 
 export default {
-  deleteEmail: (): void => localStorage.removeItem(emailStorageKey),
-  getEmail: (): string | undefined =>
-    localStorage.getItem(emailStorageKey) || undefined,
-  setEmail: (email: string): void =>
-    localStorage.setItem(emailStorageKey, email),
-  deleteNotes: (): void => localStorage.removeItem(notesStorageKey),
-  getNotes: (): INoteLocal[] | undefined => {
-    const notesString = localStorage.getItem(notesStorageKey)
+  deleteEmail: (): Promise<void> => del(emailStorageKey),
+  deleteEmailOld: (): void => localStorage.removeItem('user-email'),
+  getEmail: (): Promise<string | undefined> => get(emailStorageKey),
+  getEmailOld: (): string | undefined =>
+    localStorage.getItem('user-email') || undefined,
+  setEmail: (email: string): Promise<void> => set(emailStorageKey, email),
+  deleteNotes: (): Promise<void> => del(notesStorageKey),
+  getNotes: (): Promise<INoteLocal[] | undefined> => get(notesStorageKey),
+  deleteNotesOld: (): void => localStorage.removeItem('notes'),
+  getNotesOld: (): INoteLocal[] | undefined => {
+    const notesString = localStorage.getItem('notes')
     if (notesString) {
       try {
         return JSON.parse(notesString)
@@ -21,6 +25,5 @@ export default {
       }
     }
   },
-  setNotes: (notes: INoteLocal[]): void =>
-    localStorage.setItem(notesStorageKey, JSON.stringify(notes)),
+  setNotes: (notes: INoteLocal[]): Promise<void> => set(notesStorageKey, notes),
 }
