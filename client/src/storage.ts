@@ -3,7 +3,8 @@ import { INoteLocal } from './types'
 
 const emailStorageKey = 'webnotes-user-email'
 const notesStorageKey = 'webnotes-notes'
-
+localStorage.removeItem('notes')
+localStorage.removeItem('userEmail')
 export default {
   deleteEmail: (): Promise<void> => del(emailStorageKey),
   deleteEmailOld: (): void => localStorage.removeItem('user-email'),
