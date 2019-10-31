@@ -2,7 +2,7 @@ import * as React from 'react'
 import { getNotes } from '../../../api'
 import { INoteLocal } from '../../../types'
 import { useUserEmail } from '../User'
-import { notesDelete, notesGet, notesSet } from '../../../storage'
+import storage from '../../../storage'
 import syncLocalToRemote from './syncLocalToRemote'
 import syncRemoteToLocal from './syncRemoteToLocal'
 import useInterval from '../../hooks/useInterval'
@@ -16,7 +16,7 @@ const NotesContext = React.createContext<
   ]
 >([undefined, () => {}])
 
-const initialNotes = notesGet()
+const initialNotes = storage.getNotes()
 
 export const useNotes = () => React.useContext(NotesContext)
 
@@ -27,8 +27,8 @@ export const NotesContainer = (props: Object) => {
   const [userEmail] = useUserEmail()
 
   React.useEffect(() => {
-    if (!notes) return notesDelete()
-    notesSet(notes)
+    if (!notes) return storage.deleteNotes()
+    storage.setNotes(notes)
   }, [notes])
 
   const fetchNotes = () => {

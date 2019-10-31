@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { getIdToken } from '../../cognito'
-import { emailDelete, emailGet, emailSet } from '../../storage'
+import storage from '../../storage'
 
 const UserEmailContext = React.createContext<
   [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>]
 >([undefined, () => {}])
 
-const initialUserEmail = emailGet()
+const initialUserEmail = storage.getEmail()
 
 export const useUserEmail = () => React.useContext(UserEmailContext)
 
@@ -16,8 +16,8 @@ export const UserContainer = (props: Object) => {
   )
 
   React.useEffect(() => {
-    if (!userEmail) return emailDelete()
-    emailSet(userEmail)
+    if (!userEmail) return storage.deleteEmail()
+    storage.setEmail(userEmail)
   }, [userEmail])
 
   React.useEffect(() => {
