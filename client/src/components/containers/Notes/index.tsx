@@ -27,14 +27,6 @@ export const NotesContainer = (props: Object) => {
     () =>
       void (async () => {
         try {
-          const oldNotes = storage.getNotesOld()
-          if (oldNotes) {
-            try {
-              await storage.setNotes(oldNotes)
-            } finally {
-              storage.deleteNotesOld()
-            }
-          }
           setNotes(await storage.getNotes())
         } finally {
           setIsStorageLoading(false)

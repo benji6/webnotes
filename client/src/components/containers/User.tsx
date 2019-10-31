@@ -16,14 +16,6 @@ export const UserContainer = (props: Object) => {
     () =>
       void (async () => {
         try {
-          const oldEmail = storage.getEmailOld()
-          if (oldEmail) {
-            try {
-              await storage.setEmail(oldEmail)
-            } finally {
-              storage.deleteEmailOld()
-            }
-          }
           setUserEmail(await storage.getEmail())
         } finally {
           setIsStorageLoading(false)
