@@ -1,4 +1,4 @@
-import { Menu as EriMenu, Button, ButtonGroup, ThemeToggle } from 'eri'
+import { Menu as EriMenu, Button, ButtonGroup } from 'eri'
 import * as React from 'react'
 import { Link } from '@reach/router'
 import SignOutDialog from './SignOutDialog'
@@ -40,7 +40,6 @@ export default function Menu({ handleMenuClose, open }: IProps) {
             <hr />
           </>
         )}
-        <ThemeToggle />
         <ul>
           <li>
             <Link onClick={handleMenuClose} to="/">
