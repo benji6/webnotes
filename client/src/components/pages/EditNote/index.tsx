@@ -5,10 +5,10 @@ import {
   ButtonGroup,
   Fab,
   Icon,
-  TextArea,
-  PaperGroup,
   Paper,
+  PaperGroup,
   requiredValidator,
+  TextArea,
 } from 'eri'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
@@ -68,7 +68,13 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
             last updated: {new Date(note.dateUpdated).toLocaleDateString()}
           </small>
         </p>
-        <form noValidate onSubmit={handleSubmit}>
+        <form
+          noValidate
+          onSubmit={e => {
+            e.preventDefault()
+            handleSubmit()
+          }}
+        >
           <TextArea
             error={textAreaError}
             label="Note"
