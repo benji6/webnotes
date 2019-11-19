@@ -5,6 +5,7 @@ import useRedirectUnAuthed from '../hooks/useRedirectUnAuthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
 import { useNotes } from '../containers/Notes'
 import { INoteLocal } from '../../types'
+import useKeyboardSave from '../hooks/useKeyboardSave'
 
 export default function AddNote({ navigate }: RouteComponentProps) {
   useRedirectUnAuthed()
@@ -32,6 +33,8 @@ export default function AddNote({ navigate }: RouteComponentProps) {
     setNotes(notes => (notes ? [note, ...notes] : [note]))
     ;(navigate as NavigateFn)('/')
   }
+
+  useKeyboardSave(handleSubmit)
 
   return (
     <PaperGroup>

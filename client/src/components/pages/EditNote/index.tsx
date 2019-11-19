@@ -15,6 +15,7 @@ import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnAuthed from '../../hooks/useRedirectUnAuthed'
 import { useNotes } from '../../containers/Notes'
 import { INoteLocal } from '../../../types'
+import useKeyboardSave from '../../hooks/useKeyboardSave'
 
 interface IProps extends RouteComponentProps {
   dateCreated?: string
@@ -54,6 +55,8 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
     })
     ;(navigate as NavigateFn)('/')
   }
+
+  useKeyboardSave(handleSubmit)
 
   return (
     <PaperGroup>
