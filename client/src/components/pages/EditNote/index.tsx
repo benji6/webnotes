@@ -10,35 +10,37 @@ import {
   Paper,
   requiredValidator,
 } from 'eri'
-import { Formik, Form, Field, FieldProps } from 'formik'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnAuthed from '../../hooks/useRedirectUnAuthed'
 import { useNotes } from '../../containers/Notes'
 import { INoteLocal } from '../../../types'
 
-interface IFormValues {
-  body: string
-}
-
 interface IProps extends RouteComponentProps {
   dateCreated?: string
 }
-
-const bodyFieldName = 'body'
 
 export default function EditNote({ dateCreated, navigate }: IProps) {
   useRedirectUnAuthed()
   const [notes, setNotes] = useNotes()
   const note = (notes || []).find(note => note.dateCreated === dateCreated)
+  if (!note) return <Redirect to="/" />
+  const [textAreaValue, setTextAreaValue] = React.useState(note.body)
+  const [textAreaError, setTextAreaError] = React.useState<string | undefined>()
+  const [hasSubmitted, setHasSubmitted] = React.useState(false)
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const placeholder = useNotePlaceholder()
 
-  if (!note) return <Redirect to="/" />
-
-  const handleSubmit = async ({ body }: IFormValues) => {
+  const handleSubmit = async () => {
+    const body = textAreaValue.trim()
+    const fieldError = requiredValidator(body)
+    if (fieldError) {
+      setHasSubmitted(true)
+      setTextAreaError(fieldError)
+      return
+    }
     const newNote: INoteLocal = {
-      body: body.trim(),
+      body,
       dateCreated: dateCreated as string,
       dateUpdated: new Date().toISOString(),
       syncState: 'updated',
@@ -66,34 +68,29 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
             last updated: {new Date(note.dateUpdated).toLocaleDateString()}
           </small>
         </p>
-        <Formik initialValues={{ body: note.body }} onSubmit={handleSubmit}>
-          <Form noValidate>
-            <Field name={bodyFieldName} validate={requiredValidator}>
-              {({ field, form }: FieldProps<IFormValues>) => (
-                <TextArea
-                  {...field}
-                  error={
-                    form.submitCount && form.touched.body && form.errors.body
-                  }
-                  label="Note"
-                  placeholder={placeholder}
-                  rows={14}
-                />
-              )}
-            </Field>
-            <Field name={bodyFieldName}>
-              {({ field: { value } }: FieldProps<IFormValues>) => (
-                <Fab
-                  aria-label="save"
-                  hide={!value.trim() || value.trim() === note.body}
-                  onClick={() => handleSubmit({ body: value })}
-                >
-                  <Icon name="save" size="4" />
-                </Fab>
-              )}
-            </Field>
-          </Form>
-        </Formik>
+        <form noValidate onSubmit={handleSubmit}>
+          <TextArea
+            error={textAreaError}
+            label="Note"
+            onChange={({ target: { value } }) => {
+              setTextAreaValue(value)
+              if (hasSubmitted) {
+                const error = requiredValidator(value)
+                if (error !== textAreaError) setTextAreaError(error)
+              }
+            }}
+            placeholder={placeholder}
+            rows={14}
+            value={textAreaValue}
+          />
+          <Fab
+            aria-label="save"
+            hide={!textAreaValue.trim() || textAreaValue.trim() === note.body}
+            onClick={handleSubmit}
+          >
+            <Icon name="save" size="4" />
+          </Fab>
+        </form>
         <ButtonGroup>
           <Button
             danger
