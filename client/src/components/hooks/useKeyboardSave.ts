@@ -1,13 +1,13 @@
 import * as React from 'react'
 
-let isCmdPressed = false
+let isMetaPressed = false
 
 window.addEventListener('keydown', e => {
-  if (e.keyCode === 91) isCmdPressed = true
+  if (e.key === 'Meta') isMetaPressed = true
 })
 
 window.addEventListener('keyup', e => {
-  if (e.keyCode === 91) isCmdPressed = false
+  if (e.key === 'Meta') isMetaPressed = false
 })
 
 export default function useKeyboardSave(callback: () => void) {
@@ -17,7 +17,7 @@ export default function useKeyboardSave(callback: () => void) {
   }, [callback])
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent): void => {
-      if ((e.ctrlKey || isCmdPressed) && e.keyCode === 83) {
+      if ((e.ctrlKey || isMetaPressed) && e.code === 'KeyS') {
         e.preventDefault()
         savedCallback.current()
       }
