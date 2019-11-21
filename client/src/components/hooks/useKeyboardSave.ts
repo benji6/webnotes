@@ -2,6 +2,8 @@ import * as React from 'react'
 
 let isMetaPressed = false
 
+window.addEventListener('blur', () => (isMetaPressed = false))
+
 window.addEventListener('keydown', e => {
   if (e.key === 'Meta') isMetaPressed = true
 })
