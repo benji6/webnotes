@@ -48,6 +48,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
           }}
         >
           <TextArea
+            autoFocus
             error={textAreaError}
             label="Note"
             onChange={({ target: { value } }) => {
