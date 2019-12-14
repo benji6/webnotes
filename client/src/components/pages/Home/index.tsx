@@ -49,7 +49,7 @@ export default function Home({ navigate }: RouteComponentProps) {
         <Paper>
           <h2>Welcome to Webnotes!</h2>
           <p>
-            Webnotes is a free and open source app that lets you create and
+            Webnotes is a free and open source web app that lets you create and
             manage notes. It's simple to use, works offline and because it runs
             in your browser you can use it across all your devices!
           </p>
