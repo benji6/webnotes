@@ -5,6 +5,7 @@ import { NotesContainer } from './containers/Notes'
 import { UserContainer } from './containers/User'
 import Main from './Main'
 import Menu from './Menu'
+import { AppState } from './AppState'
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -13,17 +14,19 @@ export default function App() {
   const handleMenuOpen = () => setIsMenuOpen(true)
 
   return (
-    <UserContainer>
-      <NotesContainer>
-        <Header>
-          <h1>
-            <Link to="/">Webnotes</Link>
-          </h1>
-          <MenuButton onClick={handleMenuOpen} />
-        </Header>
-        <Menu handleMenuClose={handleMenuClose} open={isMenuOpen} />
-        <Main />
-      </NotesContainer>
-    </UserContainer>
+    <AppState>
+      <UserContainer>
+        <NotesContainer>
+          <Header>
+            <h1>
+              <Link to="/">Webnotes</Link>
+            </h1>
+            <MenuButton onClick={handleMenuOpen} />
+          </Header>
+          <Menu handleMenuClose={handleMenuClose} open={isMenuOpen} />
+          <Main />
+        </NotesContainer>
+      </UserContainer>
+    </AppState>
   )
 }

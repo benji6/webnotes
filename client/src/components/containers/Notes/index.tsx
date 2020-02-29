@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { getNotes } from '../../../api'
 import { INoteLocal } from '../../../types'
-import { UserStateContext } from '../User'
 import storage from '../../../storage'
 import syncLocalToRemote from './syncLocalToRemote'
 import syncRemoteToLocal from './syncRemoteToLocal'
 import useInterval from '../../hooks/useInterval'
+import { StateContext } from '../../AppState'
 
 const syncInterval = 6e4
 
@@ -21,7 +21,7 @@ export const useNotes = () => React.useContext(NotesContext)
 export const NotesContainer = ({ children }: { children: React.ReactNode }) => {
   const [isStorageLoading, setIsStorageLoading] = React.useState(true)
   const [notes, setNotes] = React.useState<INoteLocal[] | undefined>()
-  const { userEmail } = React.useContext(UserStateContext)
+  const { userEmail } = React.useContext(StateContext)
 
   React.useEffect(
     () =>

@@ -3,7 +3,7 @@ import { Dialog, ButtonGroup, Button } from 'eri'
 import * as React from 'react'
 import { userPool } from '../../cognito'
 import { useNotes } from '../containers/Notes'
-import { UserDispatchContext } from '../containers/User'
+import { DispatchContext } from '../AppState'
 
 interface IProps {
   onClose(): void
@@ -13,7 +13,7 @@ interface IProps {
 export default function SignOutDialog({ onClose, open }: IProps) {
   const [isLoading, setIsLoading] = React.useState(false)
   const [, setNotes] = useNotes()
-  const dispatch = React.useContext(UserDispatchContext)
+  const dispatch = React.useContext(DispatchContext)
 
   const handleSignOut = () => {
     setIsLoading(true)

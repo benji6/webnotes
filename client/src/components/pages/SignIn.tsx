@@ -8,8 +8,8 @@ import { SignInPage } from 'eri'
 import * as React from 'react'
 import { userPool } from '../../cognito'
 import { networkErrorMessage } from '../../constants'
-import { UserDispatchContext } from '../containers/User'
 import useRedirectAuthed from '../hooks/useRedirectAuthed'
+import { DispatchContext } from '../AppState'
 
 const authenticate = ({
   email,
@@ -38,7 +38,7 @@ const authenticate = ({
 
 export default function SignIn({ navigate }: RouteComponentProps) {
   useRedirectAuthed()
-  const dispatch = React.useContext(UserDispatchContext)
+  const dispatch = React.useContext(DispatchContext)
 
   return (
     <SignInPage
