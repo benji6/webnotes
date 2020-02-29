@@ -1,10 +1,9 @@
-import { Spinner } from 'eri'
 import * as React from 'react'
 import { getIdToken } from '../../cognito'
 import storage from '../../storage'
 import { DispatchContext, StateContext } from '../AppState'
 
-export const UserContainer = ({ children }: { children: React.ReactNode }) => {
+export default function useUser(): void {
   const dispatch = React.useContext(DispatchContext)
   const state = React.useContext(StateContext)
 
@@ -37,6 +36,4 @@ export const UserContainer = ({ children }: { children: React.ReactNode }) => {
     if (!state.userEmail) storage.deleteEmail()
     else storage.setEmail(state.userEmail)
   }, [state.isUserLoading, state.userEmail])
-
-  return state.isUserLoading ? <Spinner /> : <>{children}</>
 }

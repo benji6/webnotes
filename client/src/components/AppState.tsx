@@ -96,7 +96,7 @@ const reducer = (state: IState, action: IAction): IState => {
   }
 }
 
-export const AppState = ({ children }: { children: React.ReactNode }) => {
+export default function AppState({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = React.useReducer(reducer, initialState)
 
   return (

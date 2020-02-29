@@ -5,18 +5,18 @@ import Note from './Note'
 import { StateContext } from '../../AppState'
 
 export default function Home({ navigate }: RouteComponentProps) {
-  const { notes, userEmail } = React.useContext(StateContext)
+  const state = React.useContext(StateContext)
 
   return (
     <PaperGroup>
-      {userEmail ? (
+      {state.userEmail ? (
         <Paper>
           <h2>Notes</h2>
           <CardGroup>
-            {!notes ? (
+            {!state.notes ? (
               <Spinner />
-            ) : notes.length ? (
-              notes
+            ) : state.notes.length ? (
+              state.notes
                 .filter(({ syncState }) => syncState !== 'deleted')
                 .map(({ body, dateCreated }) => (
                   <Note

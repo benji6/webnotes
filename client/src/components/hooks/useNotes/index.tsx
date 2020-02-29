@@ -1,15 +1,14 @@
-import { Spinner } from 'eri'
 import * as React from 'react'
 import { getNotes } from '../../../api'
 import storage from '../../../storage'
 import syncLocalToRemote from './syncLocalToRemote'
 import syncRemoteToLocal from './syncRemoteToLocal'
-import useInterval from '../../hooks/useInterval'
+import useInterval from '../useInterval'
 import { StateContext, DispatchContext } from '../../AppState'
 
 const syncInterval = 6e4
 
-export const NotesContainer = ({ children }: { children: React.ReactNode }) => {
+export default function useNotes(): void {
   const dispatch = React.useContext(DispatchContext)
   const state = React.useContext(StateContext)
   const { userEmail } = React.useContext(StateContext)
@@ -69,5 +68,4 @@ export const NotesContainer = ({ children }: { children: React.ReactNode }) => {
   React.useEffect(updateNotes, [state.areNotesLoading, state.notes])
   useInterval(fetchNotes, syncInterval)
   useInterval(updateNotes, syncInterval)
-  return state.areNotesLoading ? <Spinner /> : <>{children}</>
 }

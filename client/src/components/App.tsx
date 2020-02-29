@@ -1,32 +1,26 @@
 import { Link } from '@reach/router'
 import { Header, MenuButton } from 'eri'
 import * as React from 'react'
-import { NotesContainer } from './containers/Notes'
-import { UserContainer } from './containers/User'
+import useUser from './hooks/useUser'
 import Main from './Main'
 import Menu from './Menu'
-import { AppState } from './AppState'
+import useNotes from './hooks/useNotes'
 
 export default function App() {
+  useUser()
+  useNotes()
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
-  const handleMenuClose = () => setIsMenuOpen(false)
-  const handleMenuOpen = () => setIsMenuOpen(true)
-
   return (
-    <AppState>
-      <UserContainer>
-        <NotesContainer>
-          <Header>
-            <h1>
-              <Link to="/">Webnotes</Link>
-            </h1>
-            <MenuButton onClick={handleMenuOpen} />
-          </Header>
-          <Menu handleMenuClose={handleMenuClose} open={isMenuOpen} />
-          <Main />
-        </NotesContainer>
-      </UserContainer>
-    </AppState>
+    <>
+      <Header>
+        <h1>
+          <Link to="/">Webnotes</Link>
+        </h1>
+        <MenuButton onClick={() => setIsMenuOpen(true)} />
+      </Header>
+      <Menu handleMenuClose={() => setIsMenuOpen(false)} open={isMenuOpen} />
+      <Main />
+    </>
   )
 }
