@@ -33,10 +33,10 @@ export const UserContainer = ({ children }: { children: React.ReactNode }) => {
   )
 
   React.useEffect(() => {
-    if (state.isStorageLoading) return
+    if (state.isUserLoading) return
     if (!state.userEmail) storage.deleteEmail()
     else storage.setEmail(state.userEmail)
-  }, [state.isStorageLoading, state.userEmail])
+  }, [state.isUserLoading, state.userEmail])
 
-  return state.isStorageLoading ? <Spinner /> : <>{children}</>
+  return state.isUserLoading ? <Spinner /> : <>{children}</>
 }

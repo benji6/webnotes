@@ -3,13 +3,13 @@ import * as React from 'react'
 import { Fab, Icon, TextArea, PaperGroup, Paper, requiredValidator } from 'eri'
 import useRedirectUnAuthed from '../hooks/useRedirectUnAuthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
-import { useNotes } from '../containers/Notes'
 import { INoteLocal } from '../../types'
 import useKeyboardSave from '../hooks/useKeyboardSave'
+import { DispatchContext } from '../AppState'
 
 export default function AddNote({ navigate }: RouteComponentProps) {
   useRedirectUnAuthed()
-  const [, setNotes] = useNotes()
+  const dispatch = React.useContext(DispatchContext)
   const placeholder = useNotePlaceholder()
   const [textAreaValue, setTextAreaValue] = React.useState('')
   const [textAreaError, setTextAreaError] = React.useState<string | undefined>()
@@ -30,7 +30,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
       dateUpdated: dateCreated,
       syncState: 'created',
     }
-    setNotes(notes => (notes ? [note, ...notes] : [note]))
+    dispatch({ type: 'notes/add', payload: note })
     ;(navigate as NavigateFn)('/')
   }
 

@@ -2,12 +2,10 @@ import { Link, RouteComponentProps, NavigateFn } from '@reach/router'
 import { CardGroup, Fab, Icon, Spinner, PaperGroup, Paper } from 'eri'
 import * as React from 'react'
 import Note from './Note'
-import { useNotes } from '../../containers/Notes'
 import { StateContext } from '../../AppState'
 
 export default function Home({ navigate }: RouteComponentProps) {
-  const { userEmail } = React.useContext(StateContext)
-  const [notes] = useNotes()
+  const { notes, userEmail } = React.useContext(StateContext)
 
   return (
     <PaperGroup>

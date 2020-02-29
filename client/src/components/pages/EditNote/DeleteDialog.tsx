@@ -1,8 +1,7 @@
 import { NavigateFn } from '@reach/router'
 import { Dialog, ButtonGroup, Button } from 'eri'
 import * as React from 'react'
-import { INoteLocal } from '../../../types'
-import { useNotes } from '../../containers/Notes'
+import { DispatchContext } from '../../AppState'
 
 interface IProps {
   dateCreated: string
@@ -17,23 +16,18 @@ export default function DeleteDialog({
   onClose,
   open,
 }: IProps) {
-  const [, setNotes] = useNotes()
-
-  const handleDelete = async () => {
-    setNotes(notes =>
-      (notes as INoteLocal[]).map(note =>
-        note.dateCreated === dateCreated
-          ? { ...note, syncState: 'deleted' }
-          : note,
-      ),
-    )
-    navigate('/')
-  }
+  const dispatch = React.useContext(DispatchContext)
 
   return (
     <Dialog onClose={onClose} open={open} title="Delete note?">
       <ButtonGroup>
-        <Button danger onClick={handleDelete}>
+        <Button
+          danger
+          onClick={() => {
+            dispatch({ type: 'notes/delete', payload: dateCreated })
+            navigate('/')
+          }}
+        >
           Delete
         </Button>
         <Button onClick={onClose} variant="secondary">

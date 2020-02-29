@@ -2,7 +2,6 @@ import { navigate } from '@reach/router'
 import { Dialog, ButtonGroup, Button } from 'eri'
 import * as React from 'react'
 import { userPool } from '../../cognito'
-import { useNotes } from '../containers/Notes'
 import { DispatchContext } from '../AppState'
 
 interface IProps {
@@ -11,16 +10,15 @@ interface IProps {
 }
 
 export default function SignOutDialog({ onClose, open }: IProps) {
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [, setNotes] = useNotes()
   const dispatch = React.useContext(DispatchContext)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const handleSignOut = () => {
     setIsLoading(true)
     const currentUser = userPool.getCurrentUser()
     if (currentUser) currentUser.signOut()
     onClose()
-    setNotes(undefined)
+    dispatch({ type: 'notes/clearAll' })
     dispatch({ type: 'user/clearEmail' })
     navigate('/')
     setIsLoading(false)

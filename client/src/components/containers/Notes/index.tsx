@@ -1,78 +1,73 @@
+import { Spinner } from 'eri'
 import * as React from 'react'
 import { getNotes } from '../../../api'
-import { INoteLocal } from '../../../types'
 import storage from '../../../storage'
 import syncLocalToRemote from './syncLocalToRemote'
 import syncRemoteToLocal from './syncRemoteToLocal'
 import useInterval from '../../hooks/useInterval'
-import { StateContext } from '../../AppState'
+import { StateContext, DispatchContext } from '../../AppState'
 
 const syncInterval = 6e4
 
-const NotesContext = React.createContext<
-  [
-    INoteLocal[] | undefined,
-    React.Dispatch<React.SetStateAction<INoteLocal[] | undefined>>,
-  ]
->([undefined, () => {}])
-
-export const useNotes = () => React.useContext(NotesContext)
-
 export const NotesContainer = ({ children }: { children: React.ReactNode }) => {
-  const [isStorageLoading, setIsStorageLoading] = React.useState(true)
-  const [notes, setNotes] = React.useState<INoteLocal[] | undefined>()
+  const dispatch = React.useContext(DispatchContext)
+  const state = React.useContext(StateContext)
   const { userEmail } = React.useContext(StateContext)
 
   React.useEffect(
     () =>
       void (async () => {
         try {
-          setNotes(await storage.getNotes())
+          const storedNotes = await storage.getNotes()
+          if (storedNotes) {
+            dispatch({ type: 'notes/set', payload: storedNotes })
+          } else {
+            dispatch({ type: 'notes/clearAll' })
+          }
         } finally {
-          setIsStorageLoading(false)
+          dispatch({ type: 'notes/finishedLoading' })
         }
       })(),
     [],
   )
 
   React.useEffect(() => {
-    if (isStorageLoading) return
-    if (!notes) storage.deleteNotes()
-    else storage.setNotes(notes)
-  }, [isStorageLoading, notes])
+    if (state.areNotesLoading) return
+    if (!state.notes) storage.deleteNotes()
+    else storage.setNotes(state.notes)
+  }, [state.areNotesLoading, state.notes])
 
   const fetchNotes = () =>
     void (async () => {
-      if (isStorageLoading || !userEmail) return
+      if (state.areNotesLoading || !userEmail) return
       const remoteNotes = await getNotes()
-      if (!notes) return setNotes(remoteNotes)
+      if (!state.notes)
+        return dispatch({ type: 'notes/set', payload: remoteNotes })
       const { notes: newNotes, notesUpdated } = syncRemoteToLocal(
-        notes,
+        state.notes,
         remoteNotes,
       )
-      if (notesUpdated) setNotes(newNotes)
+      if (notesUpdated) dispatch({ type: 'notes/set', payload: newNotes })
     })()
 
   const updateNotes = () =>
     void (async () => {
       if (
-        isStorageLoading ||
+        state.areNotesLoading ||
         !userEmail ||
-        !notes ||
-        !notes.some(({ syncState }) => syncState)
+        !state.notes ||
+        !state.notes.some(({ syncState }) => syncState)
       )
         return
-      const { notes: newNotes, notesUpdated } = await syncLocalToRemote(notes)
-      if (notesUpdated) setNotes(newNotes)
+      const { notes: newNotes, notesUpdated } = await syncLocalToRemote(
+        state.notes,
+      )
+      if (notesUpdated) dispatch({ type: 'notes/set', payload: newNotes })
     })()
 
-  React.useEffect(fetchNotes, [isStorageLoading, userEmail])
-  React.useEffect(updateNotes, [isStorageLoading, notes])
+  React.useEffect(fetchNotes, [state.areNotesLoading, userEmail])
+  React.useEffect(updateNotes, [state.areNotesLoading, state.notes])
   useInterval(fetchNotes, syncInterval)
   useInterval(updateNotes, syncInterval)
-  return isStorageLoading ? null : (
-    <NotesContext.Provider value={[notes, setNotes]}>
-      {children}
-    </NotesContext.Provider>
-  )
+  return state.areNotesLoading ? <Spinner /> : <>{children}</>
 }

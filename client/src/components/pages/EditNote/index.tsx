@@ -13,9 +13,9 @@ import {
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnAuthed from '../../hooks/useRedirectUnAuthed'
-import { useNotes } from '../../containers/Notes'
 import { INoteLocal } from '../../../types'
 import useKeyboardSave from '../../hooks/useKeyboardSave'
+import { DispatchContext, StateContext } from '../../AppState'
 
 interface IProps extends RouteComponentProps {
   dateCreated?: string
@@ -23,8 +23,11 @@ interface IProps extends RouteComponentProps {
 
 export default function EditNote({ dateCreated, navigate }: IProps) {
   useRedirectUnAuthed()
-  const [notes, setNotes] = useNotes()
-  const note = (notes || []).find(note => note.dateCreated === dateCreated)
+  const dispatch = React.useContext(DispatchContext)
+  const state = React.useContext(StateContext)
+  const note = (state.notes || []).find(
+    note => note.dateCreated === dateCreated,
+  )
   if (!note) return <Redirect to="/" />
   const [textAreaValue, setTextAreaValue] = React.useState(note.body)
   const [textAreaError, setTextAreaError] = React.useState<string | undefined>()
@@ -46,13 +49,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
       dateUpdated: new Date().toISOString(),
       syncState: 'updated',
     }
-    setNotes(notes => {
-      if (!notes) return [newNote]
-      const index = notes.findIndex(
-        ({ dateCreated }) => newNote.dateCreated === dateCreated,
-      )
-      return [newNote, ...notes.slice(0, index), ...notes.slice(index + 1)]
-    })
+    dispatch({ type: 'notes/update', payload: newNote })
     ;(navigate as NavigateFn)('/')
   }
 
