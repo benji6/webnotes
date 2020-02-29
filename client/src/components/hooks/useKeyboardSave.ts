@@ -19,7 +19,10 @@ export default function useKeyboardSave(callback: () => void) {
   }, [callback])
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent): void => {
-      if ((e.ctrlKey || isMetaPressed) && e.code === 'KeyS') {
+      if (
+        (e.ctrlKey || isMetaPressed) &&
+        (e.code === 'Enter' || e.code === 'KeyS')
+      ) {
         e.preventDefault()
         savedCallback.current()
       }
