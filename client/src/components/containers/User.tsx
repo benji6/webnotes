@@ -1,42 +1,87 @@
+import { Spinner } from 'eri'
 import * as React from 'react'
 import { getIdToken } from '../../cognito'
 import storage from '../../storage'
 
-const UserEmailContext = React.createContext<
-  [string | undefined, React.Dispatch<React.SetStateAction<string | undefined>>]
->([undefined, () => {}])
+type IActionMaker<
+  Type extends string,
+  Payload = undefined
+> = Payload extends undefined
+  ? { type: Type }
+  : { payload: Payload; type: Type }
 
-export const useUserEmail = () => React.useContext(UserEmailContext)
+type IState = {
+  isStorageLoading: boolean
+  userEmail: string | undefined
+}
 
-export const UserContainer = (props: Object) => {
-  const [isStorageLoading, setIsStorageLoading] = React.useState(true)
-  const [userEmail, setUserEmail] = React.useState<string | undefined>()
+type IStorageStoppedLoadingAction = IActionMaker<'storage/stoppedLoading'>
+type IUserClearEmailAction = IActionMaker<'user/clearEmail'>
+type IUserSetEmailAction = IActionMaker<'user/setEmail', string>
+
+type IAction =
+  | IStorageStoppedLoadingAction
+  | IUserClearEmailAction
+  | IUserSetEmailAction
+
+const initialState = { isStorageLoading: true, userEmail: undefined }
+
+export const UserDispatchContext = React.createContext<React.Dispatch<IAction>>(
+  () => {},
+)
+export const UserStateContext = React.createContext<IState>(initialState)
+
+const reducer = (state: IState, action: IAction): IState => {
+  switch (action.type) {
+    case 'storage/stoppedLoading':
+      return { ...state, isStorageLoading: false }
+    case 'user/clearEmail':
+      return { ...state, userEmail: undefined }
+    case 'user/setEmail':
+      return { ...state, userEmail: action.payload }
+  }
+}
+
+export const UserContainer = ({ children }: { children: React.ReactNode }) => {
+  const [state, dispatch] = React.useReducer(reducer, initialState)
 
   React.useEffect(
     () =>
       void (async () => {
         try {
-          setUserEmail(await storage.getEmail())
+          const storedEmail = await storage.getEmail()
+          if (storedEmail) {
+            dispatch({ type: 'user/setEmail', payload: storedEmail })
+          } else {
+            dispatch({ type: 'user/clearEmail' })
+          }
         } finally {
-          setIsStorageLoading(false)
+          dispatch({ type: 'storage/stoppedLoading' })
         }
         try {
           const idToken = await getIdToken()
-          setUserEmail(idToken.payload.email)
+          dispatch({ type: 'user/setEmail', payload: idToken.payload.email })
         } catch (e) {
-          if (e.message === 'no current user') setUserEmail(undefined)
+          if (e.message === 'no current user')
+            dispatch({ type: 'user/clearEmail' })
         }
       })(),
     [],
   )
 
   React.useEffect(() => {
-    if (isStorageLoading) return
-    if (!userEmail) storage.deleteEmail()
-    else storage.setEmail(userEmail)
-  }, [isStorageLoading, userEmail])
+    if (state.isStorageLoading) return
+    if (!state.userEmail) storage.deleteEmail()
+    else storage.setEmail(state.userEmail)
+  }, [state.isStorageLoading, state.userEmail])
 
-  return isStorageLoading ? null : (
-    <UserEmailContext.Provider {...props} value={[userEmail, setUserEmail]} />
+  return state.isStorageLoading ? (
+    <Spinner />
+  ) : (
+    <UserDispatchContext.Provider value={dispatch}>
+      <UserStateContext.Provider value={state}>
+        {children}
+      </UserStateContext.Provider>
+    </UserDispatchContext.Provider>
   )
 }

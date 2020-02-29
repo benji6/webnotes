@@ -3,10 +3,10 @@ import { CardGroup, Fab, Icon, Spinner, PaperGroup, Paper } from 'eri'
 import * as React from 'react'
 import Note from './Note'
 import { useNotes } from '../../containers/Notes'
-import { useUserEmail } from '../../containers/User'
+import { UserStateContext } from '../../containers/User'
 
 export default function Home({ navigate }: RouteComponentProps) {
-  const [userEmail] = useUserEmail()
+  const { userEmail } = React.useContext(UserStateContext)
   const [notes] = useNotes()
 
   return (

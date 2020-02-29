@@ -8,7 +8,7 @@ import { SignInPage } from 'eri'
 import * as React from 'react'
 import { userPool } from '../../cognito'
 import { networkErrorMessage } from '../../constants'
-import { useUserEmail } from '../containers/User'
+import { UserDispatchContext } from '../containers/User'
 import useRedirectAuthed from '../hooks/useRedirectAuthed'
 
 const authenticate = ({
@@ -38,7 +38,7 @@ const authenticate = ({
 
 export default function SignIn({ navigate }: RouteComponentProps) {
   useRedirectAuthed()
-  const [, setUserEmail] = useUserEmail()
+  const dispatch = React.useContext(UserDispatchContext)
 
   return (
     <SignInPage
@@ -46,7 +46,10 @@ export default function SignIn({ navigate }: RouteComponentProps) {
       onSubmit={async ({ email, password, setSubmitError }) => {
         try {
           const result = await authenticate({ email, password })
-          setUserEmail(result.getIdToken().payload.email)
+          dispatch({
+            type: 'user/setEmail',
+            payload: result.getIdToken().payload.email,
+          })
           ;(navigate as NavigateFn)('/')
         } catch (e) {
           switch (e.code) {

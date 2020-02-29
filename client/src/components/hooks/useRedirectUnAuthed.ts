@@ -1,9 +1,9 @@
 import { navigate } from '@reach/router'
 import * as React from 'react'
-import { useUserEmail } from '../containers/User'
+import { UserStateContext } from '../containers/User'
 
 export default function useRedirectUnAuthed() {
-  const [userEmail] = useUserEmail()
+  const { userEmail } = React.useContext(UserStateContext)
   React.useEffect(() => {
     if (!userEmail) navigate('/')
   }, [])

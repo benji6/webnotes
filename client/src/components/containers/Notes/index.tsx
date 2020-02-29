@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { getNotes } from '../../../api'
 import { INoteLocal } from '../../../types'
-import { useUserEmail } from '../User'
+import { UserStateContext } from '../User'
 import storage from '../../../storage'
 import syncLocalToRemote from './syncLocalToRemote'
 import syncRemoteToLocal from './syncRemoteToLocal'
@@ -18,10 +18,10 @@ const NotesContext = React.createContext<
 
 export const useNotes = () => React.useContext(NotesContext)
 
-export const NotesContainer = (props: Object) => {
+export const NotesContainer = ({ children }: { children: React.ReactNode }) => {
   const [isStorageLoading, setIsStorageLoading] = React.useState(true)
   const [notes, setNotes] = React.useState<INoteLocal[] | undefined>()
-  const [userEmail] = useUserEmail()
+  const { userEmail } = React.useContext(UserStateContext)
 
   React.useEffect(
     () =>
@@ -71,6 +71,8 @@ export const NotesContainer = (props: Object) => {
   useInterval(fetchNotes, syncInterval)
   useInterval(updateNotes, syncInterval)
   return isStorageLoading ? null : (
-    <NotesContext.Provider {...props} value={[notes, setNotes]} />
+    <NotesContext.Provider value={[notes, setNotes]}>
+      {children}
+    </NotesContext.Provider>
   )
 }
