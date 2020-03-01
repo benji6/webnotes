@@ -1,6 +1,24 @@
 import * as React from 'react'
 import { NoteLocal } from '../types'
 
+type FluxStandardAction<
+  Type extends string,
+  Payload = undefined
+> = Payload extends undefined
+  ? { type: Type }
+  : { payload: Payload; type: Type }
+
+type Action =
+  | FluxStandardAction<'notes/add', NoteLocal>
+  | FluxStandardAction<'notes/clearAll'>
+  | FluxStandardAction<'notes/delete', string>
+  | FluxStandardAction<'notes/finishedLoading'>
+  | FluxStandardAction<'notes/set', NoteLocal[]>
+  | FluxStandardAction<'notes/update', NoteLocal>
+  | FluxStandardAction<'storage/finishedLoading'>
+  | FluxStandardAction<'user/clearEmail'>
+  | FluxStandardAction<'user/setEmail', string>
+
 interface State {
   areNotesLoading: boolean
   isUserLoading: boolean
@@ -8,47 +26,19 @@ interface State {
   userEmail: string | undefined
 }
 
-type IActionMaker<
-  Type extends string,
-  Payload = undefined
-> = Payload extends undefined
-  ? { type: Type }
-  : { payload: Payload; type: Type }
-
-type INotesAddAction = IActionMaker<'notes/add', NoteLocal>
-type INotesClearAllAction = IActionMaker<'notes/clearAll'>
-type INotesDeleteAction = IActionMaker<'notes/delete', string>
-type INotesFinishedLoadingAction = IActionMaker<'notes/finishedLoading'>
-type INotesSetAction = IActionMaker<'notes/set', NoteLocal[]>
-type INotesUpdateAction = IActionMaker<'notes/update', NoteLocal>
-type IStorageFinishedLoadingAction = IActionMaker<'storage/finishedLoading'>
-type IUserClearEmailAction = IActionMaker<'user/clearEmail'>
-type IUserSetEmailAction = IActionMaker<'user/setEmail', string>
-
-type IAction =
-  | INotesAddAction
-  | INotesClearAllAction
-  | INotesDeleteAction
-  | INotesFinishedLoadingAction
-  | INotesSetAction
-  | INotesUpdateAction
-  | IStorageFinishedLoadingAction
-  | IUserClearEmailAction
-  | IUserSetEmailAction
-
-const initialState = {
+const initialState: State = {
   areNotesLoading: true,
   isUserLoading: true,
   notes: undefined,
   userEmail: undefined,
 }
 
-export const DispatchContext = React.createContext<React.Dispatch<IAction>>(
+export const DispatchContext = React.createContext<React.Dispatch<Action>>(
   () => {},
 )
 export const StateContext = React.createContext<State>(initialState)
 
-const reducer = (state: State, action: IAction): State => {
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'notes/add':
       return {
