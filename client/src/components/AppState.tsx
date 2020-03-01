@@ -19,6 +19,32 @@ type Action =
   | FluxStandardAction<'user/clearEmail'>
   | FluxStandardAction<'user/setEmail', string>
 
+type Diff<T, U> = T extends U ? never : T
+type Filter<T, U> = T extends U ? T : never
+type ActionsWithPayloads = Filter<Action, { payload: any }>
+type ActionsWithoutPayloads = Diff<Action, ActionsWithPayloads>
+
+function createAction<Type extends ActionsWithoutPayloads['type']>(
+  type: Type,
+): () => FluxStandardAction<Type>
+function createAction<Type extends ActionsWithPayloads['type']>(
+  type: Type,
+): <Payload extends ActionsWithPayloads['payload']>(
+  payload: Payload,
+) => FluxStandardAction<Type, Payload>
+function createAction<Type extends Action['type']>(type: Type) {
+  function actionCreator(): FluxStandardAction<Type>
+  function actionCreator<Payload extends ActionsWithPayloads['payload']>(
+    payload: Payload,
+  ): FluxStandardAction<Type, Payload>
+  function actionCreator<Payload extends ActionsWithPayloads['payload']>(
+    payload?: Payload,
+  ) {
+    return payload ? { payload, type } : { type }
+  }
+  return actionCreator
+}
+
 interface State {
   areNotesLoading: boolean
   isUserLoading: boolean
