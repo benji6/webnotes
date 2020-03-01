@@ -1,6 +1,6 @@
 import { apiUri } from './constants'
 import { getIdToken } from './cognito'
-import { INote } from './types'
+import { Note } from './types'
 
 const getAuthorizationHeader = async () => {
   const idToken = await getIdToken()
@@ -22,7 +22,7 @@ export const deleteNote = async (body: {
   if (!response.ok) throw Error(String(response.status))
 }
 
-export const getNotes = async (): Promise<INote[]> => {
+export const getNotes = async (): Promise<Note[]> => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {
     headers: { Authorization },
@@ -35,7 +35,7 @@ export const postNote = async (note: {
   body: string
   dateCreated: string
   dateUpdated: string
-}): Promise<INote> => {
+}): Promise<Note> => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(note),
@@ -53,7 +53,7 @@ export const putNote = async (note: {
   body: string
   dateCreated: string
   dateUpdated: string
-}): Promise<INote> => {
+}): Promise<Note> => {
   const Authorization = await getAuthorizationHeader()
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(note),

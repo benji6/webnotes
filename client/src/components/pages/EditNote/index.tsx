@@ -13,15 +13,15 @@ import {
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnAuthed from '../../hooks/useRedirectUnAuthed'
-import { INoteLocal } from '../../../types'
+import { NoteLocal } from '../../../types'
 import useKeyboardSave from '../../hooks/useKeyboardSave'
 import { DispatchContext, StateContext } from '../../AppState'
 
-interface IProps extends RouteComponentProps {
+interface Props extends RouteComponentProps {
   dateCreated?: string
 }
 
-export default function EditNote({ dateCreated, navigate }: IProps) {
+export default function EditNote({ dateCreated, navigate }: Props) {
   useRedirectUnAuthed()
   const dispatch = React.useContext(DispatchContext)
   const state = React.useContext(StateContext)
@@ -43,7 +43,7 @@ export default function EditNote({ dateCreated, navigate }: IProps) {
       setTextAreaError(fieldError)
       return
     }
-    const newNote: INoteLocal = {
+    const newNote: NoteLocal = {
       body,
       dateCreated: dateCreated as string,
       dateUpdated: new Date().toISOString(),

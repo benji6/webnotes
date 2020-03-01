@@ -4,12 +4,12 @@ import { Link } from '@reach/router'
 import SignOutDialog from './SignOutDialog'
 import { StateContext } from '../AppState'
 
-interface IProps {
+interface Props {
   open: boolean
   handleMenuClose(): void
 }
 
-export default function Menu({ handleMenuClose, open }: IProps) {
+export default function Menu({ handleMenuClose, open }: Props) {
   const { userEmail } = React.useContext(StateContext)
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
 

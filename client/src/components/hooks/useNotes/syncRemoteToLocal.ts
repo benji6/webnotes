@@ -1,14 +1,14 @@
-import { INote, INoteLocal } from '../../../types'
+import { Note, NoteLocal } from '../../../types'
 
 export default function syncRemoteToLocal(
-  localNotes: INoteLocal[],
-  remoteNotes: INote[],
+  localNotes: NoteLocal[],
+  remoteNotes: Note[],
 ): {
-  notes: INoteLocal[]
+  notes: NoteLocal[]
   notesUpdated: boolean
 } {
   let notesUpdated = false
-  let syncedNotes: INoteLocal[] = []
+  let syncedNotes: NoteLocal[] = []
   for (const localNote of localNotes) {
     if (localNote.syncState === 'created') {
       syncedNotes.push(localNote)

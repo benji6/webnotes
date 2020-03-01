@@ -4,12 +4,12 @@ import * as React from 'react'
 import { userPool } from '../../cognito'
 import { DispatchContext } from '../AppState'
 
-interface IProps {
+interface Props {
   onClose(): void
   open: boolean
 }
 
-export default function SignOutDialog({ onClose, open }: IProps) {
+export default function SignOutDialog({ onClose, open }: Props) {
   const dispatch = React.useContext(DispatchContext)
   const [isLoading, setIsLoading] = React.useState(false)
 

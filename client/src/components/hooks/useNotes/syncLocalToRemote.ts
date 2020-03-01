@@ -1,10 +1,10 @@
-import { INoteLocal } from '../../../types'
+import { NoteLocal } from '../../../types'
 import { postNote, putNote, deleteNote } from '../../../api'
 
 export default async function syncLocalToRemote(
-  notes: INoteLocal[],
+  notes: NoteLocal[],
 ): Promise<{
-  notes: INoteLocal[]
+  notes: NoteLocal[]
   notesUpdated: boolean
 }> {
   let notesUpdated = false
@@ -42,7 +42,7 @@ export default async function syncLocalToRemote(
     }),
   )
   return {
-    notes: newNotes.filter(Boolean) as INoteLocal[],
+    notes: newNotes.filter(Boolean) as NoteLocal[],
     notesUpdated,
   }
 }

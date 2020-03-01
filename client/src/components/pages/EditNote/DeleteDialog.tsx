@@ -3,7 +3,7 @@ import { Dialog, ButtonGroup, Button } from 'eri'
 import * as React from 'react'
 import { DispatchContext } from '../../AppState'
 
-interface IProps {
+interface Props {
   dateCreated: string
   navigate: NavigateFn
   onClose(): void
@@ -15,7 +15,7 @@ export default function DeleteDialog({
   navigate,
   onClose,
   open,
-}: IProps) {
+}: Props) {
   const dispatch = React.useContext(DispatchContext)
 
   return (

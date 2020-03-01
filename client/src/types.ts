@@ -1,9 +1,9 @@
-export interface INote {
+export interface Note {
   body: string
   dateCreated: string
   dateUpdated: string
 }
 
-export interface INoteLocal extends INote {
+export interface NoteLocal extends Note {
   syncState?: 'created' | 'deleted' | 'updated'
 }
