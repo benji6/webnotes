@@ -1,10 +1,10 @@
 import { RouteComponentProps } from '@reach/router'
-import { PaperGroup, Paper, ShareButton } from 'eri'
+import { Paper, ShareButton } from 'eri'
 import * as React from 'react'
 
 export default function About(_: RouteComponentProps) {
   return (
-    <PaperGroup>
+    <Paper.Group>
       <Paper>
         <h2>About</h2>
         <p>
@@ -45,6 +45,6 @@ export default function About(_: RouteComponentProps) {
         <p>I hope you enjoy the app 🙂</p>
         <ShareButton />
       </Paper>
-    </PaperGroup>
+    </Paper.Group>
   )
 }

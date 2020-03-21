@@ -1,5 +1,5 @@
 import { NavigateFn } from '@reach/router'
-import { Dialog, ButtonGroup, Button } from 'eri'
+import { Dialog, Button } from 'eri'
 import * as React from 'react'
 import { DispatchContext } from '../../AppState'
 
@@ -20,7 +20,7 @@ export default function DeleteDialog({
 
   return (
     <Dialog onClose={onClose} open={open} title="Delete note?">
-      <ButtonGroup>
+      <Button.Group>
         <Button
           danger
           onClick={() => {
@@ -33,7 +33,7 @@ export default function DeleteDialog({
         <Button onClick={onClose} variant="secondary">
           Cancel
         </Button>
-      </ButtonGroup>
+      </Button.Group>
     </Dialog>
   )
 }

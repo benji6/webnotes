@@ -1,6 +1,6 @@
 import { RouteComponentProps, NavigateFn } from '@reach/router'
 import * as React from 'react'
-import { Fab, Icon, TextArea, PaperGroup, Paper, requiredValidator } from 'eri'
+import { Fab, Icon, TextArea, Paper, requiredValidator } from 'eri'
 import useRedirectUnAuthed from '../hooks/useRedirectUnAuthed'
 import useNotePlaceholder from '../hooks/useNotePlaceholder'
 import { NoteLocal } from '../../types'
@@ -37,7 +37,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
   useKeyboardSave(handleSubmit)
 
   return (
-    <PaperGroup>
+    <Paper.Group>
       <Paper>
         <h2>Add note</h2>
         <form
@@ -71,6 +71,6 @@ export default function AddNote({ navigate }: RouteComponentProps) {
           </Fab>
         </form>
       </Paper>
-    </PaperGroup>
+    </Paper.Group>
   )
 }

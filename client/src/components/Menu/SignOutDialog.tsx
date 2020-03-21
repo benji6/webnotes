@@ -1,5 +1,5 @@
 import { navigate } from '@reach/router'
-import { Dialog, ButtonGroup, Button } from 'eri'
+import { Dialog, Button } from 'eri'
 import * as React from 'react'
 import { userPool } from '../../cognito'
 import { DispatchContext } from '../AppState'
@@ -31,14 +31,14 @@ export default function SignOutDialog({ onClose, open }: Props) {
       open={open}
       title="Sign out?"
     >
-      <ButtonGroup>
+      <Button.Group>
         <Button danger disabled={isLoading} onClick={handleSignOut}>
           Sign out
         </Button>
         <Button disabled={isLoading} onClick={onClose} variant="secondary">
           Cancel
         </Button>
-      </ButtonGroup>
+      </Button.Group>
     </Dialog>
   )
 }

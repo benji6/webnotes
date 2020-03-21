@@ -1,4 +1,4 @@
-import { Menu as EriMenu, Button, ButtonGroup } from 'eri'
+import { Menu as EriMenu, Button } from 'eri'
 import * as React from 'react'
 import { Link } from '@reach/router'
 import SignOutDialog from './SignOutDialog'
@@ -28,7 +28,7 @@ export default function Menu({ handleMenuClose, open }: Props) {
               <br />
               {userEmail}
             </p>
-            <ButtonGroup>
+            <Button.Group>
               <Button
                 danger
                 onClick={() => setIsDialogOpen(true)}
@@ -36,7 +36,7 @@ export default function Menu({ handleMenuClose, open }: Props) {
               >
                 Sign out
               </Button>
-            </ButtonGroup>
+            </Button.Group>
             <hr />
           </>
         )}

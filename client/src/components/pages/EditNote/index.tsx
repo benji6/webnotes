@@ -1,15 +1,6 @@
 import { NavigateFn, Redirect, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
-import {
-  Button,
-  ButtonGroup,
-  Fab,
-  Icon,
-  Paper,
-  PaperGroup,
-  requiredValidator,
-  TextArea,
-} from 'eri'
+import { Button, Fab, Icon, Paper, requiredValidator, TextArea } from 'eri'
 import DeleteDialog from './DeleteDialog'
 import useNotePlaceholder from '../../hooks/useNotePlaceholder'
 import useRedirectUnAuthed from '../../hooks/useRedirectUnAuthed'
@@ -56,7 +47,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
   useKeyboardSave(handleSubmit)
 
   return (
-    <PaperGroup>
+    <Paper.Group>
       <Paper>
         <h2>Edit note</h2>
         <p>
@@ -97,7 +88,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
             <Icon name="save" size="4" />
           </Fab>
         </form>
-        <ButtonGroup>
+        <Button.Group>
           <Button
             danger
             onClick={() => setIsDialogOpen(true)}
@@ -106,7 +97,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
           >
             Delete
           </Button>
-        </ButtonGroup>
+        </Button.Group>
         <DeleteDialog
           dateCreated={dateCreated as string}
           navigate={navigate as NavigateFn}
@@ -114,6 +105,6 @@ export default function EditNote({ dateCreated, navigate }: Props) {
           open={isDialogOpen}
         />
       </Paper>
-    </PaperGroup>
+    </Paper.Group>
   )
 }

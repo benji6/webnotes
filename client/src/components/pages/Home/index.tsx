@@ -1,5 +1,5 @@
 import { Link, RouteComponentProps, NavigateFn } from '@reach/router'
-import { CardGroup, Fab, Icon, Spinner, PaperGroup, Paper } from 'eri'
+import { Card, Fab, Icon, Spinner, Paper } from 'eri'
 import * as React from 'react'
 import Note from './Note'
 import { StateContext } from '../../AppState'
@@ -8,11 +8,11 @@ export default function Home({ navigate }: RouteComponentProps) {
   const state = React.useContext(StateContext)
 
   return (
-    <PaperGroup>
+    <Paper.Group>
       {state.userEmail ? (
         <Paper>
           <h2>Notes</h2>
-          <CardGroup>
+          <Card.Group>
             {!state.notes ? (
               <Spinner />
             ) : state.notes.length ? (
@@ -35,7 +35,7 @@ export default function Home({ navigate }: RouteComponentProps) {
                 </p>
               </div>
             )}
-          </CardGroup>
+          </Card.Group>
           <Fab
             aria-label="add new note"
             onClick={() => (navigate as NavigateFn)('add')}
@@ -66,6 +66,6 @@ export default function Home({ navigate }: RouteComponentProps) {
           </p>
         </Paper>
       )}
-    </PaperGroup>
+    </Paper.Group>
   )
 }
