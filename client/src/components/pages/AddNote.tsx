@@ -1,40 +1,42 @@
-import { RouteComponentProps, NavigateFn } from '@reach/router'
-import * as React from 'react'
-import { Fab, Icon, TextArea, Paper, requiredValidator } from 'eri'
-import useRedirectUnAuthed from '../hooks/useRedirectUnAuthed'
-import useNotePlaceholder from '../hooks/useNotePlaceholder'
-import { NoteLocal } from '../../types'
-import useKeyboardSave from '../hooks/useKeyboardSave'
-import { DispatchContext } from '../AppState'
+import { RouteComponentProps, NavigateFn } from "@reach/router";
+import * as React from "react";
+import { Fab, Icon, TextArea, Paper, requiredValidator } from "eri";
+import useRedirectUnAuthed from "../hooks/useRedirectUnAuthed";
+import useNotePlaceholder from "../hooks/useNotePlaceholder";
+import { NoteLocal } from "../../types";
+import useKeyboardSave from "../hooks/useKeyboardSave";
+import { DispatchContext } from "../AppState";
 
 export default function AddNote({ navigate }: RouteComponentProps) {
-  useRedirectUnAuthed()
-  const dispatch = React.useContext(DispatchContext)
-  const placeholder = useNotePlaceholder()
-  const [textAreaValue, setTextAreaValue] = React.useState('')
-  const [textAreaError, setTextAreaError] = React.useState<string | undefined>()
-  const [hasSubmitted, setHasSubmitted] = React.useState(false)
+  useRedirectUnAuthed();
+  const dispatch = React.useContext(DispatchContext);
+  const placeholder = useNotePlaceholder();
+  const [textAreaValue, setTextAreaValue] = React.useState("");
+  const [textAreaError, setTextAreaError] = React.useState<
+    string | undefined
+  >();
+  const [hasSubmitted, setHasSubmitted] = React.useState(false);
 
   const handleSubmit = async () => {
-    const body = textAreaValue.trim()
-    const fieldError = requiredValidator(body)
+    const body = textAreaValue.trim();
+    const fieldError = requiredValidator(body);
     if (fieldError) {
-      setHasSubmitted(true)
-      setTextAreaError(fieldError)
-      return
+      setHasSubmitted(true);
+      setTextAreaError(fieldError);
+      return;
     }
-    const dateCreated = new Date().toISOString()
+    const dateCreated = new Date().toISOString();
     const note: NoteLocal = {
       body,
       dateCreated,
       dateUpdated: dateCreated,
-      syncState: 'created',
-    }
-    dispatch({ type: 'notes/add', payload: note })
-    ;(navigate as NavigateFn)('/')
-  }
+      syncState: "created",
+    };
+    dispatch({ type: "notes/add", payload: note });
+    (navigate as NavigateFn)("/");
+  };
 
-  useKeyboardSave(handleSubmit)
+  useKeyboardSave(handleSubmit);
 
   return (
     <Paper.Group>
@@ -43,8 +45,8 @@ export default function AddNote({ navigate }: RouteComponentProps) {
         <form
           noValidate
           onSubmit={(e) => {
-            e.preventDefault()
-            handleSubmit()
+            e.preventDefault();
+            handleSubmit();
           }}
         >
           <TextArea
@@ -52,10 +54,10 @@ export default function AddNote({ navigate }: RouteComponentProps) {
             error={textAreaError}
             label="Note"
             onChange={({ target: { value } }) => {
-              setTextAreaValue(value)
+              setTextAreaValue(value);
               if (hasSubmitted) {
-                const error = requiredValidator(value)
-                if (error !== textAreaError) setTextAreaError(error)
+                const error = requiredValidator(value);
+                if (error !== textAreaError) setTextAreaError(error);
               }
             }}
             placeholder={placeholder}
@@ -72,5 +74,5 @@ export default function AddNote({ navigate }: RouteComponentProps) {
         </form>
       </Paper>
     </Paper.Group>
-  )
+  );
 }

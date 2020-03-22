@@ -1,68 +1,68 @@
-import { apiUri } from './constants'
-import { getIdToken } from './cognito'
-import { Note } from './types'
+import { apiUri } from "./constants";
+import { getIdToken } from "./cognito";
+import { Note } from "./types";
 
 const getAuthorizationHeader = async () => {
-  const idToken = await getIdToken()
-  return `Bearer ${idToken.getJwtToken()}`
-}
+  const idToken = await getIdToken();
+  return `Bearer ${idToken.getJwtToken()}`;
+};
 
 export const deleteNote = async (body: {
-  dateCreated: string
+  dateCreated: string;
 }): Promise<void> => {
-  const Authorization = await getAuthorizationHeader()
+  const Authorization = await getAuthorizationHeader();
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(body),
     headers: {
       Authorization,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    method: 'DELETE',
-  })
-  if (!response.ok) throw Error(String(response.status))
-}
+    method: "DELETE",
+  });
+  if (!response.ok) throw Error(String(response.status));
+};
 
 export const getNotes = async (): Promise<Note[]> => {
-  const Authorization = await getAuthorizationHeader()
+  const Authorization = await getAuthorizationHeader();
   const response = await fetch(`${apiUri}/notes`, {
     headers: { Authorization },
-  })
-  if (!response.ok) throw Error(String(response.status))
-  return response.json()
-}
+  });
+  if (!response.ok) throw Error(String(response.status));
+  return response.json();
+};
 
 export const postNote = async (note: {
-  body: string
-  dateCreated: string
-  dateUpdated: string
+  body: string;
+  dateCreated: string;
+  dateUpdated: string;
 }): Promise<Note> => {
-  const Authorization = await getAuthorizationHeader()
+  const Authorization = await getAuthorizationHeader();
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(note),
     headers: {
       Authorization,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-  })
-  if (!response.ok) throw Error(String(response.status))
-  return response.json()
-}
+    method: "POST",
+  });
+  if (!response.ok) throw Error(String(response.status));
+  return response.json();
+};
 
 export const putNote = async (note: {
-  body: string
-  dateCreated: string
-  dateUpdated: string
+  body: string;
+  dateCreated: string;
+  dateUpdated: string;
 }): Promise<Note> => {
-  const Authorization = await getAuthorizationHeader()
+  const Authorization = await getAuthorizationHeader();
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(note),
     headers: {
       Authorization,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    method: 'PUT',
-  })
-  if (!response.ok) throw Error(String(response.status))
-  return response.json()
-}
+    method: "PUT",
+  });
+  if (!response.ok) throw Error(String(response.status));
+  return response.json();
+};

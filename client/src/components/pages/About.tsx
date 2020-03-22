@@ -1,6 +1,6 @@
-import { RouteComponentProps } from '@reach/router'
-import { Paper, ShareButton } from 'eri'
-import * as React from 'react'
+import { RouteComponentProps } from "@reach/router";
+import { Paper, ShareButton } from "eri";
+import * as React from "react";
 
 export default function About(_: RouteComponentProps) {
   return (
@@ -13,15 +13,15 @@ export default function About(_: RouteComponentProps) {
           your browser you can use it across all your devices!
         </p>
         <p>
-          You can find the source code{' '}
+          You can find the source code{" "}
           <a
             href="https://github.com/benji6/webnotes"
             rel="noopener"
             target="_blank"
           >
             here
-          </a>{' '}
-          and if you have any ideas, feedback or bugs you can raise them{' '}
+          </a>{" "}
+          and if you have any ideas, feedback or bugs you can raise them{" "}
           <a
             href="https://github.com/benji6/webnotes/issues"
             rel="noopener"
@@ -32,7 +32,7 @@ export default function About(_: RouteComponentProps) {
           .
         </p>
         <p>
-          The UI was put together using a component library I built called{' '}
+          The UI was put together using a component library I built called{" "}
           <a
             href="https://github.com/benji6/eri"
             rel="noopener"
@@ -46,5 +46,5 @@ export default function About(_: RouteComponentProps) {
         <ShareButton />
       </Paper>
     </Paper.Group>
-  )
+  );
 }

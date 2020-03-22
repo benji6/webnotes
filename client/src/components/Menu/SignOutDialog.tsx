@@ -1,28 +1,28 @@
-import { navigate } from '@reach/router'
-import { Dialog, Button } from 'eri'
-import * as React from 'react'
-import { userPool } from '../../cognito'
-import { DispatchContext } from '../AppState'
+import { navigate } from "@reach/router";
+import { Dialog, Button } from "eri";
+import * as React from "react";
+import { userPool } from "../../cognito";
+import { DispatchContext } from "../AppState";
 
 interface Props {
-  onClose(): void
-  open: boolean
+  onClose(): void;
+  open: boolean;
 }
 
 export default function SignOutDialog({ onClose, open }: Props) {
-  const dispatch = React.useContext(DispatchContext)
-  const [isLoading, setIsLoading] = React.useState(false)
+  const dispatch = React.useContext(DispatchContext);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSignOut = () => {
-    setIsLoading(true)
-    const currentUser = userPool.getCurrentUser()
-    if (currentUser) currentUser.signOut()
-    onClose()
-    dispatch({ type: 'notes/clearAll' })
-    dispatch({ type: 'user/clearEmail' })
-    navigate('/')
-    setIsLoading(false)
-  }
+    setIsLoading(true);
+    const currentUser = userPool.getCurrentUser();
+    if (currentUser) currentUser.signOut();
+    onClose();
+    dispatch({ type: "notes/clearAll" });
+    dispatch({ type: "user/clearEmail" });
+    navigate("/");
+    setIsLoading(false);
+  };
 
   return (
     <Dialog
@@ -40,5 +40,5 @@ export default function SignOutDialog({ onClose, open }: Props) {
         </Button>
       </Button.Group>
     </Dialog>
-  )
+  );
 }

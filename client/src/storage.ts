@@ -1,8 +1,8 @@
-import { del, get, set } from 'idb-keyval'
-import { NoteLocal } from './types'
+import { del, get, set } from "idb-keyval";
+import { NoteLocal } from "./types";
 
-const emailStorageKey = 'webnotes-user-email'
-const notesStorageKey = 'webnotes-notes'
+const emailStorageKey = "webnotes-user-email";
+const notesStorageKey = "webnotes-notes";
 
 export default {
   deleteEmail: (): Promise<void> => del(emailStorageKey),
@@ -11,4 +11,4 @@ export default {
   deleteNotes: (): Promise<void> => del(notesStorageKey),
   getNotes: (): Promise<NoteLocal[] | undefined> => get(notesStorageKey),
   setNotes: (notes: NoteLocal[]): Promise<void> => set(notesStorageKey, notes),
-}
+};

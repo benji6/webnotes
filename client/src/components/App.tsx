@@ -1,15 +1,15 @@
-import { Link } from '@reach/router'
-import { Header, MenuButton } from 'eri'
-import * as React from 'react'
-import useUser from './hooks/useUser'
-import Main from './Main'
-import Menu from './Menu'
-import useNotes from './hooks/useNotes'
+import { Link } from "@reach/router";
+import { Header, MenuButton } from "eri";
+import * as React from "react";
+import useUser from "./hooks/useUser";
+import Main from "./Main";
+import Menu from "./Menu";
+import useNotes from "./hooks/useNotes";
 
 export default function App() {
-  useUser()
-  useNotes()
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  useUser();
+  useNotes();
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
     <>
@@ -22,5 +22,5 @@ export default function App() {
       <Menu handleMenuClose={() => setIsMenuOpen(false)} open={isMenuOpen} />
       <Main />
     </>
-  )
+  );
 }

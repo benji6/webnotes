@@ -1,11 +1,11 @@
-import { Link, RouteComponentProps, NavigateFn } from '@reach/router'
-import { Card, Fab, Icon, Spinner, Paper } from 'eri'
-import * as React from 'react'
-import Note from './Note'
-import { StateContext } from '../../AppState'
+import { Link, RouteComponentProps, NavigateFn } from "@reach/router";
+import { Card, Fab, Icon, Spinner, Paper } from "eri";
+import * as React from "react";
+import Note from "./Note";
+import { StateContext } from "../../AppState";
 
 export default function Home({ navigate }: RouteComponentProps) {
-  const state = React.useContext(StateContext)
+  const state = React.useContext(StateContext);
 
   return (
     <Paper.Group>
@@ -17,7 +17,7 @@ export default function Home({ navigate }: RouteComponentProps) {
               <Spinner />
             ) : state.notes.length ? (
               state.notes
-                .filter(({ syncState }) => syncState !== 'deleted')
+                .filter(({ syncState }) => syncState !== "deleted")
                 .map(({ body, dateCreated }) => (
                   <Note
                     dateCreated={dateCreated}
@@ -38,7 +38,7 @@ export default function Home({ navigate }: RouteComponentProps) {
           </Card.Group>
           <Fab
             aria-label="add new note"
-            onClick={() => (navigate as NavigateFn)('add')}
+            onClick={() => (navigate as NavigateFn)("add")}
           >
             <Icon name="plus" size="4" />
           </Fab>
@@ -60,12 +60,12 @@ export default function Home({ navigate }: RouteComponentProps) {
           <br />
           <p>
             <small>
-              If you already have an account you can{' '}
+              If you already have an account you can{" "}
               <Link to="sign-in">sign in here</Link>.
             </small>
           </p>
         </Paper>
       )}
     </Paper.Group>
-  )
+  );
 }

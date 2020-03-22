@@ -1,22 +1,22 @@
-import { Menu as EriMenu, Button } from 'eri'
-import * as React from 'react'
-import { Link } from '@reach/router'
-import SignOutDialog from './SignOutDialog'
-import { StateContext } from '../AppState'
+import { Menu as EriMenu, Button } from "eri";
+import * as React from "react";
+import { Link } from "@reach/router";
+import SignOutDialog from "./SignOutDialog";
+import { StateContext } from "../AppState";
 
 interface Props {
-  open: boolean
-  handleMenuClose(): void
+  open: boolean;
+  handleMenuClose(): void;
 }
 
 export default function Menu({ handleMenuClose, open }: Props) {
-  const { userEmail } = React.useContext(StateContext)
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+  const { userEmail } = React.useContext(StateContext);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const handleDialogClose = () => {
-    setIsDialogOpen(false)
-    handleMenuClose()
-  }
+    setIsDialogOpen(false);
+    handleMenuClose();
+  };
 
   return (
     <>
@@ -62,5 +62,5 @@ export default function Menu({ handleMenuClose, open }: Props) {
       </EriMenu>
       <SignOutDialog onClose={handleDialogClose} open={isDialogOpen} />
     </>
-  )
+  );
 }
