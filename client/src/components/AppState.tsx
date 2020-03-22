@@ -53,7 +53,7 @@ const reducer = (state: State, action: Action): State => {
       if (!state.notes) return state
       return {
         ...state,
-        notes: state.notes.map(note =>
+        notes: state.notes.map((note) =>
           note.dateCreated === action.payload
             ? { ...note, syncState: 'deleted' }
             : note,

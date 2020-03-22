@@ -4,11 +4,11 @@ let isMetaPressed = false
 
 window.addEventListener('blur', () => (isMetaPressed = false))
 
-window.addEventListener('keydown', e => {
+window.addEventListener('keydown', (e) => {
   if (e.key === 'Meta') isMetaPressed = true
 })
 
-window.addEventListener('keyup', e => {
+window.addEventListener('keyup', (e) => {
   if (e.key === 'Meta') isMetaPressed = false
 })
 

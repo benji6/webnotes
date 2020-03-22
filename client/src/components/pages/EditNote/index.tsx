@@ -17,7 +17,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
   const dispatch = React.useContext(DispatchContext)
   const state = React.useContext(StateContext)
   const note = (state.notes || []).find(
-    note => note.dateCreated === dateCreated,
+    (note) => note.dateCreated === dateCreated,
   )
   if (!note) return <Redirect to="/" />
   const [textAreaValue, setTextAreaValue] = React.useState(note.body)
@@ -61,7 +61,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
         </p>
         <form
           noValidate
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault()
             handleSubmit()
           }}

@@ -9,7 +9,7 @@ export default async function syncLocalToRemote(
 }> {
   let notesUpdated = false
   const newNotes = await Promise.all(
-    notes.map(async note => {
+    notes.map(async (note) => {
       if (!note.syncState) return note
       try {
         switch (note.syncState) {

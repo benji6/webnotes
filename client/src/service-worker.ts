@@ -4,7 +4,7 @@ const cacheName = 'v1'
 const sw: any = self
 
 const cacheList = (process.env.CACHE_LIST as string).split(',')
-const cacheListWithHost = cacheList.map(resource =>
+const cacheListWithHost = cacheList.map((resource) =>
   pathJoin(location.host, resource),
 )
 
@@ -30,7 +30,8 @@ sw.oninstall = (event: any) => {
 }
 
 sw.onfetch = (event: any) => {
-  if (!cacheListWithHost.some(item => event.request.url.endsWith(item))) return
+  if (!cacheListWithHost.some((item) => event.request.url.endsWith(item)))
+    return
   event.respondWith(
     (async () => {
       const cache = await caches.open(cacheName)

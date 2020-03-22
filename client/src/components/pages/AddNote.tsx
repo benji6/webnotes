@@ -42,7 +42,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
         <h2>Add note</h2>
         <form
           noValidate
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault()
             handleSubmit()
           }}
