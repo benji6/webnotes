@@ -17,21 +17,21 @@
   },
   "dependencies": {
     "@reach/router": "^1.3.1",
-    "amazon-cognito-identity-js": "^3.2.4",
-    "eri": "^15.1.2",
+    "amazon-cognito-identity-js": "^3.2.6",
+    "eri": "^15.2.0",
     "idb-keyval": "^3.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@types/node": "^13.9.2",
+    "@types/node": "^12.12.31",
     "@types/reach__router": "^1.3.1",
     "@types/react": "^16.9.25",
     "@types/react-dom": "^16.9.5",
     "favicons": "^6.0.0",
     "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.11.0",
-    "prettier": "^2.0.1",
+    "prettier": "^2.0.2",
     "typescript": "^3.7.4"
   }
 }
