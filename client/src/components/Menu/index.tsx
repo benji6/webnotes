@@ -1,6 +1,5 @@
 import { Menu as EriMenu, Button } from "eri";
 import * as React from "react";
-import { Link } from "@reach/router";
 import SignOutDialog from "./SignOutDialog";
 import { StateContext } from "../AppState";
 
@@ -40,25 +39,19 @@ export default function Menu({ handleMenuClose, open }: Props) {
             <hr />
           </>
         )}
-        <ul>
-          <li>
-            <Link onClick={handleMenuClose} to="/">
-              Home
-            </Link>
-          </li>
+        <EriMenu.List>
+          <EriMenu.Link onClick={handleMenuClose} to="/">
+            Home
+          </EriMenu.Link>
           {userEmail && (
-            <li>
-              <Link onClick={handleMenuClose} to="add">
-                Add note
-              </Link>
-            </li>
+            <EriMenu.Link onClick={handleMenuClose} to="add">
+              Add note
+            </EriMenu.Link>
           )}
-          <li>
-            <Link onClick={handleMenuClose} to="about">
-              About
-            </Link>
-          </li>
-        </ul>
+          <EriMenu.Link onClick={handleMenuClose} to="about">
+            About
+          </EriMenu.Link>
+        </EriMenu.List>
       </EriMenu>
       <SignOutDialog onClose={handleDialogClose} open={isDialogOpen} />
     </>

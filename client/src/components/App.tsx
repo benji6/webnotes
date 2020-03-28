@@ -1,5 +1,5 @@
 import { Link } from "@reach/router";
-import { Header, MenuButton } from "eri";
+import { Header, Menu as EriMenu } from "eri";
 import * as React from "react";
 import useUser from "./hooks/useUser";
 import Main from "./Main";
@@ -17,7 +17,7 @@ export default function App() {
         <h1>
           <Link to="/">Webnotes</Link>
         </h1>
-        <MenuButton onClick={() => setIsMenuOpen(true)} />
+        <EriMenu.Button onClick={() => setIsMenuOpen(true)} />
       </Header>
       <Menu handleMenuClose={() => setIsMenuOpen(false)} open={isMenuOpen} />
       <Main />
