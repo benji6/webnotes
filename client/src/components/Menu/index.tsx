@@ -57,7 +57,7 @@ export default function Menu({ handleMenuClose, open }: Props) {
                 </>
               ) : (
                 <>
-                  Synced with server <Icon name="check" />
+                  Synced with server <Icon draw name="check" />
                 </>
               )}
             </p>

@@ -2600,9 +2600,9 @@ envinfo@^7.3.1:
   integrity sha512-jDgnJaF/Btomk+m3PZDTTCb5XIIIX3zYItnCRfF73zVgvinLoRomuhi75Y4su0PtQxWz4v66XnLLckyvyJTOIQ==
 
 eri@^17.0.0:
-  version "17.0.0"
-  resolved "https://registry.yarnpkg.com/eri/-/eri-17.0.0.tgz#84ac748149e5e092967cb615032231b079e4410a"
-  integrity sha512-SadVVXKDtZaP/FgP3gzFwKN7iLFbyYdHFrxE5aGsjiePu3gM2T7RE7jJTMdp6HYfhigxR3XhQNpYajre13/cYA==
+  version "17.1.1"
+  resolved "https://registry.yarnpkg.com/eri/-/eri-17.1.1.tgz#5e7c274a5170dc19a3870f3c4da5fcfcbfcb279c"
+  integrity sha512-V5eXkyes2DqlhvJqGmZ54PcVaA+YzDckeFlqWiCr9dq+6+tILtXqGpnU/jRvSLcXAcKTkYuNyNMKJdIN2tw7/Q==
   dependencies:
     react-transition-group "^4.1.1"
 
