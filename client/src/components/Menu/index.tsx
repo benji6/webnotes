@@ -40,28 +40,6 @@ export default function Menu({ handleMenuClose, open }: Props) {
               </Button>
             </Button.Group>
             <hr />
-            <p e-util="center">
-              {isSyncingFromServer ? (
-                isSyncingToServer ? (
-                  <>
-                    Syncing <Spinner inline />
-                  </>
-                ) : (
-                  <>
-                    Syncing from server <Spinner inline />
-                  </>
-                )
-              ) : isSyncingToServer ? (
-                <>
-                  Syncing to server <Spinner inline />
-                </>
-              ) : (
-                <>
-                  Synced with server <Icon draw name="check" />
-                </>
-              )}
-            </p>
-            <hr />
           </>
         )}
         <EriMenu.List>
@@ -77,6 +55,28 @@ export default function Menu({ handleMenuClose, open }: Props) {
             About
           </EriMenu.Link>
         </EriMenu.List>
+        <hr />
+        <p e-util="center">
+          {isSyncingFromServer ? (
+            isSyncingToServer ? (
+              <>
+                Syncing <Spinner inline />
+              </>
+            ) : (
+              <>
+                Syncing from server <Spinner inline />
+              </>
+            )
+          ) : isSyncingToServer ? (
+            <>
+              Syncing to server <Spinner inline />
+            </>
+          ) : (
+            <>
+              Synced with server <Icon draw name="check" />
+            </>
+          )}
+        </p>
       </EriMenu>
       <SignOutDialog onClose={handleDialogClose} open={isDialogOpen} />
     </>
