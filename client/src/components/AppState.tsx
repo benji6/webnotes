@@ -16,11 +16,17 @@ type Action =
   | FluxStandardAction<"notes/set", ClientNote[]>
   | FluxStandardAction<"notes/update", ClientNote>
   | FluxStandardAction<"storage/finishedLoading">
+  | FluxStandardAction<"sync/syncedFromServer">
+  | FluxStandardAction<"sync/syncedToServer">
+  | FluxStandardAction<"sync/syncingFromServer">
+  | FluxStandardAction<"sync/syncingToServer">
   | FluxStandardAction<"user/clearEmail">
   | FluxStandardAction<"user/setEmail", string>;
 
 interface State {
   areNotesLoading: boolean;
+  isSyncingFromServer: boolean;
+  isSyncingToServer: boolean;
   isUserLoading: boolean;
   notes: ClientNote[] | undefined;
   userEmail: string | undefined;
@@ -28,6 +34,8 @@ interface State {
 
 const initialState: State = {
   areNotesLoading: true,
+  isSyncingFromServer: false,
+  isSyncingToServer: false,
   isUserLoading: true,
   notes: undefined,
   userEmail: undefined,
@@ -79,6 +87,14 @@ const reducer = (state: State, action: Action): State => {
     }
     case "storage/finishedLoading":
       return { ...state, isUserLoading: false };
+    case "sync/syncedFromServer":
+      return { ...state, isSyncingFromServer: false };
+    case "sync/syncingFromServer":
+      return { ...state, isSyncingFromServer: true };
+    case "sync/syncedToServer":
+      return { ...state, isSyncingToServer: false };
+    case "sync/syncingToServer":
+      return { ...state, isSyncingToServer: true };
     case "user/clearEmail":
       return { ...state, userEmail: undefined };
     case "user/setEmail":

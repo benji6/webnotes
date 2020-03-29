@@ -39,14 +39,18 @@ export default function useNotes(): void {
   const fetchNotes = () =>
     void (async () => {
       if (state.areNotesLoading || !userEmail) return;
+      dispatch({ type: "sync/syncingFromServer" });
       const serverNotes = await getNotes();
-      if (!state.notes)
-        return dispatch({ type: "notes/set", payload: serverNotes });
-      const { notes: newNotes, notesUpdated } = syncServerToClient(
-        state.notes,
-        serverNotes
-      );
-      if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
+      if (state.notes) {
+        const { notes: newNotes, notesUpdated } = syncServerToClient(
+          state.notes,
+          serverNotes
+        );
+        if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
+      } else {
+        dispatch({ type: "notes/set", payload: serverNotes });
+      }
+      dispatch({ type: "sync/syncedFromServer" });
     })();
 
   const updateNotes = () =>
@@ -58,10 +62,12 @@ export default function useNotes(): void {
         !state.notes.some(({ syncState }) => syncState)
       )
         return;
+      dispatch({ type: "sync/syncingToServer" });
       const { notes: newNotes, notesUpdated } = await syncClientToServer(
         state.notes
       );
       if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
+      dispatch({ type: "sync/syncedToServer" });
     })();
 
   React.useEffect(fetchNotes, [state.areNotesLoading, userEmail]);

@@ -1,4 +1,4 @@
-import { Menu as EriMenu, Button } from "eri";
+import { Menu as EriMenu, Button, Icon, Spinner } from "eri";
 import * as React from "react";
 import SignOutDialog from "./SignOutDialog";
 import { StateContext } from "../AppState";
@@ -9,7 +9,11 @@ interface Props {
 }
 
 export default function Menu({ handleMenuClose, open }: Props) {
-  const { userEmail } = React.useContext(StateContext);
+  const {
+    isSyncingFromServer,
+    isSyncingToServer,
+    userEmail,
+  } = React.useContext(StateContext);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const handleDialogClose = () => {
@@ -35,6 +39,28 @@ export default function Menu({ handleMenuClose, open }: Props) {
                 Sign out
               </Button>
             </Button.Group>
+            <hr />
+            <p e-util="center">
+              {isSyncingFromServer ? (
+                isSyncingToServer ? (
+                  <>
+                    Syncing <Spinner inline />
+                  </>
+                ) : (
+                  <>
+                    Syncing from server <Spinner inline />
+                  </>
+                )
+              ) : isSyncingToServer ? (
+                <>
+                  Syncing to server <Spinner inline />
+                </>
+              ) : (
+                <>
+                  Synced with server <Icon name="check" />
+                </>
+              )}
+            </p>
             <hr />
           </>
         )}
