@@ -1215,9 +1215,9 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^16.9.26":
-  version "16.9.26"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.26.tgz#1e55803e468f5393413e29033538cc9aaed6cec9"
-  integrity sha512-dGuSM+B0Pq1MKXYUMlUQWeS6Jj9IhSAUf9v8Ikaimj+YhkBcQrihWBkmyEhK/1fzkJTwZQkhZp5YhmWa2CH+Rw==
+  version "16.9.27"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.27.tgz#7fc5db99e3ec3f21735b44d3560cff684856814a"
+  integrity sha512-j+RvQb9w7a2kZFBOgTh+s/elCwtqWUMN6RJNdmz0ntmwpeoMHKnyhUcmYBu7Yw94Rtj9938D+TJSn6WGcq2+OA==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -2599,10 +2599,10 @@ envinfo@^7.3.1:
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.5.0.tgz#91410bb6db262fb4f1409bd506e9ff57e91023f4"
   integrity sha512-jDgnJaF/Btomk+m3PZDTTCb5XIIIX3zYItnCRfF73zVgvinLoRomuhi75Y4su0PtQxWz4v66XnLLckyvyJTOIQ==
 
-eri@^16.0.1:
-  version "16.0.1"
-  resolved "https://registry.yarnpkg.com/eri/-/eri-16.0.1.tgz#47ea1138f42d8a08cf4d7bc4ebed243b0ded50dc"
-  integrity sha512-SrdYz2JZeuU56Jh+PZmfed9UmjN11/LK6Y/Uf3bJ8LUnqx3abUS2kzvbvv3fQcBYckc+0jhtn1REfKOSjWlZ0Q==
+eri@^17.0.0:
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/eri/-/eri-17.0.0.tgz#84ac748149e5e092967cb615032231b079e4410a"
+  integrity sha512-SadVVXKDtZaP/FgP3gzFwKN7iLFbyYdHFrxE5aGsjiePu3gM2T7RE7jJTMdp6HYfhigxR3XhQNpYajre13/cYA==
   dependencies:
     react-transition-group "^4.1.1"
 
