@@ -22,10 +22,9 @@ export default function Menu({ handleMenuClose, open }: Props) {
       <EriMenu onClose={handleMenuClose} open={open}>
         {userEmail && (
           <>
+            <strong>Signed in</strong>
             <p>
-              Signed in as:
-              <br />
-              {userEmail}
+              <em>{userEmail}</em>
             </p>
             <Button.Group>
               <Button
