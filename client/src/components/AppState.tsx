@@ -16,8 +16,10 @@ type Action =
   | FluxStandardAction<"notes/set", ClientNote[]>
   | FluxStandardAction<"notes/update", ClientNote>
   | FluxStandardAction<"storage/finishedLoading">
+  | FluxStandardAction<"syncFromServer/error">
   | FluxStandardAction<"syncFromServer/start">
   | FluxStandardAction<"syncFromServer/success">
+  | FluxStandardAction<"syncToServer/error">
   | FluxStandardAction<"syncToServer/start">
   | FluxStandardAction<"syncToServer/success">
   | FluxStandardAction<"user/clearEmail">
@@ -29,6 +31,8 @@ interface State {
   isSyncingToServer: boolean;
   isUserLoading: boolean;
   notes: ClientNote[] | undefined;
+  syncFromServerError: boolean;
+  syncToServerError: boolean;
   userEmail: string | undefined;
 }
 
@@ -38,6 +42,8 @@ const initialState: State = {
   isSyncingToServer: false,
   isUserLoading: true,
   notes: undefined,
+  syncFromServerError: false,
+  syncToServerError: false,
   userEmail: undefined,
 };
 
@@ -87,14 +93,34 @@ const reducer = (state: State, action: Action): State => {
     }
     case "storage/finishedLoading":
       return { ...state, isUserLoading: false };
+    case "syncFromServer/error":
+      return {
+        ...state,
+        isSyncingFromServer: false,
+        syncFromServerError: true,
+      };
     case "syncFromServer/start":
-      return { ...state, isSyncingFromServer: true };
+      return {
+        ...state,
+        isSyncingFromServer: true,
+        syncFromServerError: false,
+      };
     case "syncFromServer/success":
-      return { ...state, isSyncingFromServer: false };
+      return {
+        ...state,
+        isSyncingFromServer: false,
+        syncFromServerError: false,
+      };
+    case "syncToServer/error":
+      return { ...state, isSyncingToServer: false, syncToServerError: true };
     case "syncToServer/start":
-      return { ...state, isSyncingToServer: true };
+      return { ...state, isSyncingToServer: true, syncToServerError: false };
     case "syncToServer/success":
-      return { ...state, isSyncingToServer: false };
+      return {
+        ...state,
+        isSyncingToServer: false,
+        syncToServerError: false,
+      };
     case "user/clearEmail":
       return { ...state, userEmail: undefined };
     case "user/setEmail":

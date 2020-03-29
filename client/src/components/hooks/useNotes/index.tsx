@@ -40,17 +40,21 @@ export default function useNotes(): void {
     void (async () => {
       if (state.areNotesLoading || !userEmail) return;
       dispatch({ type: "syncFromServer/start" });
-      const serverNotes = await getNotes();
-      if (state.notes) {
-        const { notes: newNotes, notesUpdated } = syncServerToClient(
-          state.notes,
-          serverNotes
-        );
-        if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
-      } else {
-        dispatch({ type: "notes/set", payload: serverNotes });
+      try {
+        const serverNotes = await getNotes();
+        if (state.notes) {
+          const { notes: newNotes, notesUpdated } = syncServerToClient(
+            state.notes,
+            serverNotes
+          );
+          if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
+        } else {
+          dispatch({ type: "notes/set", payload: serverNotes });
+        }
+        dispatch({ type: "syncFromServer/success" });
+      } catch {
+        dispatch({ type: "syncFromServer/error" });
       }
-      dispatch({ type: "syncFromServer/success" });
     })();
 
   const updateNotes = () =>
@@ -63,11 +67,12 @@ export default function useNotes(): void {
       )
         return;
       dispatch({ type: "syncToServer/start" });
-      const { notes: newNotes, notesUpdated } = await syncClientToServer(
+      const { error, notes: newNotes, notesUpdated } = await syncClientToServer(
         state.notes
       );
       if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
-      dispatch({ type: "syncToServer/success" });
+      if (error) dispatch({ type: "syncToServer/error" });
+      else dispatch({ type: "syncToServer/success" });
     })();
 
   React.useEffect(fetchNotes, [state.areNotesLoading, userEmail]);
