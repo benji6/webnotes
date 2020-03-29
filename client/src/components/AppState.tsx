@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NoteLocal } from "../types";
+import { ClientNote } from "../types";
 
 type FluxStandardAction<
   Type extends string,
@@ -9,12 +9,12 @@ type FluxStandardAction<
   : { payload: Payload; type: Type };
 
 type Action =
-  | FluxStandardAction<"notes/add", NoteLocal>
+  | FluxStandardAction<"notes/add", ClientNote>
   | FluxStandardAction<"notes/clearAll">
   | FluxStandardAction<"notes/delete", string>
   | FluxStandardAction<"notes/finishedLoading">
-  | FluxStandardAction<"notes/set", NoteLocal[]>
-  | FluxStandardAction<"notes/update", NoteLocal>
+  | FluxStandardAction<"notes/set", ClientNote[]>
+  | FluxStandardAction<"notes/update", ClientNote>
   | FluxStandardAction<"storage/finishedLoading">
   | FluxStandardAction<"user/clearEmail">
   | FluxStandardAction<"user/setEmail", string>;
@@ -22,7 +22,7 @@ type Action =
 interface State {
   areNotesLoading: boolean;
   isUserLoading: boolean;
-  notes: NoteLocal[] | undefined;
+  notes: ClientNote[] | undefined;
   userEmail: string | undefined;
 }
 

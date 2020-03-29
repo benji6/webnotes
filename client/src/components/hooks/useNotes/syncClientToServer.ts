@@ -1,10 +1,10 @@
-import { NoteLocal } from "../../../types";
+import { ClientNote } from "../../../types";
 import { postNote, putNote, deleteNote } from "../../../api";
 
-export default async function syncLocalToRemote(
-  notes: NoteLocal[]
+export default async function syncClientToServer(
+  notes: ClientNote[]
 ): Promise<{
-  notes: NoteLocal[];
+  notes: ClientNote[];
   notesUpdated: boolean;
 }> {
   let notesUpdated = false;
@@ -42,7 +42,7 @@ export default async function syncLocalToRemote(
     })
   );
   return {
-    notes: newNotes.filter(Boolean) as NoteLocal[],
+    notes: newNotes.filter(Boolean) as ClientNote[],
     notesUpdated,
   };
 }

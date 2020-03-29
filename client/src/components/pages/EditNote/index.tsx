@@ -4,7 +4,7 @@ import { Button, Fab, Icon, Paper, requiredValidator, TextArea } from "eri";
 import DeleteDialog from "./DeleteDialog";
 import useNotePlaceholder from "../../hooks/useNotePlaceholder";
 import useRedirectUnAuthed from "../../hooks/useRedirectUnAuthed";
-import { NoteLocal } from "../../../types";
+import { ClientNote } from "../../../types";
 import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext, StateContext } from "../../AppState";
 
@@ -36,7 +36,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
       setTextAreaError(fieldError);
       return;
     }
-    const newNote: NoteLocal = {
+    const newNote: ClientNote = {
       body,
       dateCreated: dateCreated as string,
       dateUpdated: new Date().toISOString(),

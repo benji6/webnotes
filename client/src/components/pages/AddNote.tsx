@@ -3,7 +3,7 @@ import * as React from "react";
 import { Fab, Icon, TextArea, Paper, requiredValidator } from "eri";
 import useRedirectUnAuthed from "../hooks/useRedirectUnAuthed";
 import useNotePlaceholder from "../hooks/useNotePlaceholder";
-import { NoteLocal } from "../../types";
+import { ClientNote } from "../../types";
 import useKeyboardSave from "../hooks/useKeyboardSave";
 import { DispatchContext } from "../AppState";
 
@@ -26,7 +26,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
       return;
     }
     const dateCreated = new Date().toISOString();
-    const note: NoteLocal = {
+    const note: ClientNote = {
       body,
       dateCreated,
       dateUpdated: dateCreated,

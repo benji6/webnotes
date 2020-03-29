@@ -1,8 +1,8 @@
 import * as React from "react";
 import { getNotes } from "../../../api";
 import storage from "../../../storage";
-import syncLocalToRemote from "./syncLocalToRemote";
-import syncRemoteToLocal from "./syncRemoteToLocal";
+import syncClientToServer from "./syncClientToServer";
+import syncServerToClient from "./syncServerToClient";
 import useInterval from "../useInterval";
 import { StateContext, DispatchContext } from "../../AppState";
 
@@ -39,12 +39,12 @@ export default function useNotes(): void {
   const fetchNotes = () =>
     void (async () => {
       if (state.areNotesLoading || !userEmail) return;
-      const remoteNotes = await getNotes();
+      const serverNotes = await getNotes();
       if (!state.notes)
-        return dispatch({ type: "notes/set", payload: remoteNotes });
-      const { notes: newNotes, notesUpdated } = syncRemoteToLocal(
+        return dispatch({ type: "notes/set", payload: serverNotes });
+      const { notes: newNotes, notesUpdated } = syncServerToClient(
         state.notes,
-        remoteNotes
+        serverNotes
       );
       if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
     })();
@@ -58,7 +58,7 @@ export default function useNotes(): void {
         !state.notes.some(({ syncState }) => syncState)
       )
         return;
-      const { notes: newNotes, notesUpdated } = await syncLocalToRemote(
+      const { notes: newNotes, notesUpdated } = await syncClientToServer(
         state.notes
       );
       if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
