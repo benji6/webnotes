@@ -1,5 +1,5 @@
 import { ClientNote } from "../../../types";
-import { postNote, putNote, deleteNote } from "../../../api";
+import { deleteNote, putNote } from "../../../api";
 
 export default async function syncClientToServer(
   notes: ClientNote[]
@@ -20,7 +20,7 @@ export default async function syncClientToServer(
             notesUpdated = true;
             return;
           case "created": {
-            const newNote = await postNote({
+            const newNote = await putNote({
               body: note.body,
               dateCreated: note.dateCreated,
               dateUpdated: note.dateUpdated,

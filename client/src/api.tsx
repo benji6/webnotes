@@ -31,24 +31,6 @@ export const getNotes = async (): Promise<Note[]> => {
   return response.json();
 };
 
-export const postNote = async (note: {
-  body: string;
-  dateCreated: string;
-  dateUpdated: string;
-}): Promise<Note> => {
-  const Authorization = await getAuthorizationHeader();
-  const response = await fetch(`${apiUri}/notes`, {
-    body: JSON.stringify(note),
-    headers: {
-      Authorization,
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-  });
-  if (!response.ok) throw Error(String(response.status));
-  return response.json();
-};
-
 export const putNote = async (note: {
   body: string;
   dateCreated: string;
