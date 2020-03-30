@@ -21,7 +21,6 @@ resource "aws_api_gateway_deployment" "prod" {
     aws_api_gateway_integration.notes_delete,
     aws_api_gateway_integration.notes_get,
     aws_api_gateway_integration.notes_options,
-    aws_api_gateway_integration.notes_post,
     aws_api_gateway_integration.notes_put,
   ]
 

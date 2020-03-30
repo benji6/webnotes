@@ -11,7 +11,7 @@ resource "aws_api_gateway_integration_response" "notes_options" {
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-    "method.response.header.Access-Control-Allow-Methods" = "'POST,OPTIONS,GET,PUT,PATCH,DELETE'"
+    "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,GET,PUT,DELETE'"
     "method.response.header.Access-Control-Allow-Origin"  = var.access_control_allow_origin
   }
 }

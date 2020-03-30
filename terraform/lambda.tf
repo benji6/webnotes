@@ -10,12 +10,6 @@ data "archive_file" "notes_get" {
   type        = "zip"
 }
 
-data "archive_file" "notes_post" {
-  output_path = "../api/dist/notes_post.zip"
-  source_file = "../api/src/notes_post.py"
-  type        = "zip"
-}
-
 data "archive_file" "notes_put" {
   output_path = "../api/dist/notes_put.zip"
   source_file = "../api/src/notes_put.py"
@@ -49,15 +43,6 @@ resource "aws_lambda_function" "notes_put" {
   source_code_hash = filebase64sha256(data.archive_file.notes_put.output_path)
 }
 
-resource "aws_lambda_function" "notes_post" {
-  filename         = data.archive_file.notes_post.output_path
-  function_name    = "notes_post"
-  handler          = "notes_post.handler"
-  role             = aws_iam_role.lambda_exec.arn
-  runtime          = "python3.7"
-  source_code_hash = filebase64sha256(data.archive_file.notes_post.output_path)
-}
-
 resource "aws_lambda_permission" "notes_delete" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.notes_delete.arn
@@ -69,14 +54,6 @@ resource "aws_lambda_permission" "notes_delete" {
 resource "aws_lambda_permission" "notes_get" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.notes_get.arn
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_api_gateway_deployment.prod.execution_arn}/*/*"
-  statement_id  = "AllowAPIGatewayInvoke"
-}
-
-resource "aws_lambda_permission" "notes_post" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.notes_post.arn
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_deployment.prod.execution_arn}/*/*"
   statement_id  = "AllowAPIGatewayInvoke"
