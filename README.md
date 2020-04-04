@@ -16,7 +16,7 @@ The Webnotes UI was built using a component library I made called [Eri](https://
 ### Backend and infrastructure
 
 ```sh
-cd terraform
+cd infrastructure
 terraform apply
 ```
 
