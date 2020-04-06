@@ -51,6 +51,9 @@ export default function Menu({ handleMenuClose, open }: Props) {
           <EriMenu.Link onClick={handleMenuClose} to="about">
             About
           </EriMenu.Link>
+          <EriMenu.Link onClick={handleMenuClose} to="see-also">
+            See also
+          </EriMenu.Link>
         </EriMenu.List>
         {userEmail && <SyncState />}
       </EriMenu>

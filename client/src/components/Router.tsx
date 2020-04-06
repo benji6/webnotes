@@ -6,6 +6,7 @@ import AddNote from "./pages/AddNote";
 import EditNote from "./pages/EditNote";
 import Home from "./pages/Home";
 import ResendVerification from "./pages/ResendVerification";
+import SeeAlso from "./pages/SeeAlso";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Verify from "./pages/Verify";
@@ -18,6 +19,7 @@ export default function Router() {
       <About path="about" />
       <AddNote path="add" />
       <EditNote path="edit/:dateCreated" />
+      <SeeAlso path="see-also" />
       <ResendVerification path="resend-verification" />
       <SignIn path="sign-in" />
       <SignUp path="sign-up" />
