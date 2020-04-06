@@ -1265,10 +1265,10 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-amazon-cognito-identity-js@^3.2.6:
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-3.2.6.tgz#8b57095535f8ec1332172061cb4aefa9b79fd8a5"
-  integrity sha512-RQMGvSdVlYmkPavYEK7goRy0s9gTQWU2vFP92s/hqLL/Vk5S9YQu5CEVLj3P9YPalXSzwthwWe0ClPHAc1EXvw==
+amazon-cognito-identity-js@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-4.2.0.tgz#11d31f17248a90a9313d30ede726645156b29aec"
+  integrity sha512-w9WHth5khfv3PDKG8fSKKnoxmcQviR4OwmgrCK65QscpG5yPeGmZ6eWVfIaPGT11f2M9iBoLDylttEa0fJtntw==
   dependencies:
     buffer "4.9.1"
     crypto-js "^3.3.0"
