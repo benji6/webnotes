@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "@reach/router";
-import { Paper, ShareButton } from "eri";
+import { Paper } from "eri";
 import * as React from "react";
 
 export default function SeeAlso(_: RouteComponentProps) {
@@ -15,7 +15,6 @@ export default function SeeAlso(_: RouteComponentProps) {
           meditations. It's simple to use, works offline and aims to be the
           perfect aide for your meditation practice!
         </p>
-        <ShareButton />
       </Paper>
     </Paper.Group>
   );
