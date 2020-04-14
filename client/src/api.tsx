@@ -35,7 +35,7 @@ export const putNote = async (note: {
   body: string;
   dateCreated: string;
   dateUpdated: string;
-}): Promise<Note> => {
+}): Promise<void> => {
   const Authorization = await getAuthorizationHeader();
   const response = await fetch(`${apiUri}/notes`, {
     body: JSON.stringify(note),
@@ -46,5 +46,4 @@ export const putNote = async (note: {
     method: "PUT",
   });
   if (!response.ok) throw Error(String(response.status));
-  return response.json();
 };

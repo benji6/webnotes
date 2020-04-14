@@ -19,21 +19,14 @@ export default async function syncClientToServer(
             await deleteNote({ dateCreated: note.dateCreated });
             notesUpdated = true;
             return;
-          case "created": {
-            const newNote = await putNote({
-              body: note.body,
-              dateCreated: note.dateCreated,
-              dateUpdated: note.dateUpdated,
-            });
-            notesUpdated = true;
-            return newNote;
-          }
+          case "created":
           case "updated": {
-            const newNote = await putNote({
+            const newNote = {
               body: note.body,
               dateCreated: note.dateCreated,
               dateUpdated: note.dateUpdated,
-            });
+            };
+            await putNote(newNote);
             notesUpdated = true;
             return newNote;
           }
