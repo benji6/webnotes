@@ -18,10 +18,10 @@ EOF
   uri         = aws_lambda_function.notes_delete.invoke_arn
 }
 
-resource "aws_api_gateway_integration_response" "notes_delete_200" {
+resource "aws_api_gateway_integration_response" "notes_delete_204" {
   depends_on = [
     aws_api_gateway_integration.notes_delete,
-    aws_api_gateway_method_response.notes_delete_200,
+    aws_api_gateway_method_response.notes_delete_204,
   ]
 
   http_method = aws_api_gateway_method.notes_delete.http_method
@@ -32,7 +32,7 @@ resource "aws_api_gateway_integration_response" "notes_delete_200" {
   }
 
   rest_api_id = aws_api_gateway_rest_api.api.id
-  status_code = aws_api_gateway_method_response.notes_delete_200.status_code
+  status_code = aws_api_gateway_method_response.notes_delete_204.status_code
 }
 
 resource "aws_api_gateway_integration_response" "notes_delete_500" {
@@ -61,7 +61,7 @@ resource "aws_api_gateway_method" "notes_delete" {
   rest_api_id   = aws_api_gateway_rest_api.api.id
 }
 
-resource "aws_api_gateway_method_response" "notes_delete_200" {
+resource "aws_api_gateway_method_response" "notes_delete_204" {
   depends_on  = [aws_api_gateway_method.notes_delete]
   http_method = aws_api_gateway_method.notes_delete.http_method
   resource_id = aws_api_gateway_resource.notes.id
@@ -71,7 +71,7 @@ resource "aws_api_gateway_method_response" "notes_delete_200" {
   }
 
   rest_api_id = aws_api_gateway_rest_api.api.id
-  status_code = 200
+  status_code = 204
 }
 
 resource "aws_api_gateway_method_response" "notes_delete_500" {
@@ -86,4 +86,3 @@ resource "aws_api_gateway_method_response" "notes_delete_500" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   status_code = 500
 }
-
