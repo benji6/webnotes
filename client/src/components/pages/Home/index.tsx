@@ -12,11 +12,11 @@ export default function Home({ navigate }: RouteComponentProps) {
       {state.userEmail ? (
         <Paper>
           <h2>Notes</h2>
-          <Card.Group>
-            {!state.notes ? (
-              <Spinner />
-            ) : state.notes.length ? (
-              state.notes
+          {!state.notes ? (
+            <Spinner />
+          ) : state.notes.length ? (
+            <Card.Group>
+              {state.notes
                 .filter(({ syncState }) => syncState !== "deleted")
                 .map(({ body, dateCreated }) => (
                   <Note
@@ -26,16 +26,16 @@ export default function Home({ navigate }: RouteComponentProps) {
                   >
                     {body}
                   </Note>
-                ))
-            ) : (
-              <div>
-                <p>You have no notes!</p>
-                <p>
-                  <Link to="add">Click here to add your first one</Link>
-                </p>
-              </div>
-            )}
-          </Card.Group>
+                ))}
+            </Card.Group>
+          ) : (
+            <>
+              <p>You have no notes!</p>
+              <p>
+                <Link to="add">Click here to add your first one</Link>
+              </p>
+            </>
+          )}
           <Fab
             aria-label="add new note"
             onClick={() => (navigate as NavigateFn)("add")}
