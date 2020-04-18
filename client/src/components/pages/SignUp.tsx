@@ -1,6 +1,6 @@
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import { SignUpPage } from "eri";
-import { RouteComponentProps, Link, navigate } from "@reach/router";
+import { RouteComponentProps, navigate } from "@reach/router";
 import * as React from "react";
 import { userPool } from "../../cognito";
 import { networkErrorMessage } from "../../constants";
@@ -51,7 +51,6 @@ export default function SignUp(_: RouteComponentProps) {
           }
         }
       }}
-      signInLink={<Link to="/sign-in">Sign in</Link>}
     />
   );
 }

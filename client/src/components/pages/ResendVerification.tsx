@@ -1,6 +1,6 @@
 import { CognitoUser } from "amazon-cognito-identity-js";
 import { ResendVerificationPage } from "eri";
-import { RouteComponentProps, Link, navigate } from "@reach/router";
+import { RouteComponentProps, navigate } from "@reach/router";
 import * as React from "react";
 import { userPool } from "../../cognito";
 import { networkErrorMessage } from "../../constants";
@@ -47,8 +47,6 @@ export default function ResendVerification(_: RouteComponentProps) {
           }
         }
       }}
-      signInLink={<Link to="/sign-in">Sign in</Link>}
-      signUpLink={<Link to="/sign-up">Sign up</Link>}
     />
   );
 }

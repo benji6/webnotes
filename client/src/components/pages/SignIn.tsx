@@ -42,7 +42,6 @@ export default function SignIn({ navigate }: RouteComponentProps) {
 
   return (
     <SignInPage
-      signUpLink={<Link to="/sign-up">Sign up</Link>}
       onSubmit={async ({ email, password, setSubmitError }) => {
         try {
           const result = await authenticate({ email, password });
