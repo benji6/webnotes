@@ -24,7 +24,7 @@ export default function useUser(): void {
           const idToken = await getIdToken();
           dispatch({ type: "user/setEmail", payload: idToken.payload.email });
         } catch (e) {
-          if (e.message === "no current user")
+          if (e.message === "No current user")
             dispatch({ type: "user/clearEmail" });
         }
       })(),
