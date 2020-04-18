@@ -12,6 +12,7 @@ export default function useNotes(): void {
   const dispatch = React.useContext(DispatchContext);
   const state = React.useContext(StateContext);
   const { userEmail } = React.useContext(StateContext);
+  const [isLoadedFromStorage, setIsLoadedFromStorage] = React.useState(false);
 
   React.useEffect(
     () =>
@@ -24,21 +25,21 @@ export default function useNotes(): void {
             dispatch({ type: "notes/clearAll" });
           }
         } finally {
-          dispatch({ type: "notes/finishedLoading" });
+          setIsLoadedFromStorage(true);
         }
       })(),
     []
   );
 
   React.useEffect(() => {
-    if (state.areNotesLoading) return;
+    if (!isLoadedFromStorage) return;
     if (!state.notes) storage.deleteNotes();
     else storage.setNotes(state.notes);
-  }, [state.areNotesLoading, state.notes]);
+  }, [isLoadedFromStorage, state.notes]);
 
   const fetchNotes = () =>
     void (async () => {
-      if (state.areNotesLoading || !userEmail) return;
+      if (!isLoadedFromStorage || !userEmail) return;
       dispatch({ type: "syncFromServer/start" });
       try {
         const serverNotes = await getNotes();
@@ -60,7 +61,7 @@ export default function useNotes(): void {
   const updateNotes = () =>
     void (async () => {
       if (
-        state.areNotesLoading ||
+        !isLoadedFromStorage ||
         !userEmail ||
         !state.notes ||
         !state.notes.some(({ syncState }) => syncState)
@@ -75,8 +76,8 @@ export default function useNotes(): void {
       else dispatch({ type: "syncToServer/success" });
     })();
 
-  React.useEffect(fetchNotes, [state.areNotesLoading, userEmail]);
-  React.useEffect(updateNotes, [state.areNotesLoading, state.notes]);
+  React.useEffect(fetchNotes, [isLoadedFromStorage, userEmail]);
+  React.useEffect(updateNotes, [isLoadedFromStorage, state.notes]);
   useInterval(fetchNotes, syncInterval);
   useInterval(updateNotes, syncInterval);
 }
