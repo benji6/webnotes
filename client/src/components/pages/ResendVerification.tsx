@@ -30,16 +30,6 @@ export default function ResendVerification(_: RouteComponentProps) {
             case "NetworkError":
               setSubmitError(networkErrorMessage);
               break;
-            case "InvalidParameterException":
-              setSubmitError(
-                "Email address not recognised, try signing up instead"
-              );
-              break;
-            case "UserNotFoundException":
-              setSubmitError(
-                "Email address has already been confirmed, please sign in"
-              );
-              break;
             default:
               setSubmitError(
                 "Something went wrong, check the data you have entered and try again"

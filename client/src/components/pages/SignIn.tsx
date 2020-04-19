@@ -65,7 +65,6 @@ export default function SignIn({ navigate }: RouteComponentProps) {
               );
 
             case "NotAuthorizedException":
-            case "UserNotFoundException":
               return setSubmitError("Incorrect email/password");
             default:
               setSubmitError(

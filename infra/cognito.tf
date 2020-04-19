@@ -19,8 +19,9 @@ resource "aws_cognito_user_pool" "main" {
 }
 
 resource "aws_cognito_user_pool_client" "main" {
-  name         = "webnotes"
-  user_pool_id = aws_cognito_user_pool.main.id
+  name                          = "webnotes"
+  prevent_user_existence_errors = "ENABLED"
+  user_pool_id                  = aws_cognito_user_pool.main.id
 }
 
 resource "aws_cognito_identity_pool" "main" {
