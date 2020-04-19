@@ -7,6 +7,7 @@
   [headers.values]
     Content-Security-Policy = "frame-ancestors 'none'"
     Referrer-Policy = "no-referrer-when-downgrade"
+    X-Content-Type-Options = "nosniff"
 [[headers]]
   for = "*.(css|ico|png|svg)"
   [headers.values]
