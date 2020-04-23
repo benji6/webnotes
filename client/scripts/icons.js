@@ -26,7 +26,6 @@ favicons(source, configuration, (err, response) => {
   response.images
     .filter(({ name }) =>
       [
-        'android-chrome-144x144.png',
         'android-chrome-192x192.png',
         'android-chrome-512x512.png',
         'apple-touch-icon.png',
