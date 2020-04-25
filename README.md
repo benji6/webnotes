@@ -11,20 +11,23 @@ Webnotes is a free and open source web app that lets you create and manage notes
 
 The Webnotes UI was built using a component library I made called [Eri](https://github.com/benji6/eri).
 
+## Testing
+
+```sh
+./scripts/test.sh
+```
+
 ## Deploying
 
 ### Backend and infrastructure
 
-```sh
-cd infra
-terraform apply
-```
-
-**N.B. making changes to the API doesn't trigger a new deployment, but you can trigger a manual deployment by copying the `deploy_api_command` terraform output and running that.**
+Infrastructure is managed with Terraform.
 
 ```sh
-aws apigateway create-deployment --rest-api-id a6zs5gaxx6 --stage-name prod
+./scripts/deploy.sh
 ```
+
+**N.B. making changes to the API doesn't trigger a new deployment, but you can trigger a manual deployment by copying the `deploy_api_command` Terraform output and running that.**
 
 ### UI
 
