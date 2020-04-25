@@ -18,7 +18,7 @@ data "archive_file" "notes_put" {
 
 resource "aws_lambda_function" "notes_delete" {
   filename         = data.archive_file.notes_delete.output_path
-  function_name    = "notes_delete"
+  function_name    = "WebnotesNotesDelete"
   handler          = "notes_delete.handler"
   role             = aws_iam_role.lambda_exec.arn
   runtime          = "python3.7"
@@ -27,7 +27,7 @@ resource "aws_lambda_function" "notes_delete" {
 
 resource "aws_lambda_function" "notes_get" {
   filename         = data.archive_file.notes_get.output_path
-  function_name    = "notes_get"
+  function_name    = "WebnotesNotesGet"
   handler          = "notes_get.handler"
   role             = aws_iam_role.lambda_exec.arn
   runtime          = "python3.7"
@@ -36,7 +36,7 @@ resource "aws_lambda_function" "notes_get" {
 
 resource "aws_lambda_function" "notes_put" {
   filename         = data.archive_file.notes_put.output_path
-  function_name    = "notes_put"
+  function_name    = "WebnotesNotesPut"
   handler          = "notes_put.handler"
   role             = aws_iam_role.lambda_exec.arn
   runtime          = "python3.7"
@@ -66,4 +66,3 @@ resource "aws_lambda_permission" "notes_put" {
   source_arn    = "${aws_api_gateway_deployment.prod.execution_arn}/*/*"
   statement_id  = "AllowAPIGatewayInvoke"
 }
-
