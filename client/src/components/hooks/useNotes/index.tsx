@@ -6,7 +6,7 @@ import syncServerToClient from "./syncServerToClient";
 import useInterval from "../useInterval";
 import { StateContext, DispatchContext } from "../../AppState";
 
-const syncInterval = 6e4;
+const SYNC_INTERVAL = 6e4;
 
 export default function useNotes(): void {
   const dispatch = React.useContext(DispatchContext);
@@ -78,6 +78,6 @@ export default function useNotes(): void {
 
   React.useEffect(fetchNotes, [isLoadedFromStorage, userEmail]);
   React.useEffect(updateNotes, [isLoadedFromStorage, state.notes]);
-  useInterval(fetchNotes, syncInterval);
-  useInterval(updateNotes, syncInterval);
+  useInterval(fetchNotes, SYNC_INTERVAL);
+  useInterval(updateNotes, SYNC_INTERVAL);
 }
