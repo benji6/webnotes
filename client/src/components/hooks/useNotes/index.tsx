@@ -11,7 +11,6 @@ const SYNC_INTERVAL = 6e4;
 export default function useNotes(): void {
   const dispatch = React.useContext(DispatchContext);
   const state = React.useContext(StateContext);
-  const { userEmail } = React.useContext(StateContext);
   const [isLoadedFromStorage, setIsLoadedFromStorage] = React.useState(false);
 
   React.useEffect(
@@ -39,7 +38,7 @@ export default function useNotes(): void {
 
   const fetchNotes = () =>
     void (async () => {
-      if (!isLoadedFromStorage || !userEmail) return;
+      if (!isLoadedFromStorage || !state.userEmail) return;
       dispatch({ type: "syncFromServer/start" });
       try {
         const serverNotes = await getNotes();
@@ -62,7 +61,7 @@ export default function useNotes(): void {
     void (async () => {
       if (
         !isLoadedFromStorage ||
-        !userEmail ||
+        !state.userEmail ||
         !state.notes ||
         !state.notes.some(({ syncState }) => syncState)
       )
@@ -76,7 +75,7 @@ export default function useNotes(): void {
       else dispatch({ type: "syncToServer/success" });
     })();
 
-  React.useEffect(fetchNotes, [isLoadedFromStorage, userEmail]);
+  React.useEffect(fetchNotes, [isLoadedFromStorage, state.userEmail]);
   React.useEffect(updateNotes, [isLoadedFromStorage, state.notes]);
   useInterval(fetchNotes, SYNC_INTERVAL);
   useInterval(updateNotes, SYNC_INTERVAL);
