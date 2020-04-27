@@ -1,45 +1,35 @@
-import { ClientNote } from "../../../types";
-import { deleteNote, putNote } from "../../../api";
+import { ClientNote, Patch } from "../../../types";
+import { patchNotes } from "../../../api";
 
 export default async function syncClientToServer(
   notes: ClientNote[]
-): Promise<{
-  error: boolean;
-  notes: ClientNote[];
-  notesUpdated: boolean;
-}> {
-  let notesUpdated = false;
-  let error = false;
-  const newNotes = await Promise.all(
-    notes.map(async (note) => {
-      if (!note.syncState) return note;
-      try {
-        switch (note.syncState) {
-          case "deleted":
-            await deleteNote({ dateCreated: note.dateCreated });
-            notesUpdated = true;
-            return;
-          case "created":
-          case "updated": {
-            const newNote = {
-              body: note.body,
-              dateCreated: note.dateCreated,
-              dateUpdated: note.dateUpdated,
-            };
-            await putNote(newNote);
-            notesUpdated = true;
-            return newNote;
-          }
-        }
-      } catch {
-        error = true;
-        return note;
+): Promise<ClientNote[]> {
+  let patch: Patch = { delete: [], put: [] };
+  let newNotes: ClientNote[] = [];
+
+  for (const note of notes) {
+    if (!note.syncState) newNotes.push(note);
+
+    switch (note.syncState) {
+      case "deleted":
+        patch.delete!.push(note.dateCreated);
+        continue;
+      case "created":
+      case "updated": {
+        const newNote = {
+          body: note.body,
+          dateCreated: note.dateCreated,
+          dateUpdated: note.dateUpdated,
+        };
+        patch.put!.push(newNote);
+        newNotes.push(newNote);
       }
-    })
-  );
-  return {
-    error,
-    notes: newNotes.filter(Boolean) as ClientNote[],
-    notesUpdated,
-  };
+    }
+  }
+
+  if (!patch.delete!.length) delete patch.delete;
+  if (!patch.put!.length) delete patch.put;
+
+  await patchNotes(patch);
+  return newNotes;
 }

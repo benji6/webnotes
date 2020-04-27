@@ -67,12 +67,13 @@ export default function useNotes(): void {
       )
         return;
       dispatch({ type: "syncToServer/start" });
-      const { error, notes: newNotes, notesUpdated } = await syncClientToServer(
-        state.notes
-      );
-      if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
-      if (error) dispatch({ type: "syncToServer/error" });
-      else dispatch({ type: "syncToServer/success" });
+      try {
+        const newNotes = await syncClientToServer(state.notes);
+        dispatch({ type: "notes/set", payload: newNotes });
+        dispatch({ type: "syncToServer/success" });
+      } catch {
+        dispatch({ type: "syncToServer/error" });
+      }
     })();
 
   React.useEffect(fetchNotes, [isLoadedFromStorage, state.userEmail]);
