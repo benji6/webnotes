@@ -26,7 +26,12 @@ export default function EditNote({ dateCreated, navigate }: Props) {
   >();
   const [hasSubmitted, setHasSubmitted] = React.useState(false);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [isDirty, setIsDirty] = React.useState(false);
   const placeholder = useNotePlaceholder();
+
+  React.useEffect(() => {
+    if (!isDirty && note.body !== textAreaValue) setTextAreaValue(note.body);
+  }, [isDirty, note.body, textAreaValue]);
 
   const handleSubmit = async () => {
     const body = textAreaValue.trim();
@@ -72,6 +77,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
             error={textAreaError}
             label="Note"
             onChange={({ target: { value } }) => {
+              if (!isDirty) setIsDirty(true);
               setTextAreaValue(value);
               if (hasSubmitted) {
                 const error = requiredValidator(value);
