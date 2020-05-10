@@ -14,7 +14,7 @@ resource "aws_lambda_function" "notes_get" {
   filename         = data.archive_file.notes_get.output_path
   function_name    = "WebnotesNotesGet"
   handler          = "notes_get.handler"
-  role             = aws_iam_role.lambda_exec.arn
+  role             = aws_iam_role.lambda_notes_get.arn
   runtime          = "python3.7"
   source_code_hash = filebase64sha256(data.archive_file.notes_get.output_path)
 }
@@ -23,7 +23,7 @@ resource "aws_lambda_function" "notes_patch" {
   filename         = data.archive_file.notes_patch.output_path
   function_name    = "WebnotesNotesPatch"
   handler          = "notes_patch.handler"
-  role             = aws_iam_role.lambda_exec.arn
+  role             = aws_iam_role.lambda_notes_patch.arn
   runtime          = "python3.7"
   source_code_hash = filebase64sha256(data.archive_file.notes_patch.output_path)
 }
