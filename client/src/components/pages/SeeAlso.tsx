@@ -8,7 +8,11 @@ export default function SeeAlso(_: RouteComponentProps) {
       <Paper>
         <h2>See also</h2>
         <p>
-          <a href="https://meditation-timer.org" rel="noopener" target="_blank">
+          <a
+            href="https://meditation-timer.link"
+            rel="noopener"
+            target="_blank"
+          >
             Meditate
           </a>{" "}
           is a free and open source web app that allows you to time your
