@@ -3,7 +3,7 @@ import * as React from "react";
 import { Button, Fab, Icon, Paper, requiredValidator, TextArea } from "eri";
 import DeleteDialog from "./DeleteDialog";
 import useNotePlaceholder from "../../hooks/useNotePlaceholder";
-import useRedirectUnAuthed from "../../hooks/useRedirectUnAuthed";
+import useRedirectUnauthed from "../../hooks/useRedirectUnauthed";
 import { ClientNote } from "../../../types";
 import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext, StateContext } from "../../AppState";
@@ -13,7 +13,7 @@ interface Props extends RouteComponentProps {
 }
 
 export default function EditNote({ dateCreated, navigate }: Props) {
-  useRedirectUnAuthed();
+  useRedirectUnauthed();
   const dispatch = React.useContext(DispatchContext);
   const state = React.useContext(StateContext);
   const note = (state.notes || []).find(

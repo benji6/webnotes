@@ -1,14 +1,14 @@
 import { RouteComponentProps, NavigateFn } from "@reach/router";
 import * as React from "react";
 import { Fab, Icon, TextArea, Paper, requiredValidator } from "eri";
-import useRedirectUnAuthed from "../hooks/useRedirectUnAuthed";
+import useRedirectUnauthed from "../hooks/useRedirectUnauthed";
 import useNotePlaceholder from "../hooks/useNotePlaceholder";
 import { ClientNote } from "../../types";
 import useKeyboardSave from "../hooks/useKeyboardSave";
 import { DispatchContext } from "../AppState";
 
 export default function AddNote({ navigate }: RouteComponentProps) {
-  useRedirectUnAuthed();
+  useRedirectUnauthed();
   const dispatch = React.useContext(DispatchContext);
   const placeholder = useNotePlaceholder();
   const [textAreaValue, setTextAreaValue] = React.useState("");
