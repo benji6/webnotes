@@ -8,7 +8,8 @@ handle_error() {
 trap 'handle_error $LINENO $?' ERR
 
 pushd infra > /dev/null
-terraform fmt --check
+terraform fmt --check --recursive
+terraform validate
 popd > /dev/null
 pushd client > /dev/null
 yarn test
