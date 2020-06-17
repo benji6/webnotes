@@ -53,18 +53,21 @@ export default function EditNote({ dateCreated, navigate }: Props) {
 
   useKeyboardSave(handleSubmit);
 
+  const dateCreatedObj = new Date(note.dateCreated);
+  const dateUpdatedObj = new Date(note.dateUpdated);
+
   return (
     <Paper.Group>
       <Paper>
         <h2>Edit note</h2>
         <p>
-          <small>
-            Created: {new Date(note.dateCreated).toLocaleDateString()}
-          </small>
-          ,{" "}
-          <small>
-            last updated: {new Date(note.dateUpdated).toLocaleDateString()}
-          </small>
+          <small>Created: {dateCreatedObj.toLocaleDateString()}</small>
+          {dateCreatedObj.getTime() !== dateUpdatedObj.getTime() && (
+            <>
+              ,{" "}
+              <small>last updated: {dateUpdatedObj.toLocaleDateString()}</small>
+            </>
+          )}
         </p>
         <form
           noValidate
