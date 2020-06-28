@@ -4,5 +4,4 @@
 *.lock
 *.png
 *.svg
-*.webmanifest
 dist
