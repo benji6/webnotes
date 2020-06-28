@@ -43,7 +43,7 @@ make deploy
 
 **N.B. making changes to the API doesn't trigger a new deployment, but you can trigger a manual deployment by copying the `deploy_api_command` Terraform output and running that.**
 
-### UI
+#### UI
 
 Master is automatically deployed with [Netlify](http://netlify.com).
 
