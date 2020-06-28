@@ -1,5 +1,5 @@
 const favicons = require("favicons");
-const fs = require("fs");
+const fs = require("fs").promises;
 const path = require("path");
 
 const iconsPath = path.join(__dirname, "..", "src", "icons");
@@ -37,8 +37,6 @@ favicons(source, configuration, (err, response) => {
       name: name.replace("android-chrome", "icon"),
     }))
     .forEach(({ contents, name }) =>
-      fs.writeFile(path.join(iconsPath, name), contents, (err) => {
-        if (err) throw err;
-      })
+      fs.writeFile(path.join(iconsPath, name), contents)
     );
 });
