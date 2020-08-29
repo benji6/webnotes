@@ -11,7 +11,7 @@
     "icons": "node scripts/icons",
     "start": "parcel src/index.html",
     "test": "run-p test:*",
-    "test:audit": "yarn audit --level high || [ $? -lt 8 ]",
+    "test:audit": "yarn audit --level critical || [ $? -lt 16 ]",
     "test:fmt": "prettier --check '**/*'",
     "test:types": "tsc --noEmit"
   },
