@@ -20,7 +20,7 @@
     "amazon-cognito-identity-js": "^4.4.0",
     "eri": "^21.1.1",
     "idb-keyval": "^3.2.0",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
