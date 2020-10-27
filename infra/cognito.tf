@@ -21,6 +21,7 @@ resource "aws_cognito_user_pool" "main" {
 resource "aws_cognito_user_pool_client" "main" {
   name                          = "webnotes"
   prevent_user_existence_errors = "ENABLED"
+  refresh_token_validity        = 365 # max value in days
   user_pool_id                  = aws_cognito_user_pool.main.id
 }
 
