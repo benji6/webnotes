@@ -2,13 +2,12 @@
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["dom", "es2015"],
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "rootDir": "src",
     "sourceMap": true,
     "strict": true,
-    "target": "es5"
+    "target": "ES2015"
   },
   "exclude": ["node_modules"]
 }
