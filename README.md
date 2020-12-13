@@ -45,7 +45,7 @@ make deploy
 
 #### UI
 
-Master is automatically deployed with [Netlify](http://netlify.com).
+Continuously deployed with [Netlify](http://netlify.com).
 
 **N.B. because icons take a long time to generate and do not change often they are created from the master svg file by running `yarn icons` in the `/client` dir and committed to version control.**
 
