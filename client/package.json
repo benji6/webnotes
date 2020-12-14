@@ -21,7 +21,7 @@
   "dependencies": {
     "@reach/router": "^1.3.1",
     "amazon-cognito-identity-js": "^4.5.5",
-    "eri": "^25.4.0",
+    "eri": "^27.1.4",
     "idb-keyval": "^3.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
