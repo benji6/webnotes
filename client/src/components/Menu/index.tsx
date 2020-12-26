@@ -44,9 +44,14 @@ export default function Menu({ handleMenuClose, open }: Props) {
             Home
           </EriMenu.Link>
           {userEmail && (
-            <EriMenu.Link onClick={handleMenuClose} to="add">
-              Add note
-            </EriMenu.Link>
+            <>
+              <EriMenu.Link onClick={handleMenuClose} to="add">
+                Add note
+              </EriMenu.Link>
+              <EriMenu.Link onClick={handleMenuClose} to="/change-password">
+                Change password
+              </EriMenu.Link>
+            </>
           )}
           <EriMenu.Link onClick={handleMenuClose} to="about">
             About

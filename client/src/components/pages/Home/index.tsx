@@ -1,11 +1,12 @@
-import { Link, RouteComponentProps, NavigateFn } from "@reach/router";
-import { Card, Fab, Icon, Spinner, Paper } from "eri";
+import { Link, RouteComponentProps, useNavigate } from "@reach/router";
+import { Card, Fab, Icon, Spinner, Paper, Button } from "eri";
 import * as React from "react";
 import Note from "./Note";
 import { StateContext } from "../../AppState";
 
-export default function Home({ navigate }: RouteComponentProps) {
+export default function Home(_: RouteComponentProps) {
   const state = React.useContext(StateContext);
+  const navigate = useNavigate();
 
   return (
     <Paper.Group>
@@ -22,7 +23,7 @@ export default function Home({ navigate }: RouteComponentProps) {
                   <Note
                     dateCreated={dateCreated}
                     key={dateCreated}
-                    navigate={navigate as NavigateFn}
+                    navigate={navigate}
                   >
                     {body}
                   </Note>
@@ -36,10 +37,7 @@ export default function Home({ navigate }: RouteComponentProps) {
               </p>
             </>
           )}
-          <Fab
-            aria-label="add new note"
-            onClick={() => (navigate as NavigateFn)("add")}
-          >
+          <Fab aria-label="add new note" onClick={() => navigate("add")}>
             <Icon name="plus" size="4" />
           </Fab>
         </Paper>
@@ -51,13 +49,11 @@ export default function Home({ navigate }: RouteComponentProps) {
             manage notes. It's simple to use, works offline and because it runs
             in your browser you can use it across all your devices!
           </p>
-          <br />
-          <p className="center">
-            <strong>
-              <Link to="sign-up">Sign up now to get started!</Link>
-            </strong>
-          </p>
-          <br />
+          <Button.Group>
+            <Button onClick={() => navigate("/sign-up")} type="button">
+              Sign up now to get started!
+            </Button>
+          </Button.Group>
           <p>
             <small>
               If you already have an account you can{" "}

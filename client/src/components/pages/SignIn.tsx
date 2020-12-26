@@ -1,59 +1,37 @@
-import { RouteComponentProps, Link, NavigateFn } from "@reach/router";
-import {
-  AuthenticationDetails,
-  CognitoUser,
-  CognitoUserSession,
-} from "amazon-cognito-identity-js";
+import { RouteComponentProps, Link, useNavigate } from "@reach/router";
 import { SignInPage } from "eri";
 import * as React from "react";
-import { userPool } from "../../cognito";
-import { networkErrorMessage } from "../../constants";
+import { createAuthenticatedUserAndSession } from "../../cognito";
+import { NETWORK_ERROR_MESSAGE } from "../../constants";
 import useRedirectAuthed from "../hooks/useRedirectAuthed";
 import { DispatchContext } from "../AppState";
 
-const authenticate = ({
-  email,
-  password,
-}: {
+// The properties declared here are by no means exhaustive
+interface TokenPayload {
   email: string;
-  password: string;
-}): Promise<CognitoUserSession> => {
-  const authenticationDetails = new AuthenticationDetails({
-    Password: password,
-    Username: email,
-  });
+  sub: string;
+}
 
-  const cognitoUser = new CognitoUser({
-    Pool: userPool,
-    Username: email,
-  });
-
-  return new Promise((resolve, reject) => {
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onFailure: reject,
-      onSuccess: resolve,
-    });
-  });
-};
-
-export default function SignIn({ navigate }: RouteComponentProps) {
+export default function SignIn(_: RouteComponentProps) {
   useRedirectAuthed();
+  const navigate = useNavigate();
   const dispatch = React.useContext(DispatchContext);
 
   return (
     <SignInPage
       onSubmit={async ({ email, password, setSubmitError }) => {
         try {
-          const result = await authenticate({ email, password });
-          dispatch({
-            type: "user/setEmail",
-            payload: result.getIdToken().payload.email,
-          });
-          (navigate as NavigateFn)("/");
+          const {
+            cognitoUserSession,
+          } = await createAuthenticatedUserAndSession(email, password);
+          const { email: tokenEmail } = cognitoUserSession.getIdToken()
+            .payload as TokenPayload;
+          dispatch({ type: "user/setEmail", payload: tokenEmail });
+          navigate("/");
         } catch (e) {
           switch (e.code) {
             case "NetworkError":
-              return setSubmitError(networkErrorMessage);
+              return setSubmitError(NETWORK_ERROR_MESSAGE);
             case "UserNotConfirmedException":
               return setSubmitError(
                 <>
