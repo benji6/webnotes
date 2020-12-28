@@ -1,20 +1,24 @@
 import { join as pathJoin } from "path";
 
-const cacheName = "v1";
+const CACHE_NAME = "v1";
+const CACHE_LIST = (process.env.CACHE_LIST as string).split(",");
+
 const sw: any = self;
 
-const cacheList = (process.env.CACHE_LIST as string).split(",");
-const cacheListWithHost = cacheList.map((resource) =>
+const cacheListWithHost = CACHE_LIST.map((resource) =>
   pathJoin(location.host, resource)
 );
 
-const throwAfter = (t: number): Promise<never> =>
+const rejectAfterTimeout = (t: number): Promise<never> =>
   new Promise((_, reject) =>
     setTimeout(() => reject(Error(`Timed out after ${t}ms`)), t)
   );
 
 const customFetch = async (request: Request): Promise<Response> => {
-  const response = await Promise.race([fetch(request), throwAfter(1e3)]);
+  const response = await Promise.race([
+    fetch(request),
+    rejectAfterTimeout(1e3),
+  ]);
   const { status } = response;
   if (status >= 500 && status < 600) throw Error(String(status));
   return response;
@@ -23,8 +27,8 @@ const customFetch = async (request: Request): Promise<Response> => {
 sw.oninstall = (event: any) => {
   event.waitUntil(
     (async () => {
-      const cache = await caches.open(cacheName);
-      return cache.addAll(cacheList);
+      const cache = await caches.open(CACHE_NAME);
+      return cache.addAll(CACHE_LIST);
     })()
   );
 };
@@ -34,7 +38,7 @@ sw.onfetch = (event: any) => {
     return;
   event.respondWith(
     (async () => {
-      const cache = await caches.open(cacheName);
+      const cache = await caches.open(CACHE_NAME);
       try {
         const networkResponse = await customFetch(event.request);
         event.waitUntil(cache.put(event.request, networkResponse.clone()));
