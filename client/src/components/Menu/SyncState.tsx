@@ -11,12 +11,13 @@ export default function SyncState() {
   } = React.useContext(StateContext);
 
   return (
-    <>
+    <div className="w-menu__footer">
       <hr />
       <p className="center">
         {syncFromServerError || syncToServerError ? (
           <>
-            Data saved locally <Icon draw name="save" />
+            Data saved locally
+            <Icon draw margin="left" name="save" />
           </>
         ) : isSyncingFromServer ? (
           isSyncingToServer ? (
@@ -34,10 +35,11 @@ export default function SyncState() {
           </>
         ) : (
           <>
-            Synced with server <Icon draw name="check" />
+            Synced with server
+            <Icon draw margin="left" name="check" />
           </>
         )}
       </p>
-    </>
+    </div>
   );
 }

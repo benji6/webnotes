@@ -1,8 +1,9 @@
-import { Menu as EriMenu, Button } from "eri";
+import { Menu as EriMenu, Button, Icon } from "eri";
 import * as React from "react";
 import SignOutDialog from "./SignOutDialog";
 import { StateContext } from "../AppState";
 import SyncState from "./SyncState";
+import "./style.css";
 
 interface Props {
   open: boolean;
@@ -22,7 +23,7 @@ export default function Menu({ handleMenuClose, open }: Props) {
     <>
       <EriMenu onClose={handleMenuClose} open={open}>
         {userEmail && (
-          <>
+          <div className="w-menu__header">
             <strong>Signed in</strong>
             <p>
               <em>{userEmail}</em>
@@ -37,26 +38,31 @@ export default function Menu({ handleMenuClose, open }: Props) {
               </Button>
             </Button.Group>
             <hr />
-          </>
+          </div>
         )}
         <EriMenu.List>
           <EriMenu.Link onClick={handleMenuClose} to="/">
+            <Icon margin="right" name="home" />
             Home
           </EriMenu.Link>
           {userEmail && (
             <>
               <EriMenu.Link onClick={handleMenuClose} to="add">
+                <Icon margin="right" name="plus" />
                 Add note
               </EriMenu.Link>
               <EriMenu.Link onClick={handleMenuClose} to="/change-password">
+                <Icon margin="right" name="lock" />
                 Change password
               </EriMenu.Link>
             </>
           )}
           <EriMenu.Link onClick={handleMenuClose} to="about">
+            <Icon margin="right" name="help" />
             About
           </EriMenu.Link>
           <EriMenu.Link onClick={handleMenuClose} to="see-also">
+            <Icon margin="right" name="link" />
             See also
           </EriMenu.Link>
         </EriMenu.List>
