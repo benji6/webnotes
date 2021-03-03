@@ -1,6 +1,6 @@
 # Webnotes
 
-[![Build Status](https://travis-ci.org/benji6/webnotes.svg?branch=master)](https://travis-ci.org/benji6/webnotes)
+![CI](https://github.com/benji6/webnotes/workflows/CI/badge.svg)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d2dd6bbe-a459-4ff9-b4e3-33a8e0924f61/deploy-status)](https://app.netlify.com/sites/benji6-webnotes/deploys)
 
 ## About
