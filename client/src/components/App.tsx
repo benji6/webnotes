@@ -1,15 +1,15 @@
 import { Link } from "@reach/router";
-import { Header, Menu as EriMenu } from "eri";
+import { Header, Nav as EriNav } from "eri";
 import * as React from "react";
 import useUser from "./hooks/useUser";
 import Main from "./Main";
-import Menu from "./Menu";
+import Nav from "./Nav";
 import useNotes from "./hooks/useNotes";
 
 export default function App() {
   useUser();
   useNotes();
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
 
   return (
     <>
@@ -17,9 +17,9 @@ export default function App() {
         <h1>
           <Link to="/">Webnotes</Link>
         </h1>
-        <EriMenu.Button onClick={() => setIsMenuOpen(true)} />
+        <EriNav.Button onClick={() => setIsNavOpen(true)} />
       </Header>
-      <Menu handleMenuClose={() => setIsMenuOpen(false)} open={isMenuOpen} />
+      <Nav handleNavClose={() => setIsNavOpen(false)} open={isNavOpen} />
       <Main />
     </>
   );

@@ -1,4 +1,4 @@
-import { Menu as EriMenu, Button, Icon } from "eri";
+import { Nav as EriNav, Button, Icon } from "eri";
 import * as React from "react";
 import SignOutDialog from "./SignOutDialog";
 import { StateContext } from "../AppState";
@@ -7,23 +7,23 @@ import "./style.css";
 
 interface Props {
   open: boolean;
-  handleMenuClose(): void;
+  handleNavClose(): void;
 }
 
-export default function Menu({ handleMenuClose, open }: Props) {
+export default function Nav({ handleNavClose, open }: Props) {
   const { userEmail } = React.useContext(StateContext);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
-    handleMenuClose();
+    handleNavClose();
   };
 
   return (
     <>
-      <EriMenu onClose={handleMenuClose} open={open}>
+      <EriNav onClose={handleNavClose} open={open}>
         {userEmail && (
-          <div className="w-menu__header">
+          <div className="w-nav__header">
             <strong>Signed in</strong>
             <p>
               <em>{userEmail}</em>
@@ -32,42 +32,43 @@ export default function Menu({ handleMenuClose, open }: Props) {
               <Button
                 danger
                 onClick={() => setIsDialogOpen(true)}
-                variant="secondary"
+                variant="tertiary"
               >
                 Sign out
+                <Icon name="sign-out" margin="left" />
               </Button>
             </Button.Group>
             <hr />
           </div>
         )}
-        <EriMenu.List>
-          <EriMenu.Link onClick={handleMenuClose} to="/">
+        <EriNav.List>
+          <EriNav.Link onClick={handleNavClose} to="/">
             <Icon margin="right" name="home" />
             Home
-          </EriMenu.Link>
+          </EriNav.Link>
           {userEmail && (
             <>
-              <EriMenu.Link onClick={handleMenuClose} to="add">
+              <EriNav.Link onClick={handleNavClose} to="add">
                 <Icon margin="right" name="plus" />
                 Add note
-              </EriMenu.Link>
-              <EriMenu.Link onClick={handleMenuClose} to="/change-password">
+              </EriNav.Link>
+              <EriNav.Link onClick={handleNavClose} to="/change-password">
                 <Icon margin="right" name="lock" />
                 Change password
-              </EriMenu.Link>
+              </EriNav.Link>
             </>
           )}
-          <EriMenu.Link onClick={handleMenuClose} to="about">
+          <EriNav.Link onClick={handleNavClose} to="about">
             <Icon margin="right" name="help" />
             About
-          </EriMenu.Link>
-          <EriMenu.Link onClick={handleMenuClose} to="see-also">
+          </EriNav.Link>
+          <EriNav.Link onClick={handleNavClose} to="see-also">
             <Icon margin="right" name="link" />
             See also
-          </EriMenu.Link>
-        </EriMenu.List>
+          </EriNav.Link>
+        </EriNav.List>
         {userEmail && <SyncState />}
-      </EriMenu>
+      </EriNav>
       <SignOutDialog onClose={handleDialogClose} open={isDialogOpen} />
     </>
   );

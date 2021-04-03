@@ -1,0 +1,13 @@
+.w-nav__header {
+  margin: var(--space-3) var(--space-3) calc(-1 * var(--space-4));
+}
+
+@media (min-width: 66rem) {
+  .w-nav__header {
+    margin-bottom: calc(-1 * var(--space-3));
+  }
+}
+
+.w-nav__footer {
+  margin: calc(-1 * var(--space-1)) var(--space-3) 0;
+}

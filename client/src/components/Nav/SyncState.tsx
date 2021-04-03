@@ -11,7 +11,7 @@ export default function SyncState() {
   } = React.useContext(StateContext);
 
   return (
-    <div className="w-menu__footer">
+    <div className="w-nav__footer">
       <hr />
       <p className="center">
         {syncFromServerError || syncToServerError ? (
