@@ -21,13 +21,13 @@
   "dependencies": {
     "@reach/router": "^1.3.1",
     "amazon-cognito-identity-js": "^4.5.12",
-    "eri": "^32.1.1",
-    "idb-keyval": "^5.0.2",
+    "eri": "^33.0.1",
+    "idb-keyval": "^5.0.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@types/node": "^14.14.37",
+    "@types/node": "^14.14.41",
     "@types/reach__router": "^1.3.7",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
@@ -35,6 +35,6 @@
     "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.11.0",
     "prettier": "^2.2.1",
-    "typescript": "^4.2.2"
+    "typescript": "^4.2.4"
   }
 }

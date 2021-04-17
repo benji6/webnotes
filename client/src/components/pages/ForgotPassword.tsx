@@ -2,7 +2,7 @@ import { RouteComponentProps } from "@reach/router";
 import { ForgotPasswordPage } from "eri";
 import * as React from "react";
 import { createCognitoUser } from "../../cognito";
-import { NETWORK_ERROR_MESSAGE } from "../../constants";
+import { ERRORS } from "../../constants";
 import useRedirectAuthed from "../hooks/useRedirectAuthed";
 
 export default function ForgotPassword(_: RouteComponentProps) {
@@ -24,7 +24,7 @@ export default function ForgotPassword(_: RouteComponentProps) {
             onFailure: (e: any) => {
               switch (e.code) {
                 case "NetworkError":
-                  setSubmitError(NETWORK_ERROR_MESSAGE);
+                  setSubmitError(ERRORS.network);
                   break;
                 default:
                   setSubmitError(

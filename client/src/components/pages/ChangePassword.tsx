@@ -2,7 +2,7 @@ import { RouteComponentProps } from "@reach/router";
 import { ChangePasswordPage } from "eri";
 import * as React from "react";
 import { createAuthenticatedUserAndSession } from "../../cognito";
-import { NETWORK_ERROR_MESSAGE } from "../../constants";
+import { ERRORS } from "../../constants";
 import { StateContext } from "../AppState";
 import useRedirectUnauthed from "../hooks/useRedirectUnauthed";
 
@@ -30,7 +30,7 @@ export default function ChangePassword(_: RouteComponentProps) {
                     setSubmitError("Too many attempts, please try again later");
                     break;
                   case "NetworkError":
-                    setSubmitError(NETWORK_ERROR_MESSAGE);
+                    setSubmitError(ERRORS.network);
                     break;
                   default:
                     setSubmitError(
@@ -44,7 +44,7 @@ export default function ChangePassword(_: RouteComponentProps) {
         } catch (e) {
           switch (e.code) {
             case "NetworkError":
-              setSubmitError(NETWORK_ERROR_MESSAGE);
+              setSubmitError(ERRORS.network);
               break;
             case "NotAuthorizedException":
               setSubmitError("Current password is incorrect, please try again");

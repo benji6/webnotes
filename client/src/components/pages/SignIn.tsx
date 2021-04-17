@@ -2,9 +2,9 @@ import { RouteComponentProps, Link, useNavigate } from "@reach/router";
 import { SignInPage } from "eri";
 import * as React from "react";
 import { createAuthenticatedUserAndSession } from "../../cognito";
-import { NETWORK_ERROR_MESSAGE } from "../../constants";
 import useRedirectAuthed from "../hooks/useRedirectAuthed";
 import { DispatchContext } from "../AppState";
+import { ERRORS } from "../../constants";
 
 // The properties declared here are by no means exhaustive
 interface TokenPayload {
@@ -31,7 +31,7 @@ export default function SignIn(_: RouteComponentProps) {
         } catch (e) {
           switch (e.code) {
             case "NetworkError":
-              return setSubmitError(NETWORK_ERROR_MESSAGE);
+              return setSubmitError(ERRORS.network);
             case "UserNotConfirmedException":
               return setSubmitError(
                 <>

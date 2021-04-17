@@ -1,12 +1,13 @@
 import { NavigateFn, Redirect, RouteComponentProps } from "@reach/router";
 import * as React from "react";
-import { Button, Fab, Icon, Paper, requiredValidator, TextArea } from "eri";
+import { Button, Fab, Icon, Paper, TextArea } from "eri";
 import DeleteDialog from "./DeleteDialog";
 import useNotePlaceholder from "../../hooks/useNotePlaceholder";
 import useRedirectUnauthed from "../../hooks/useRedirectUnauthed";
 import { ClientNote } from "../../../types";
 import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext, StateContext } from "../../AppState";
+import { ERRORS } from "../../../constants";
 
 interface Props extends RouteComponentProps {
   dateCreated?: string;
@@ -35,10 +36,9 @@ export default function EditNote({ dateCreated, navigate }: Props) {
 
   const handleSubmit = async () => {
     const body = textAreaValue.trim();
-    const fieldError = requiredValidator(body);
-    if (fieldError) {
+    if (!body) {
       setHasSubmitted(true);
-      setTextAreaError(fieldError);
+      setTextAreaError(ERRORS.required);
       return;
     }
     const newNote: ClientNote = {
@@ -83,7 +83,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
               if (!isDirty) setIsDirty(true);
               setTextAreaValue(value);
               if (hasSubmitted) {
-                const error = requiredValidator(value);
+                const error = value ? undefined : ERRORS.required;
                 if (error !== textAreaError) setTextAreaError(error);
               }
             }}

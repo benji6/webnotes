@@ -1,11 +1,12 @@
 import { RouteComponentProps, NavigateFn } from "@reach/router";
 import * as React from "react";
-import { Fab, Icon, TextArea, Paper, requiredValidator } from "eri";
+import { Fab, Icon, TextArea, Paper } from "eri";
 import useRedirectUnauthed from "../hooks/useRedirectUnauthed";
 import useNotePlaceholder from "../hooks/useNotePlaceholder";
 import { ClientNote } from "../../types";
 import useKeyboardSave from "../hooks/useKeyboardSave";
 import { DispatchContext } from "../AppState";
+import { ERRORS } from "../../constants";
 
 export default function AddNote({ navigate }: RouteComponentProps) {
   useRedirectUnauthed();
@@ -19,10 +20,9 @@ export default function AddNote({ navigate }: RouteComponentProps) {
 
   const handleSubmit = async () => {
     const body = textAreaValue.trim();
-    const fieldError = requiredValidator(body);
-    if (fieldError) {
+    if (!body) {
       setHasSubmitted(true);
-      setTextAreaError(fieldError);
+      setTextAreaError(ERRORS.required);
       return;
     }
     const dateCreated = new Date().toISOString();
@@ -56,7 +56,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
             onChange={({ target: { value } }) => {
               setTextAreaValue(value);
               if (hasSubmitted) {
-                const error = requiredValidator(value);
+                const error = value ? undefined : ERRORS.required;
                 if (error !== textAreaError) setTextAreaError(error);
               }
             }}
