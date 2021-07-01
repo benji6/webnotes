@@ -21,9 +21,8 @@ export default function SignIn(_: RouteComponentProps) {
     <SignInPage
       onSubmit={async ({ email, password, setSubmitError }) => {
         try {
-          const {
-            cognitoUserSession,
-          } = await createAuthenticatedUserAndSession(email, password);
+          const { cognitoUserSession } =
+            await createAuthenticatedUserAndSession(email, password);
           const { email: tokenEmail } = cognitoUserSession.getIdToken()
             .payload as TokenPayload;
           dispatch({ type: "user/setEmail", payload: tokenEmail });
