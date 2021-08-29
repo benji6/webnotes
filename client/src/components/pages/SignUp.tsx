@@ -36,7 +36,7 @@ export default function SignUp(_: RouteComponentProps) {
         try {
           await signUp({ attributeList, email, password });
           navigate("/verify");
-        } catch (e) {
+        } catch (e: any) {
           switch (e.code) {
             case "NetworkError":
               setSubmitError(ERRORS.network);

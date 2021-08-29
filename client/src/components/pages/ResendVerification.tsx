@@ -20,7 +20,7 @@ export default function ResendVerification(_: RouteComponentProps) {
         try {
           await resendConfirmation({ email });
           navigate("/verify");
-        } catch (e) {
+        } catch (e: any) {
           switch (e.code) {
             case "NetworkError":
               setSubmitError(ERRORS.network);

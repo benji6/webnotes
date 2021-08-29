@@ -41,7 +41,7 @@ export default function ChangePassword(_: RouteComponentProps) {
               }
             );
           });
-        } catch (e) {
+        } catch (e: any) {
           switch (e.code) {
             case "NetworkError":
               setSubmitError(ERRORS.network);

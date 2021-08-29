@@ -13,7 +13,7 @@ export default function ResetPassword(_: RouteComponentProps) {
       onSubmit={async ({ code, email, password, setSubmitError }) =>
         new Promise((resolve, reject) => {
           createCognitoUser(email).confirmPassword(code, password, {
-            onSuccess: resolve,
+            onSuccess: () => resolve(),
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onFailure: (e: any) => {

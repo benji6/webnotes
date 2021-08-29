@@ -27,7 +27,7 @@ export default function SignIn(_: RouteComponentProps) {
             .payload as TokenPayload;
           dispatch({ type: "user/setEmail", payload: tokenEmail });
           navigate("/");
-        } catch (e) {
+        } catch (e: any) {
           switch (e.code) {
             case "NetworkError":
               return setSubmitError(ERRORS.network);
