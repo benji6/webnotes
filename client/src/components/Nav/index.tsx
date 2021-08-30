@@ -35,7 +35,7 @@ export default function Nav({ handleNavClose, open }: Props) {
                 variant="tertiary"
               >
                 Sign out
-                <Icon name="sign-out" margin="left" />
+                <Icon name="sign-out" margin="start" />
               </Button>
             </Button.Group>
             <hr />
@@ -43,27 +43,27 @@ export default function Nav({ handleNavClose, open }: Props) {
         )}
         <EriNav.List>
           <EriNav.Link onClick={handleNavClose} to="/">
-            <Icon margin="right" name="home" />
+            <Icon margin="end" name="home" />
             Home
           </EriNav.Link>
           {userEmail && (
             <>
               <EriNav.Link onClick={handleNavClose} to="add">
-                <Icon margin="right" name="plus" />
+                <Icon margin="end" name="plus" />
                 Add note
               </EriNav.Link>
               <EriNav.Link onClick={handleNavClose} to="/change-password">
-                <Icon margin="right" name="lock" />
+                <Icon margin="end" name="lock" />
                 Change password
               </EriNav.Link>
             </>
           )}
           <EriNav.Link onClick={handleNavClose} to="about">
-            <Icon margin="right" name="help" />
+            <Icon margin="end" name="help" />
             About
           </EriNav.Link>
           <EriNav.Link onClick={handleNavClose} to="see-also">
-            <Icon margin="right" name="link" />
+            <Icon margin="end" name="link" />
             See also
           </EriNav.Link>
         </EriNav.List>
