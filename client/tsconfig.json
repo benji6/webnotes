@@ -2,6 +2,7 @@
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
+    "module": "ES2020",
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "rootDir": "src",
