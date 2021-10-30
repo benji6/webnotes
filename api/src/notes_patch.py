@@ -1,7 +1,6 @@
 import boto3
 import json
 
-headers = { 'Access-Control-Allow-Origin': 'http://localhost:1234' }
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('webnotes_notes')
 
@@ -17,11 +16,10 @@ def handler(event, context):
         for note in patch['put']:
           note['userId'] = user_id
           batch.put_item(Item=note)
-    return { 'headers': headers, 'statusCode': 204 }
+    return { 'statusCode': 204 }
   except Exception as e:
     print(e)
     return {
       'body': 'Internal server error',
-      'headers': headers,
       'statusCode': 500,
     }

@@ -19,7 +19,6 @@ resource "aws_api_gateway_resource" "notes" {
 resource "aws_api_gateway_deployment" "prod" {
   depends_on = [
     aws_api_gateway_integration.notes_get,
-    aws_api_gateway_integration.notes_options,
     aws_api_gateway_integration.notes_patch,
   ]
 

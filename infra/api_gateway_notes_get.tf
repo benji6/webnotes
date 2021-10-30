@@ -25,11 +25,6 @@ resource "aws_api_gateway_integration_response" "notes_get_200" {
 
   http_method = aws_api_gateway_method.notes_get.http_method
   resource_id = aws_api_gateway_resource.notes.id
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = var.access_control_allow_origin
-  }
-
   rest_api_id = aws_api_gateway_rest_api.api.id
   status_code = aws_api_gateway_method_response.notes_get_200.status_code
 }
@@ -40,13 +35,8 @@ resource "aws_api_gateway_integration_response" "notes_get_500" {
     aws_api_gateway_method_response.notes_get_500,
   ]
 
-  http_method = aws_api_gateway_method.notes_get.http_method
-  resource_id = aws_api_gateway_resource.notes.id
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = var.access_control_allow_origin
-  }
-
+  http_method       = aws_api_gateway_method.notes_get.http_method
+  resource_id       = aws_api_gateway_resource.notes.id
   rest_api_id       = aws_api_gateway_rest_api.api.id
   selection_pattern = "[^0-9](.|\n)*"
   status_code       = aws_api_gateway_method_response.notes_get_500.status_code
@@ -64,11 +54,6 @@ resource "aws_api_gateway_method_response" "notes_get_200" {
   depends_on  = [aws_api_gateway_method.notes_get]
   http_method = aws_api_gateway_method.notes_get.http_method
   resource_id = aws_api_gateway_resource.notes.id
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = true
-  }
-
   rest_api_id = aws_api_gateway_rest_api.api.id
   status_code = 200
 }
@@ -77,12 +62,6 @@ resource "aws_api_gateway_method_response" "notes_get_500" {
   depends_on  = [aws_api_gateway_method.notes_get]
   http_method = aws_api_gateway_method.notes_get.http_method
   resource_id = aws_api_gateway_resource.notes.id
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = true
-  }
-
   rest_api_id = aws_api_gateway_rest_api.api.id
   status_code = 500
 }
-

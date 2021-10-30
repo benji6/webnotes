@@ -1,4 +1,3 @@
-import { API_URI } from "./constants";
 import { getIdToken } from "./cognito";
 import { Note, Patch } from "./types";
 
@@ -9,7 +8,7 @@ const getAuthorizationHeader = async () => {
 
 export const getNotes = async (): Promise<Note[]> => {
   const Authorization = await getAuthorizationHeader();
-  const response = await fetch(`${API_URI}/notes`, {
+  const response = await fetch("/api/notes", {
     headers: { Authorization },
   });
   if (!response.ok) throw Error(String(response.status));
@@ -18,7 +17,7 @@ export const getNotes = async (): Promise<Note[]> => {
 
 export const patchNotes = async (patch: Patch): Promise<void> => {
   const Authorization = await getAuthorizationHeader();
-  const response = await fetch(`${API_URI}/notes`, {
+  const response = await fetch("/api/notes", {
     body: JSON.stringify(patch),
     headers: { Authorization, "Content-Type": "application/json" },
     method: "PATCH",
