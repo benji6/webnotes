@@ -2,6 +2,7 @@
 .parcel-cache
 *.ico
 *.lock
+*.nvmrc
 *.png
 *.svg
 dist
