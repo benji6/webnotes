@@ -1,6 +1,5 @@
 import { ResendVerificationPage } from "eri";
 import { RouteComponentProps, navigate } from "@reach/router";
-import * as React from "react";
 import { createCognitoUser } from "../../cognito";
 import useRedirectAuthed from "../hooks/useRedirectAuthed";
 import { ERRORS } from "../../constants";

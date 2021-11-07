@@ -1,6 +1,5 @@
 import { RouteComponentProps } from "@reach/router";
 import { ResetPasswordPage } from "eri";
-import * as React from "react";
 import { createCognitoUser } from "../../cognito";
 import { ERRORS } from "../../constants";
 import useRedirectAuthed from "../hooks/useRedirectAuthed";

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "ES2020",
     "moduleResolution": "node",
     "noUnusedLocals": true,

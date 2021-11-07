@@ -1,6 +1,5 @@
 import { RouteComponentProps } from "@reach/router";
 import { Paper, ShareButton } from "eri";
-import * as React from "react";
 
 export default function About(_: RouteComponentProps) {
   return (

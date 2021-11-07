@@ -1,6 +1,5 @@
 import { NavigateFn } from "@reach/router";
 import { Card } from "eri";
-import * as React from "react";
 
 interface Props {
   children: string;
