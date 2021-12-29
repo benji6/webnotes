@@ -2,14 +2,11 @@ import "eri/dist/index.css";
 import * as ReactDOM from "react-dom";
 import App from "./components/App";
 import AppState from "./components/AppState";
-import { EriProvider } from "eri";
 
 ReactDOM.render(
-  <EriProvider>
-    <AppState>
-      <App />
-    </AppState>
-  </EriProvider>,
+  <AppState>
+    <App />
+  </AppState>,
   document.getElementById("root")
 );
 
