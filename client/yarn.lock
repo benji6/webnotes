@@ -1266,10 +1266,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17.0.33":
-  version "17.0.38"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.38.tgz#f24249fefd89357d5fa71f739a686b8d7c7202bd"
-  integrity sha512-SI92X1IA+FMnP3qM5m4QReluXzhcmovhZnLNm3pyeQlooi02qI7sLiepEYqT678uNiyc25XfCqxREFpy3W7YhQ==
+"@types/react@*", "@types/react@^17.0.39":
+  version "17.0.39"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.39.tgz#d0f4cde092502a6db00a1cded6e6bf2abb7633ce"
+  integrity sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -2286,10 +2286,10 @@ entities@^3.0.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-3.0.1.tgz#2b887ca62585e96db3903482d336c1006c3001d4"
   integrity sha512-WiyBqoomrwMdFG1e0kqvASYfnlb0lp8M5o5Fw2OFq1hNZxxcNk8Ik0Xm7LxzBhuidnZB/UtBqVCgUz3kBOP51Q==
 
-eri@^37.0.1:
-  version "37.0.3"
-  resolved "https://registry.yarnpkg.com/eri/-/eri-37.0.3.tgz#3bb5aff307cafd960db14ed7b1e9ac41b308809e"
-  integrity sha512-cgS1jQbY2w9o53GwhA6aScADYJk4Hw8XbtuakGEuCP7tLj2KM3FkCtIC9Y7QejuCoGDfe/VlJ0fjZl7KM+PO4g==
+eri@^37.2.0:
+  version "37.2.0"
+  resolved "https://registry.yarnpkg.com/eri/-/eri-37.2.0.tgz#79d902a5a85940fd272f0f3b8847841d869df12c"
+  integrity sha512-uTRZdpS0hFcC6KqqXAU14PNHlcB1pk2/3vWrKQICvEPQB4pUsW6Lx9S1iNNisX6bzyyU2/vHBove6FEJctFe2w==
   dependencies:
     react-transition-group "^4.4.1"
 
