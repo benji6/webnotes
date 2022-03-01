@@ -627,7 +627,7 @@
     "@parcel/utils" "2.3.2"
     posthtml "^0.16.4"
 
-"@parcel/plugin@2.3.2", "@parcel/plugin@^2.2.1":
+"@parcel/plugin@2.3.2":
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@parcel/plugin/-/plugin-2.3.2.tgz#7701c40567d2eddd5d5b2b6298949cd03a2a22fa"
   integrity sha512-SaLZAJX4KH+mrAmqmcy9KJN+V7L+6YNTlgyqYmfKlNiHu7aIjLL+3prX8QRcgGtjAYziCxvPj0cl1CCJssaiGg==
@@ -857,7 +857,7 @@
     "@parcel/workers" "2.3.2"
     utility-types "^3.10.0"
 
-"@parcel/utils@2.3.2", "@parcel/utils@^2.2.1":
+"@parcel/utils@2.3.2":
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@parcel/utils/-/utils-2.3.2.tgz#4aab052fc9f3227811a504da7b9663ca75004f55"
   integrity sha512-xzZ+0vWhrXlLzGoz7WlANaO5IPtyWGeCZruGtepUL3yheRWb1UU4zFN9xz7Z+j++Dmf1Fgkc3qdk/t4O8u9HLQ==
@@ -968,10 +968,10 @@ ajv@^6.12.3:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-amazon-cognito-identity-js@^5.2.5:
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-5.2.5.tgz#580e6cae03a495f5fa98fa20d9940166f72b8c97"
-  integrity sha512-Puk6rLOOTl4vCvMixS9ecfFn0n8x0Etiow9iCg3vRa7vFeeCRLxJucdS3kHO9g0/YQi/vG59IPpOxUDEPoEbVw==
+amazon-cognito-identity-js@^5.2.7:
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-5.2.7.tgz#deba4526f740c04cd2af53904f48e8a68cc24290"
+  integrity sha512-4JGhmD/iSIIgg0DUZWE6j1al1rOa6lTL/antId37Ao3Uhy3mZqZC6TGQ6DMcX4d+QgAr/DeevJDupRoAOnbOyQ==
   dependencies:
     buffer "4.9.2"
     crypto-js "^4.1.1"
