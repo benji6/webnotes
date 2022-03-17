@@ -1,4 +1,3 @@
-import { RouteComponentProps } from "@reach/router";
 import { ChangePasswordPage } from "eri";
 import * as React from "react";
 import { createAuthenticatedUserAndSession } from "../../cognito";
@@ -6,7 +5,7 @@ import { ERRORS } from "../../constants";
 import { StateContext } from "../AppState";
 import useRedirectUnauthed from "../hooks/useRedirectUnauthed";
 
-export default function ChangePassword(_: RouteComponentProps) {
+export default function ChangePassword() {
   useRedirectUnauthed();
   const userEmail = React.useContext(StateContext).userEmail!;
 

@@ -1,10 +1,10 @@
-import { Link, RouteComponentProps, useNavigate } from "@reach/router";
 import { Card, Fab, Icon, Spinner, Paper, Button } from "eri";
 import * as React from "react";
 import Note from "./Note";
 import { StateContext } from "../../AppState";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Home(_: RouteComponentProps) {
+export default function Home() {
   const state = React.useContext(StateContext);
   const navigate = useNavigate();
 

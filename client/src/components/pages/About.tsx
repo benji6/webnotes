@@ -1,7 +1,6 @@
-import { RouteComponentProps } from "@reach/router";
 import { Paper, ShareButton } from "eri";
 
-export default function About(_: RouteComponentProps) {
+export default function About() {
   return (
     <Paper.Group>
       <Paper>

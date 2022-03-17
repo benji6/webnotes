@@ -1,10 +1,10 @@
-import { RouteComponentProps, Link, useNavigate } from "@reach/router";
 import { SignInPage } from "eri";
 import * as React from "react";
 import { createAuthenticatedUserAndSession } from "../../cognito";
 import useRedirectAuthed from "../hooks/useRedirectAuthed";
 import { DispatchContext } from "../AppState";
 import { ERRORS } from "../../constants";
+import { Link, useNavigate } from "react-router-dom";
 
 // The properties declared here are by no means exhaustive
 interface TokenPayload {
@@ -12,7 +12,7 @@ interface TokenPayload {
   sub: string;
 }
 
-export default function SignIn(_: RouteComponentProps) {
+export default function SignIn() {
   useRedirectAuthed();
   const navigate = useNavigate();
   const dispatch = React.useContext(DispatchContext);

@@ -1,5 +1,8 @@
-import { Redirect, RouteComponentProps } from "@reach/router";
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function _404(_: RouteComponentProps) {
-  return <Redirect to="/" />;
+export default function _404() {
+  const navigate = useNavigate();
+  React.useEffect(() => navigate("/"));
+  return null;
 }

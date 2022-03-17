@@ -1,11 +1,11 @@
-import { NavigateFn } from "@reach/router";
 import { Dialog, Button } from "eri";
 import * as React from "react";
+import { NavigateFunction } from "react-router-dom";
 import { DispatchContext } from "../../AppState";
 
 interface Props {
   dateCreated: string;
-  navigate: NavigateFn;
+  navigate: NavigateFunction;
   onClose(): void;
   open: boolean;
 }

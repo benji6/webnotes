@@ -1,10 +1,10 @@
-import { NavigateFn } from "@reach/router";
 import { Card } from "eri";
+import { NavigateFunction } from "react-router-dom";
 
 interface Props {
   children: string;
   dateCreated: string;
-  navigate: NavigateFn;
+  navigate: NavigateFunction;
 }
 
 export default function Note({ children, dateCreated, navigate }: Props) {

@@ -1,12 +1,15 @@
 import "eri/dist/index.css";
 import * as ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./components/App";
 import AppState from "./components/AppState";
 
 ReactDOM.render(
-  <AppState>
-    <App />
-  </AppState>,
+  <BrowserRouter>
+    <AppState>
+      <App />
+    </AppState>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

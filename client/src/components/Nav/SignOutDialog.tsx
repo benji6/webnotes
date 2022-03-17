@@ -1,6 +1,6 @@
-import { navigate } from "@reach/router";
 import { Dialog, Button } from "eri";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { userPool } from "../../cognito";
 import { DispatchContext, StateContext } from "../AppState";
 
@@ -12,6 +12,7 @@ interface Props {
 export default function SignOutDialog({ onClose, open }: Props) {
   const state = React.useContext(StateContext);
   const dispatch = React.useContext(DispatchContext);
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSignOut = () => {

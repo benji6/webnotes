@@ -1,4 +1,3 @@
-import { RouteComponentProps, NavigateFn } from "@reach/router";
 import * as React from "react";
 import { Fab, Icon, TextArea, Paper } from "eri";
 import useRedirectUnauthed from "../hooks/useRedirectUnauthed";
@@ -7,10 +6,12 @@ import { ClientNote } from "../../types";
 import useKeyboardSave from "../hooks/useKeyboardSave";
 import { DispatchContext } from "../AppState";
 import { ERRORS } from "../../constants";
+import { useNavigate } from "react-router-dom";
 
-export default function AddNote({ navigate }: RouteComponentProps) {
+export default function AddNote() {
   useRedirectUnauthed();
   const dispatch = React.useContext(DispatchContext);
+  const navigate = useNavigate();
   const placeholder = useNotePlaceholder();
   const [textAreaValue, setTextAreaValue] = React.useState("");
   const [textAreaError, setTextAreaError] = React.useState<
@@ -33,7 +34,7 @@ export default function AddNote({ navigate }: RouteComponentProps) {
       syncState: "created",
     };
     dispatch({ type: "notes/add", payload: note });
-    (navigate as NavigateFn)("/");
+    navigate("/");
   };
 
   useKeyboardSave(handleSubmit);

@@ -1,9 +1,9 @@
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import { SignUpPage } from "eri";
-import { RouteComponentProps, navigate } from "@reach/router";
 import { userPool } from "../../cognito";
 import useRedirectAuthed from "../hooks/useRedirectAuthed";
 import { ERRORS } from "../../constants";
+import { useNavigate } from "react-router-dom";
 
 const signUp = ({
   attributeList,
@@ -24,8 +24,10 @@ const signUp = ({
     );
   });
 
-export default function SignUp(_: RouteComponentProps) {
+export default function SignUp() {
   useRedirectAuthed();
+  const navigate = useNavigate();
+
   return (
     <SignUpPage
       onSubmit={async ({ email, password, setSubmitError }) => {

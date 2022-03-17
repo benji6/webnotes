@@ -1,10 +1,10 @@
-import { Link } from "@reach/router";
 import { Header, Nav as EriNav } from "eri";
 import * as React from "react";
 import useUser from "./hooks/useUser";
 import Main from "./Main";
 import Nav from "./Nav";
 import useNotes from "./hooks/useNotes";
+import { Link } from "react-router-dom";
 
 export default function App() {
   useUser();

@@ -1,4 +1,3 @@
-import { NavigateFn, Redirect, RouteComponentProps } from "@reach/router";
 import * as React from "react";
 import { Button, Fab, Icon, Paper, TextArea } from "eri";
 import DeleteDialog from "./DeleteDialog";
@@ -8,19 +7,21 @@ import { ClientNote } from "../../../types";
 import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext, StateContext } from "../../AppState";
 import { ERRORS } from "../../../constants";
+import { useNavigate, useParams } from "react-router-dom";
 
-interface Props extends RouteComponentProps {
-  dateCreated?: string;
-}
-
-export default function EditNote({ dateCreated, navigate }: Props) {
+export default function EditNote() {
   useRedirectUnauthed();
   const dispatch = React.useContext(DispatchContext);
+  const navigate = useNavigate();
+  const { dateCreated } = useParams();
   const state = React.useContext(StateContext);
   const note = (state.notes || []).find(
     (note) => note.dateCreated === dateCreated
   );
-  if (!note) return <Redirect to="/" />;
+  if (!note) {
+    navigate("/");
+    return null;
+  }
   const [textAreaValue, setTextAreaValue] = React.useState(note.body);
   const [textAreaError, setTextAreaError] = React.useState<
     string | undefined
@@ -48,7 +49,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
       syncState: "updated",
     };
     dispatch({ type: "notes/update", payload: newNote });
-    (navigate as NavigateFn)("/");
+    navigate("/");
   };
 
   useKeyboardSave(handleSubmit);
@@ -111,7 +112,7 @@ export default function EditNote({ dateCreated, navigate }: Props) {
         </Button.Group>
         <DeleteDialog
           dateCreated={dateCreated as string}
-          navigate={navigate as NavigateFn}
+          navigate={navigate}
           onClose={() => setIsDialogOpen(false)}
           open={isDialogOpen}
         />
