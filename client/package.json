@@ -27,7 +27,7 @@
   "devDependencies": {
     "@parcel/packager-raw-url": "^2.4.1",
     "@parcel/transformer-webmanifest": "^2.3.2",
-    "@types/node": "^17.0.23",
+    "@types/node": "^17.0.30",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "favicons": "^6.2.2",
