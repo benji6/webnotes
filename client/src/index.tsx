@@ -1,16 +1,18 @@
 import "eri/dist/index.css";
-import * as ReactDOM from "react-dom";
+import { StrictMode } from "react";
+import * as ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./components/App";
 import AppState from "./components/AppState";
 
-ReactDOM.render(
-  <BrowserRouter>
-    <AppState>
-      <App />
-    </AppState>
-  </BrowserRouter>,
-  document.getElementById("root")
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <BrowserRouter>
+      <AppState>
+        <App />
+      </AppState>
+    </BrowserRouter>
+  </StrictMode>
 );
 
 if (process.env.NODE_ENV === "production" && navigator.serviceWorker) {
