@@ -80,4 +80,13 @@ export default function useNotes(): void {
   React.useEffect(updateNotes, [isLoadedFromStorage, state.notes]);
   useInterval(fetchNotes, 6e4);
   useInterval(updateNotes, 1e4);
+  React.useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") fetchNotes();
+    };
+    window.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      window.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  });
 }
