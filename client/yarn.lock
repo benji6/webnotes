@@ -811,10 +811,10 @@ acorn@^8.5.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.1.tgz#0197122c843d1bf6d0a5e83220a788f278f63c30"
   integrity sha512-Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==
 
-amazon-cognito-identity-js@^5.2.9:
-  version "5.2.9"
-  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-5.2.9.tgz#abf80a55d9e8f86fc342347de04ee3a64e4e2c43"
-  integrity sha512-2ZLVOE1fb0eziAaV6kXCDMe35HNFkdz3HyMwb9i+lqm1G2q3SHrliL30MHbc2KwMeu5qu/ysw5BSU+b1Y5AIaQ==
+amazon-cognito-identity-js@^5.2.10:
+  version "5.2.10"
+  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-5.2.10.tgz#c70dc355c22215a9b7898b78105b5748d4a52649"
+  integrity sha512-40ZFQeMjNRymyE7X7XwW78VHftPMFt3di0GsL2/lFfWOXJJWrJGuBFWBYvz/aFMpl/omZHuwwqfwR4bZ+xF5Wg==
   dependencies:
     buffer "4.9.2"
     crypto-js "^4.1.1"
