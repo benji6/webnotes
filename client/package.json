@@ -25,7 +25,7 @@
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
-    "@parcel/packager-raw-url": "^2.6.2",
+    "@parcel/packager-raw-url": "^2.7.0",
     "@parcel/transformer-webmanifest": "^2.6.2",
     "@types/node": "^18.7.14",
     "@types/react": "^18.0.18",
