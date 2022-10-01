@@ -1251,10 +1251,10 @@ fast-base64-decode@^1.0.0:
   resolved "https://registry.yarnpkg.com/fast-base64-decode/-/fast-base64-decode-1.0.0.tgz#b434a0dd7d92b12b43f26819300d2dafb83ee418"
   integrity sha512-qwaScUgUGBYeDNRnbc/KyllVU88Jk1pRHPStuF/lO7B0/RTRLj7U0lkdTAutlBblY08rwZDff6tNU9cjv6j//Q==
 
-favicons@^7.0.0-beta.5:
-  version "7.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/favicons/-/favicons-7.0.0-beta.5.tgz#309c425fcf023c29208af768f314850aea510e0f"
-  integrity sha512-CKDoJZ4ERYy2rtldak32c3jMrIPmGIDeKi7Pc8C4xhiQR2SnhBSxdNvzeTT3OrQYrelyxdc5A+XfGY7X9r3SZQ==
+favicons@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/favicons/-/favicons-7.0.1.tgz#a68d75a47a38ad1f5567580b50b3d8d6ebc3b4f4"
+  integrity sha512-JPFon4zQL8XfuA2Nzq5ExGNnn9UBEf6yqpQDwtcAcEvLU+chBwKEoFd1EWSOSdRFSM7NilmmnSACXBHN64OEvQ==
   dependencies:
     escape-html "^1.0.3"
     sharp "^0.30.7"
