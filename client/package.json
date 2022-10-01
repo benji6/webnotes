@@ -22,7 +22,7 @@
     "idb-keyval": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.4.1"
   },
   "devDependencies": {
     "@parcel/packager-raw-url": "^2.7.0",
