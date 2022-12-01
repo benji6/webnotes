@@ -12,7 +12,7 @@ terraform fmt --check --recursive
 terraform validate
 popd > /dev/null
 pushd client > /dev/null
-yarn test
+npm t
 popd > /dev/null
 
 echo "🍄 All tests pass! 🍄"
