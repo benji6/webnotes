@@ -18,7 +18,7 @@
   "browserslist": "cover 85%",
   "dependencies": {
     "amazon-cognito-identity-js": "^6.1.2",
-    "eri": "^41.8.2",
+    "eri": "^43.0.1",
     "idb-keyval": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
