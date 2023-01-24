@@ -35,7 +35,7 @@ make start
 
 #### Backend and infrastructure
 
-Infrastructure is managed with Terraform.
+Majority of the infrastructure is managed with Terraform (a few things that aren't well supported have been done manually).
 
 ```sh
 make deploy
