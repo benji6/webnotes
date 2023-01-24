@@ -13,7 +13,7 @@ resource "aws_cognito_user_pool" "main" {
 
   verification_message_template {
     default_email_option  = "CONFIRM_WITH_LINK"
-    email_message_by_link = "{##Follow this link##} to complete your signup with Webnotes"
+    email_message_by_link = "Welcome to Webnotes! You're almost signed up, just {##follow this link to verify your email address##}, then go back to the app and sign in!"
     email_subject_by_link = "Webnotes email verification"
   }
 }
