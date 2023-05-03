@@ -15,7 +15,7 @@
     "test:fmt": "prettier --check '**/*'",
     "test:types": "tsc --noEmit"
   },
-  "browserslist": "cover 80%",
+  "browserslist": "cover 85% and since 2021",
   "dependencies": {
     "amazon-cognito-identity-js": "^6.1.2",
     "eri": "^43.5.0",
