@@ -1,8 +1,8 @@
-import { Card, Fab, Icon, Spinner, Paper, Button } from "eri";
+import { Paper, Button } from "eri";
 import * as React from "react";
-import Note from "./Note";
 import { StateContext } from "../../AppState";
 import { Link, useNavigate } from "react-router-dom";
+import NoteList from "./NoteList";
 
 export default function Home() {
   const state = React.useContext(StateContext);
@@ -11,36 +11,7 @@ export default function Home() {
   return (
     <Paper.Group>
       {state.userEmail ? (
-        <Paper>
-          <h2>Notes</h2>
-          {!state.notes ? (
-            <Spinner />
-          ) : state.notes.length ? (
-            <Card.Group>
-              {state.notes
-                .filter(({ syncState }) => syncState !== "deleted")
-                .map(({ body, dateCreated }) => (
-                  <Note
-                    dateCreated={dateCreated}
-                    key={dateCreated}
-                    navigate={navigate}
-                  >
-                    {body}
-                  </Note>
-                ))}
-            </Card.Group>
-          ) : (
-            <>
-              <p>You have no notes!</p>
-              <p>
-                <Link to="add">Click here to add your first one</Link>
-              </p>
-            </>
-          )}
-          <Fab aria-label="add new note" onClick={() => navigate("add")}>
-            <Icon name="plus" size="4" />
-          </Fab>
-        </Paper>
+        <NoteList />
       ) : (
         <Paper>
           <h2>Welcome to Webnotes!</h2>

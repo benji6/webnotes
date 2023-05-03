@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Button, Fab, Icon, Paper, TextArea } from "eri";
 import DeleteDialog from "./DeleteDialog";
 import useNotePlaceholder from "../../hooks/useNotePlaceholder";
@@ -8,13 +7,15 @@ import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext, StateContext } from "../../AppState";
 import { ERRORS } from "../../../constants";
 import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import TagComboBox from "../../shared/TagComboBox";
 
 export default function EditNote() {
   useRedirectUnauthed();
-  const dispatch = React.useContext(DispatchContext);
+  const dispatch = useContext(DispatchContext);
   const navigate = useNavigate();
   const { dateCreated } = useParams();
-  const state = React.useContext(StateContext);
+  const state = useContext(StateContext);
   const note = (state.notes || []).find(
     (note) => note.dateCreated === dateCreated
   );
@@ -22,18 +23,12 @@ export default function EditNote() {
     navigate("/");
     return null;
   }
-  const [textAreaValue, setTextAreaValue] = React.useState(note.body);
-  const [textAreaError, setTextAreaError] = React.useState<
-    string | undefined
-  >();
-  const [hasSubmitted, setHasSubmitted] = React.useState(false);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const [isDirty, setIsDirty] = React.useState(false);
+  const [tagValue, setTagValue] = useState(note.tag);
+  const [textAreaValue, setTextAreaValue] = useState(note.body);
+  const [textAreaError, setTextAreaError] = useState<string | undefined>();
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const placeholder = useNotePlaceholder();
-
-  React.useEffect(() => {
-    if (!isDirty && note.body !== textAreaValue) setTextAreaValue(note.body);
-  }, [isDirty, note.body, textAreaValue]);
 
   const handleSubmit = async () => {
     const body = textAreaValue.trim();
@@ -48,6 +43,8 @@ export default function EditNote() {
       dateUpdated: new Date().toISOString(),
       syncState: "updated",
     };
+    const tag = tagValue?.trim();
+    if (tag) newNote.tag = tag;
     dispatch({ type: "notes/update", payload: newNote });
     navigate("/");
   };
@@ -77,11 +74,14 @@ export default function EditNote() {
             handleSubmit();
           }}
         >
+          <TagComboBox
+            onChange={({ target: { value } }) => setTagValue(value)}
+            value={tagValue}
+          />
           <TextArea
             error={textAreaError}
             label="Note"
             onChange={({ target: { value } }) => {
-              if (!isDirty) setIsDirty(true);
               setTextAreaValue(value);
               if (hasSubmitted) {
                 const error = value ? undefined : ERRORS.required;

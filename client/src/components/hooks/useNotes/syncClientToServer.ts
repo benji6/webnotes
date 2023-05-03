@@ -1,4 +1,4 @@
-import { ClientNote, Patch } from "../../../types";
+import { ClientNote, Note, Patch } from "../../../types";
 import { patchNotes } from "../../../api";
 
 export default async function syncClientToServer(
@@ -16,11 +16,12 @@ export default async function syncClientToServer(
         continue;
       case "created":
       case "updated": {
-        const newNote = {
+        const newNote: Note = {
           body: note.body,
           dateCreated: note.dateCreated,
           dateUpdated: note.dateUpdated,
         };
+        if (note.tag) newNote.tag = note.tag;
         patch.put!.push(newNote);
         newNotes.push(newNote);
       }

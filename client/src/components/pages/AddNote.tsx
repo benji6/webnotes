@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Fab, Icon, TextArea, Paper } from "eri";
 import useRedirectUnauthed from "../hooks/useRedirectUnauthed";
 import useNotePlaceholder from "../hooks/useNotePlaceholder";
@@ -7,17 +6,18 @@ import useKeyboardSave from "../hooks/useKeyboardSave";
 import { DispatchContext } from "../AppState";
 import { ERRORS } from "../../constants";
 import { useNavigate } from "react-router-dom";
+import { useContext, useRef, useState } from "react";
+import TagComboBox from "../shared/TagComboBox";
 
 export default function AddNote() {
   useRedirectUnauthed();
-  const dispatch = React.useContext(DispatchContext);
+  const dispatch = useContext(DispatchContext);
   const navigate = useNavigate();
   const placeholder = useNotePlaceholder();
-  const [textAreaValue, setTextAreaValue] = React.useState("");
-  const [textAreaError, setTextAreaError] = React.useState<
-    string | undefined
-  >();
-  const [hasSubmitted, setHasSubmitted] = React.useState(false);
+  const [textAreaValue, setTextAreaValue] = useState("");
+  const [textAreaError, setTextAreaError] = useState<string | undefined>();
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async () => {
     const body = textAreaValue.trim();
@@ -33,6 +33,8 @@ export default function AddNote() {
       dateUpdated: dateCreated,
       syncState: "created",
     };
+    const tag = formRef.current?.tag.value.trim();
+    if (tag) note.tag = tag;
     dispatch({ type: "notes/add", payload: note });
     navigate("/");
   };
@@ -49,7 +51,9 @@ export default function AddNote() {
             e.preventDefault();
             handleSubmit();
           }}
+          ref={formRef}
         >
+          <TagComboBox />
           <TextArea
             autoFocus
             error={textAreaError}
