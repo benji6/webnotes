@@ -30,10 +30,10 @@ export default function NoteList() {
           <h2>Notes</h2>
           <Spinner />
         </Paper>
-      ) : state.notes.length ? (
+      ) : sortedNotes.length ? (
         sortedNotes.map(([tag, notes]) => (
           <Paper key={tag ?? 0}>
-            <h2>{tag ?? "Unlabeled notes"}</h2>
+            <h2>{tag ?? "Untagged notes"}</h2>
             <Card.Group>
               {notes.map(({ body, dateCreated }) => (
                 <Note
