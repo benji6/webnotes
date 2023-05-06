@@ -9,7 +9,7 @@ interface Props {
 
 export default function Note({ children, dateCreated, navigate }: Props) {
   return (
-    <Card onClick={() => navigate(`edit/${dateCreated}`)}>
+    <Card onClick={() => navigate(`/edit/${dateCreated}`)}>
       <p>{children.split(/[\r\n]+/, 1)[0]}</p>
     </Card>
   );

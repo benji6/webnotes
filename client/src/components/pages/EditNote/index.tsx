@@ -1,7 +1,6 @@
 import { Button, Fab, Icon, Paper, TextArea } from "eri";
 import DeleteDialog from "./DeleteDialog";
 import useNotePlaceholder from "../../hooks/useNotePlaceholder";
-import useRedirectUnauthed from "../../hooks/useRedirectUnauthed";
 import { ClientNote } from "../../../types";
 import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext, StateContext } from "../../AppState";
@@ -9,9 +8,9 @@ import { ERRORS } from "../../../constants";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import TagComboBox from "../../shared/TagComboBox";
+import RedirectHome from "../../shared/RedirectHome";
 
 export default function EditNote() {
-  useRedirectUnauthed();
   const dispatch = useContext(DispatchContext);
   const navigate = useNavigate();
   const { dateCreated } = useParams();
@@ -19,10 +18,8 @@ export default function EditNote() {
   const note = (state.notes || []).find(
     (note) => note.dateCreated === dateCreated
   );
-  if (!note) {
-    navigate("/");
-    return null;
-  }
+  if (!note || !dateCreated) return <RedirectHome />;
+
   const [tagValue, setTagValue] = useState(note.tag);
   const [textAreaValue, setTextAreaValue] = useState(note.body);
   const [textAreaError, setTextAreaError] = useState<string | undefined>();
@@ -39,14 +36,14 @@ export default function EditNote() {
     }
     const newNote: ClientNote = {
       body,
-      dateCreated: dateCreated as string,
+      dateCreated: dateCreated,
       dateUpdated: new Date().toISOString(),
       syncState: "updated",
     };
     const tag = tagValue?.trim();
     if (tag) newNote.tag = tag;
     dispatch({ type: "notes/update", payload: newNote });
-    navigate("/");
+    navigate(tag ? `/tags/${encodeURIComponent(tag)}` : "/");
   };
 
   useKeyboardSave(handleSubmit);
@@ -111,8 +108,10 @@ export default function EditNote() {
           </Button>
         </Button.Group>
         <DeleteDialog
-          dateCreated={dateCreated as string}
-          navigate={navigate}
+          dateCreated={dateCreated}
+          navigate={() =>
+            navigate(note.tag ? `/tags/${encodeURIComponent(note.tag)}` : "/")
+          }
           onClose={() => setIsDialogOpen(false)}
           open={isDialogOpen}
         />

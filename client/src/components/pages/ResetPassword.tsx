@@ -1,11 +1,8 @@
 import { ResetPasswordPage } from "eri";
 import { createCognitoUser } from "../../cognito";
 import { ERRORS } from "../../constants";
-import useRedirectAuthed from "../hooks/useRedirectAuthed";
 
 export default function ResetPassword() {
-  useRedirectAuthed();
-
   return (
     <ResetPasswordPage
       onSubmit={async ({ code, email, password, setSubmitError }) =>

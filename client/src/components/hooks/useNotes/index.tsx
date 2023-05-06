@@ -1,17 +1,16 @@
-import * as React from "react";
 import { getNotes } from "../../../api";
 import storage from "../../../storage";
 import syncClientToServer from "./syncClientToServer";
 import syncServerToClient from "./syncServerToClient";
 import useInterval from "../useInterval";
 import { StateContext, DispatchContext } from "../../AppState";
+import { useContext, useEffect } from "react";
 
 export default function useNotes(): void {
-  const dispatch = React.useContext(DispatchContext);
-  const state = React.useContext(StateContext);
-  const [isLoadedFromStorage, setIsLoadedFromStorage] = React.useState(false);
+  const dispatch = useContext(DispatchContext);
+  const state = useContext(StateContext);
 
-  React.useEffect(
+  useEffect(
     () =>
       void (async () => {
         try {
@@ -22,21 +21,21 @@ export default function useNotes(): void {
             dispatch({ type: "notes/clearAll" });
           }
         } finally {
-          setIsLoadedFromStorage(true);
+          dispatch({ type: "notes/loadedFromStorage" });
         }
       })(),
     []
   );
 
-  React.useEffect(() => {
-    if (!isLoadedFromStorage) return;
+  useEffect(() => {
+    if (state.isNotesLoading) return;
     if (!state.notes) storage.deleteNotes();
     else storage.setNotes(state.notes);
-  }, [isLoadedFromStorage, state.notes]);
+  }, [state.isNotesLoading, state.notes]);
 
   const fetchNotes = () =>
     void (async () => {
-      if (!isLoadedFromStorage || !state.userEmail || state.isSyncingFromServer)
+      if (state.isNotesLoading || !state.userEmail || state.isSyncingFromServer)
         return;
       dispatch({ type: "syncFromServer/start" });
       try {
@@ -59,7 +58,7 @@ export default function useNotes(): void {
   const updateNotes = () =>
     void (async () => {
       if (
-        !isLoadedFromStorage ||
+        state.isNotesLoading ||
         !state.userEmail ||
         state.isSyncingToServer ||
         !state.notes ||
@@ -76,11 +75,11 @@ export default function useNotes(): void {
       }
     })();
 
-  React.useEffect(fetchNotes, [isLoadedFromStorage, state.userEmail]);
-  React.useEffect(updateNotes, [isLoadedFromStorage, state.notes]);
+  useEffect(fetchNotes, [state.isNotesLoading, state.userEmail]);
+  useEffect(updateNotes, [state.isNotesLoading, state.notes]);
   useInterval(fetchNotes, 6e4);
   useInterval(updateNotes, 1e4);
-  React.useEffect(() => {
+  useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") fetchNotes();
     };

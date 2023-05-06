@@ -1,6 +1,5 @@
 import { ResendVerificationPage } from "eri";
 import { createCognitoUser } from "../../cognito";
-import useRedirectAuthed from "../hooks/useRedirectAuthed";
 import { ERRORS } from "../../constants";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +11,6 @@ const resendConfirmation = ({ email }: { email: string }) =>
   });
 
 export default function ResendVerification() {
-  useRedirectAuthed();
   const navigate = useNavigate();
 
   return (

@@ -1,7 +1,6 @@
 import { SignInPage } from "eri";
 import * as React from "react";
 import { createAuthenticatedUserAndSession } from "../../cognito";
-import useRedirectAuthed from "../hooks/useRedirectAuthed";
 import { DispatchContext } from "../AppState";
 import { ERRORS } from "../../constants";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,7 +12,6 @@ interface TokenPayload {
 }
 
 export default function SignIn() {
-  useRedirectAuthed();
   const navigate = useNavigate();
   const dispatch = React.useContext(DispatchContext);
 

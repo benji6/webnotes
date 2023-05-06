@@ -12,6 +12,7 @@ type Action =
   | FluxStandardAction<"notes/add", ClientNote>
   | FluxStandardAction<"notes/clearAll">
   | FluxStandardAction<"notes/delete", string>
+  | FluxStandardAction<"notes/loadedFromStorage">
   | FluxStandardAction<"notes/set", ClientNote[]>
   | FluxStandardAction<"notes/update", ClientNote>
   | FluxStandardAction<"storage/finishedLoading">
@@ -25,6 +26,7 @@ type Action =
   | FluxStandardAction<"user/setEmail", string>;
 
 interface State {
+  isNotesLoading: boolean;
   isSyncingFromServer: boolean;
   isSyncingToServer: boolean;
   isUserLoading: boolean;
@@ -35,6 +37,7 @@ interface State {
 }
 
 const initialState: State = {
+  isNotesLoading: true,
   isSyncingFromServer: false,
   isSyncingToServer: false,
   isUserLoading: true,
@@ -70,6 +73,8 @@ const reducer = (state: State, action: Action): State => {
             : note
         ),
       };
+    case "notes/loadedFromStorage":
+      return { ...state, isNotesLoading: false };
     case "notes/set":
       return { ...state, notes: action.payload };
     case "notes/update": {

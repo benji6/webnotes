@@ -1,11 +1,8 @@
 import { ForgotPasswordPage } from "eri";
 import { createCognitoUser } from "../../cognito";
 import { ERRORS } from "../../constants";
-import useRedirectAuthed from "../hooks/useRedirectAuthed";
 
 export default function ForgotPassword() {
-  useRedirectAuthed();
-
   return (
     <ForgotPasswordPage
       onSubmit={({ email, setSubmitError }) =>

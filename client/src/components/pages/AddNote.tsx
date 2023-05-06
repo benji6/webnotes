@@ -1,16 +1,14 @@
 import { Fab, Icon, TextArea, Paper } from "eri";
-import useRedirectUnauthed from "../hooks/useRedirectUnauthed";
 import useNotePlaceholder from "../hooks/useNotePlaceholder";
 import { ClientNote } from "../../types";
 import useKeyboardSave from "../hooks/useKeyboardSave";
 import { DispatchContext } from "../AppState";
 import { ERRORS } from "../../constants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useContext, useRef, useState } from "react";
 import TagComboBox from "../shared/TagComboBox";
 
 export default function AddNote() {
-  useRedirectUnauthed();
   const dispatch = useContext(DispatchContext);
   const navigate = useNavigate();
   const placeholder = useNotePlaceholder();
@@ -18,6 +16,8 @@ export default function AddNote() {
   const [textAreaError, setTextAreaError] = useState<string | undefined>();
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const [searchParams] = useSearchParams();
+  const urlTag = searchParams.get("tag");
 
   const handleSubmit = async () => {
     const body = textAreaValue.trim();
@@ -36,7 +36,7 @@ export default function AddNote() {
     const tag = formRef.current?.tag.value.trim();
     if (tag) note.tag = tag;
     dispatch({ type: "notes/add", payload: note });
-    navigate("/");
+    navigate(tag ? `/tags/${encodeURIComponent(tag)}` : "/");
   };
 
   useKeyboardSave(handleSubmit);
@@ -53,7 +53,7 @@ export default function AddNote() {
           }}
           ref={formRef}
         >
-          <TagComboBox />
+          <TagComboBox defaultValue={urlTag || undefined} />
           <TextArea
             autoFocus
             error={textAreaError}
