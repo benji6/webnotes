@@ -1,8 +1,8 @@
 .*ignore
 .parcel-cache
+*.*rc
 *.ico
 *.lock
-*.nvmrc
 *.png
 *.svg
 dist

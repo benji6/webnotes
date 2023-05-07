@@ -1,3 +1,4 @@
+import "./sentry";
 import { join as pathJoin } from "path";
 
 const CACHE_NAME = "v1";
