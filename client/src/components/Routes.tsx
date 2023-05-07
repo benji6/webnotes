@@ -1,5 +1,4 @@
 import { Route, Routes as ReactRouterRoutes } from "react-router-dom";
-import _404 from "./pages/_404";
 import About from "./pages/About";
 import AddNote from "./pages/AddNote";
 import EditNote from "./pages/EditNote";
@@ -15,9 +14,11 @@ import ChangePassword from "./pages/ChangePassword";
 import Tag from "./pages/Tag";
 import { useContext } from "react";
 import { StateContext } from "./AppState";
+import { Spinner } from "eri";
+import RedirectHome from "./shared/RedirectHome";
 
 export default function Routes() {
-  const { isNotesLoading, userEmail } = useContext(StateContext);
+  const { isNotesLoading, isUserLoading, userEmail } = useContext(StateContext);
   const userIsLoggedIn = Boolean(userEmail);
 
   return (
@@ -25,7 +26,9 @@ export default function Routes() {
       <Route path="/" element={<Home />} />
       {userIsLoggedIn ? (
         <>
-          {!isNotesLoading && (
+          {isNotesLoading ? (
+            <Route path="*" element={<Spinner />} />
+          ) : (
             <>
               <Route path="add" element={<AddNote />} />
               <Route path="edit/:dateCreated" element={<EditNote />} />
@@ -47,7 +50,10 @@ export default function Routes() {
       )}
       <Route path="about" element={<About />} />
       <Route path="see-also" element={<SeeAlso />} />
-      <Route path="*" element={<_404 />} />
+      <Route
+        path="*"
+        element={isUserLoading ? <Spinner /> : <RedirectHome />}
+      />
     </ReactRouterRoutes>
   );
 }
