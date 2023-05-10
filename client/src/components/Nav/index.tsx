@@ -4,6 +4,7 @@ import SignOutDialog from "./SignOutDialog";
 import { StateContext } from "../AppState";
 import SyncState from "./SyncState";
 import "./style.css";
+import useTags from "../hooks/useTags";
 
 interface Props {
   open: boolean;
@@ -13,6 +14,7 @@ interface Props {
 export default function Nav({ handleNavClose, open }: Props) {
   const { userEmail } = React.useContext(StateContext);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const tags = useTags();
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
@@ -52,6 +54,27 @@ export default function Nav({ handleNavClose, open }: Props) {
                 <Icon margin="end" name="plus" />
                 Add note
               </EriNav.Link>
+              {tags.length && (
+                <EriNav.SubList
+                  heading={
+                    <span>
+                      <Icon margin="end" name="menu" />
+                      Tags
+                    </span>
+                  }
+                >
+                  {tags.map((tag) => (
+                    <EriNav.Link
+                      key={tag}
+                      onClick={handleNavClose}
+                      to={`tags/${tag}`}
+                    >
+                      <Icon margin="end" name="tag" />
+                      {tag}
+                    </EriNav.Link>
+                  ))}
+                </EriNav.SubList>
+              )}
               <EriNav.Link onClick={handleNavClose} to="/change-password">
                 <Icon margin="end" name="lock" />
                 Change password
