@@ -23,37 +23,43 @@ export default function Routes() {
 
   return (
     <ReactRouterRoutes>
-      <Route path="/" element={<Home />} />
-      {userIsLoggedIn ? (
-        <>
-          {isNotesLoading ? (
-            <Route path="*" element={<Spinner />} />
-          ) : (
-            <>
-              <Route path="add" element={<AddNote />} />
-              <Route path="edit/:dateCreated" element={<EditNote />} />
-              <Route path="tags" element={<Tag />} />
-              <Route path="tags/:tag" element={<Tag />} />
-            </>
-          )}
-          <Route path="change-password" element={<ChangePassword />} />
-        </>
-      ) : (
-        <>
-          <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="resend-verification" element={<ResendVerification />} />
-          <Route path="reset-password" element={<ResetPassword />} />
-          <Route path="sign-in" element={<SignIn />} />
-          <Route path="sign-up" element={<SignUp />} />
-          <Route path="verify" element={<Verify />} />
-        </>
-      )}
       <Route path="about" element={<About />} />
       <Route path="see-also" element={<SeeAlso />} />
-      <Route
-        path="*"
-        element={isUserLoading ? <Spinner /> : <RedirectHome />}
-      />
+      {isUserLoading ? (
+        <Route path="*" element={<Spinner />} />
+      ) : (
+        <>
+          <Route path="/" element={<Home />} />
+          {userIsLoggedIn ? (
+            <>
+              {isNotesLoading ? (
+                <Route path="*" element={<Spinner />} />
+              ) : (
+                <>
+                  <Route path="add" element={<AddNote />} />
+                  <Route path="edit/:dateCreated" element={<EditNote />} />
+                  <Route path="tags" element={<Tag />} />
+                  <Route path="tags/:tag" element={<Tag />} />
+                </>
+              )}
+              <Route path="change-password" element={<ChangePassword />} />
+            </>
+          ) : (
+            <>
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route
+                path="resend-verification"
+                element={<ResendVerification />}
+              />
+              <Route path="reset-password" element={<ResetPassword />} />
+              <Route path="sign-in" element={<SignIn />} />
+              <Route path="sign-up" element={<SignUp />} />
+              <Route path="verify" element={<Verify />} />
+            </>
+          )}
+          <Route path="*" element={<RedirectHome />} />
+        </>
+      )}
     </ReactRouterRoutes>
   );
 }
