@@ -25,6 +25,7 @@ export default function SignIn() {
             .payload as TokenPayload;
           dispatch({ type: "user/setEmail", payload: tokenEmail });
           navigate("/");
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           switch (e.code) {
             case "NetworkError":

@@ -4,8 +4,8 @@ import { patchNotes } from "../../../api";
 export default async function syncClientToServer(
   notes: ClientNote[]
 ): Promise<ClientNote[]> {
-  let patch: Patch = { delete: [], put: [] };
-  let newNotes: ClientNote[] = [];
+  const patch: Patch = { delete: [], put: [] };
+  const newNotes: ClientNote[] = [];
 
   for (const note of notes) {
     if (!note.syncState) newNotes.push(note);

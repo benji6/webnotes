@@ -38,6 +38,7 @@ export default function ChangePassword() {
               }
             );
           });
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           switch (e.code) {
             case "NetworkError":

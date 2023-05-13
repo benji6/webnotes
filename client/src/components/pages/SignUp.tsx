@@ -18,6 +18,9 @@ const signUp = ({
       email,
       password,
       attributeList,
+      // mismatch between types and documentation - have gone with docs
+      // https://github.com/aws-amplify/amplify-js/tree/master/packages/amazon-cognito-identity-js#usage
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       null as any,
       (err: Error | void, result) => (err ? reject(err) : resolve(result))
     );
@@ -35,6 +38,7 @@ export default function SignUp() {
         try {
           await signUp({ attributeList, email, password });
           navigate("/verify");
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           switch (e.code) {
             case "NetworkError":

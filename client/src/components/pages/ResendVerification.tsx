@@ -19,6 +19,7 @@ export default function ResendVerification() {
         try {
           await resendConfirmation({ email });
           navigate("/verify");
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           switch (e.code) {
             case "NetworkError":

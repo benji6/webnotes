@@ -8,7 +8,7 @@ export default function syncServerToClient(
   notesUpdated: boolean;
 } {
   let notesUpdated = false;
-  let syncedNotes: ClientNote[] = [];
+  const syncedNotes: ClientNote[] = [];
   for (const clientNote of clientNotes) {
     if (clientNote.syncState === "created") {
       syncedNotes.push(clientNote);

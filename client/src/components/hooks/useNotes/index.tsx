@@ -24,7 +24,7 @@ export default function useNotes(): void {
           dispatch({ type: "notes/loadedFromStorage" });
         }
       })(),
-    []
+    [dispatch]
   );
 
   useEffect(() => {
@@ -75,8 +75,20 @@ export default function useNotes(): void {
       }
     })();
 
-  useEffect(fetchNotes, [state.isNotesLoading, state.userEmail]);
-  useEffect(updateNotes, [state.isNotesLoading, state.notes]);
+  useEffect(fetchNotes, [
+    dispatch,
+    state.isNotesLoading,
+    state.isSyncingFromServer,
+    state.notes,
+    state.userEmail,
+  ]);
+  useEffect(updateNotes, [
+    dispatch,
+    state.isNotesLoading,
+    state.isSyncingToServer,
+    state.notes,
+    state.userEmail,
+  ]);
   useInterval(fetchNotes, 6e4);
   useInterval(updateNotes, 1e4);
   useEffect(() => {

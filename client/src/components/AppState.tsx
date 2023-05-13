@@ -48,7 +48,7 @@ const initialState: State = {
 };
 
 export const DispatchContext = React.createContext<React.Dispatch<Action>>(
-  () => {}
+  () => undefined
 );
 export const StateContext = React.createContext<State>(initialState);
 
