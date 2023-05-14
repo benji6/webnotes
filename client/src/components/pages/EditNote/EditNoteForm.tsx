@@ -89,7 +89,11 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
           />
           <Fab
             aria-label="save"
-            hide={!textAreaValue.trim() || textAreaValue.trim() === note.body}
+            hide={
+              !textAreaValue.trim() ||
+              (textAreaValue.trim() === note.body &&
+                tagValue?.trim() === (note.tag ?? ""))
+            }
             onClick={handleSubmit}
           >
             <Icon name="save" size="4" />
