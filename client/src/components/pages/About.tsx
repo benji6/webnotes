@@ -1,4 +1,6 @@
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Paper, ShareButton } from "eri";
+import { BUILD_TIME } from "../../constants";
 
 export default function About() {
   return (
@@ -39,6 +41,10 @@ export default function About() {
             Eri
           </a>
           .
+        </p>
+        <p>
+          The version you&apos;re currently using was last updated{" "}
+          <b>{formatDistanceToNow(new Date(BUILD_TIME))} ago</b>.
         </p>
         <p>I hope you enjoy the app 🙂</p>
         <ShareButton />

@@ -5,11 +5,11 @@
   "private": true,
   "scripts": {
     "build": "rm -rf dist && mkdir dist && run-p build:* && node scripts/injectCacheList",
-    "build:js": "CACHE_LIST=CACHE_LIST parcel build --no-source-maps src/index.html",
+    "build:js": "BUILD_TIME=$(node -e 'console.log((new Date).toISOString())') CACHE_LIST=CACHE_LIST parcel build --no-source-maps src/index.html",
     "build:robots": "touch dist/robots.txt",
     "fmt": "prettier --write '**/*'",
     "icons": "node scripts/icons",
-    "start": "parcel src/index.html --open",
+    "start": "BUILD_TIME=$(node -e 'console.log((new Date).toISOString())') parcel src/index.html --open",
     "test": "run-p test:*",
     "test:audit": "npm audit --audit-level=low",
     "test:fmt": "prettier --check '**/*'",
@@ -20,6 +20,7 @@
   "dependencies": {
     "@sentry/browser": "^7.51.0",
     "amazon-cognito-identity-js": "^6.1.2",
+    "date-fns": "^2.30.0",
     "eri": "^43.6.0",
     "idb-keyval": "^6.2.0",
     "react": "^18.2.0",
