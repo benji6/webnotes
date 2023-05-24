@@ -18,7 +18,7 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
   const dispatch = useContext(DispatchContext);
   const navigate = useNavigate();
 
-  const [tagValue, setTagValue] = useState(note.tag);
+  const [tagValue, setTagValue] = useState(note.tag ?? "");
   const [textAreaValue, setTextAreaValue] = useState(note.body);
   const [textAreaError, setTextAreaError] = useState<string | undefined>();
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -38,7 +38,7 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
       dateUpdated: new Date().toISOString(),
       syncState: "updated",
     };
-    const tag = tagValue?.trim();
+    const tag = tagValue.trim();
     if (tag) newNote.tag = tag;
     dispatch({ type: "notes/update", payload: newNote });
     navigate(tag ? `/tags/${encodeURIComponent(tag)}` : "/");
@@ -92,7 +92,7 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
             hide={
               !textAreaValue.trim() ||
               (textAreaValue.trim() === note.body &&
-                tagValue?.trim() === (note.tag ?? ""))
+                tagValue.trim() === (note.tag ?? ""))
             }
             onClick={handleSubmit}
           >
