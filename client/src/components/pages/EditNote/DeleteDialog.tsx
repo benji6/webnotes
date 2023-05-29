@@ -1,4 +1,4 @@
-import { Dialog, Button } from "eri";
+import { Dialog, Button, Icon } from "eri";
 import * as React from "react";
 import { NavigateFunction } from "react-router-dom";
 import { DispatchContext } from "../../AppState";
@@ -28,9 +28,11 @@ export default function DeleteDialog({
             navigate("/");
           }}
         >
+          <Icon margin="end" name="trash" />
           Delete
         </Button>
         <Button onClick={onClose} variant="secondary">
+          <Icon margin="end" name="cross" />
           Cancel
         </Button>
       </Button.Group>

@@ -1,4 +1,4 @@
-import { Fab, Icon, TextArea, Paper } from "eri";
+import { Icon, TextArea, Paper, Button } from "eri";
 import useNotePlaceholder from "../hooks/useNotePlaceholder";
 import { ClientNote } from "../../types";
 import useKeyboardSave from "../hooks/useKeyboardSave";
@@ -69,13 +69,14 @@ export default function AddNote() {
             rows={14}
             value={textAreaValue}
           />
-          <Fab
-            aria-label="save"
-            hide={!textAreaValue.trim()}
-            onClick={handleSubmit}
-          >
-            <Icon name="save" size="4" />
-          </Fab>
+          {textAreaValue.trim() && (
+            <Button.Group>
+              <Button onClick={handleSubmit}>
+                <Icon margin="end" name="save" />
+                Save
+              </Button>
+            </Button.Group>
+          )}
         </form>
       </Paper>
     </Paper.Group>

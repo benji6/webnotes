@@ -1,4 +1,4 @@
-import { Button, Fab, Icon, Paper, TextArea } from "eri";
+import { Button, Icon, Paper, TextArea } from "eri";
 import DeleteDialog from "./DeleteDialog";
 import useNotePlaceholder from "../../hooks/useNotePlaceholder";
 import { ClientNote } from "../../../types";
@@ -87,25 +87,25 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
             rows={14}
             value={textAreaValue}
           />
-          <Fab
-            aria-label="save"
-            hide={
-              !textAreaValue.trim() ||
-              (textAreaValue.trim() === note.body &&
-                tagValue.trim() === (note.tag ?? ""))
-            }
-            onClick={handleSubmit}
-          >
-            <Icon name="save" size="4" />
-          </Fab>
         </form>
         <Button.Group>
+          {Boolean(
+            textAreaValue.trim() &&
+              (textAreaValue.trim() !== note.body ||
+                tagValue.trim() !== (note.tag ?? ""))
+          ) && (
+            <Button onClick={handleSubmit}>
+              <Icon margin="end" name="save" />
+              Save
+            </Button>
+          )}
           <Button
             danger
             onClick={() => setIsDialogOpen(true)}
             type="button"
             variant="secondary"
           >
+            <Icon margin="end" name="trash" />
             Delete
           </Button>
         </Button.Group>
