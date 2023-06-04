@@ -9,7 +9,7 @@
     "build:robots": "touch dist/robots.txt",
     "fmt": "prettier --write '**/*'",
     "icons": "node scripts/icons",
-    "start": "BUILD_TIME=$(node -e 'console.log((new Date).toISOString())') parcel src/index.html --open",
+    "start": "BUILD_TIME=$(node -e 'console.log((new Date).toISOString())') parcel src/index.html --open -p 1236",
     "test": "run-p test:*",
     "test:audit": "npm audit --audit-level=low",
     "test:fmt": "prettier --check '**/*'",
