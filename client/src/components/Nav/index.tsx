@@ -5,6 +5,7 @@ import { StateContext } from "../AppState";
 import SyncState from "./SyncState";
 import "./style.css";
 import useTags from "../hooks/useTags";
+import AppIcon from "../../icons/AppIcon";
 
 interface Props {
   open: boolean;
@@ -26,23 +27,28 @@ export default function Nav({ handleNavClose, open }: Props) {
       <EriNav onClose={handleNavClose} open={open}>
         {userEmail && (
           <div className="w-nav__header">
-            <strong>Signed in</strong>
-            <p>
-              <em>{userEmail}</em>
-            </p>
-            <Button.Group>
+            <div className="w-profile">
+              <AppIcon className="br-max bs-0" />
+              <b className="w-profile__state">Signed in</b>
+              <em className="w-profile__email" title={userEmail}>
+                {userEmail}
+              </em>
+            </div>
+            <div className="w-nav__sign-out center">
               <Button
                 danger
                 onClick={() => setIsDialogOpen(true)}
+                type="button"
                 variant="tertiary"
               >
                 Sign out
                 <Icon name="sign-out" margin="start" />
               </Button>
-            </Button.Group>
+            </div>
             <hr />
           </div>
         )}
+        {userEmail && <SyncState />}
         <EriNav.List>
           <EriNav.Link onClick={handleNavClose} to="/">
             <Icon margin="end" name="home" />
@@ -90,7 +96,6 @@ export default function Nav({ handleNavClose, open }: Props) {
             See also
           </EriNav.Link>
         </EriNav.List>
-        {userEmail && <SyncState />}
       </EriNav>
       <SignOutDialog onClose={handleDialogClose} open={isDialogOpen} />
     </>
