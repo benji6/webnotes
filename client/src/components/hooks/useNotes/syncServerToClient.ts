@@ -2,7 +2,7 @@ import { Note, ClientNote } from "../../../types";
 
 export default function syncServerToClient(
   clientNotes: ClientNote[],
-  serverNotes: Note[]
+  serverNotes: Note[],
 ): {
   notes: ClientNote[];
   notesUpdated: boolean;
@@ -15,7 +15,7 @@ export default function syncServerToClient(
       continue;
     }
     const serverNote = serverNotes.find(
-      ({ dateCreated }) => dateCreated === clientNote.dateCreated
+      ({ dateCreated }) => dateCreated === clientNote.dateCreated,
     );
     if (!serverNote) {
       notesUpdated = true;
@@ -31,7 +31,7 @@ export default function syncServerToClient(
   for (const serverNote of serverNotes) {
     if (
       !clientNotes.some(
-        ({ dateCreated }) => dateCreated === serverNote.dateCreated
+        ({ dateCreated }) => dateCreated === serverNote.dateCreated,
       )
     ) {
       syncedNotes.push(serverNote);
@@ -40,7 +40,11 @@ export default function syncServerToClient(
   }
   return {
     notes: syncedNotes.sort((a, b) =>
-      a.dateUpdated > b.dateUpdated ? -1 : a.dateUpdated < b.dateUpdated ? 1 : 0
+      a.dateUpdated > b.dateUpdated
+        ? -1
+        : a.dateUpdated < b.dateUpdated
+        ? 1
+        : 0,
     ),
     notesUpdated,
   };

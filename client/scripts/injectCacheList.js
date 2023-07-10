@@ -12,6 +12,6 @@ const buildPath = path.join(__dirname, "..", "dist");
   const serviceWorker = await fs.readFile(serviceWorkerPath, "utf-8");
   return fs.writeFile(
     serviceWorkerPath,
-    serviceWorker.replace("CACHE_LIST", cacheList)
+    serviceWorker.replace("CACHE_LIST", cacheList),
   );
 })();

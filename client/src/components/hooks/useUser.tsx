@@ -28,7 +28,7 @@ export default function useUser(): void {
             dispatch({ type: "user/clearEmail" });
         }
       })(),
-    [dispatch]
+    [dispatch],
   );
 
   React.useEffect(() => {

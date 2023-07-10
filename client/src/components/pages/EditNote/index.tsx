@@ -8,7 +8,7 @@ export default function EditNote() {
   const state = useContext(StateContext);
   const { dateCreated } = useParams();
   const note = (state.notes || []).find(
-    (note) => note.dateCreated === dateCreated
+    (note) => note.dateCreated === dateCreated,
   );
   return note && dateCreated ? (
     <EditNoteForm dateCreated={dateCreated} note={note} />

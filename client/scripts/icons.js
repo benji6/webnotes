@@ -30,13 +30,13 @@ favicons(source, configuration, (err, response) => {
         "android-chrome-512x512.png",
         "apple-touch-icon.png",
         "favicon.ico",
-      ].includes(name)
+      ].includes(name),
     )
     .map(({ contents, name }) => ({
       contents,
       name: name.replace("android-chrome", "icon"),
     }))
     .forEach(({ contents, name }) =>
-      fs.writeFile(path.join(iconsPath, name), contents)
+      fs.writeFile(path.join(iconsPath, name), contents),
     );
 });

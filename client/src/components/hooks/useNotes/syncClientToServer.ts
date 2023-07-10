@@ -2,7 +2,7 @@ import { ClientNote, Note, Patch } from "../../../types";
 import { patchNotes } from "../../../api";
 
 export default async function syncClientToServer(
-  notes: ClientNote[]
+  notes: ClientNote[],
 ): Promise<ClientNote[]> {
   const patch: Patch = { delete: [], put: [] };
   const newNotes: ClientNote[] = [];

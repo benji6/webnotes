@@ -27,7 +27,7 @@ const authenticateUser = ({
 
 export const createAuthenticatedUserAndSession = async (
   email: string,
-  password: string
+  password: string,
 ): Promise<{
   cognitoUser: CognitoUser;
   cognitoUserSession: CognitoUserSession;
@@ -59,6 +59,6 @@ export const getIdToken = (): Promise<CognitoIdToken> =>
           return reject(Error("No current user"));
         }
         reject(err);
-      }
+      },
     );
   });

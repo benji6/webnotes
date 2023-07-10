@@ -23,7 +23,7 @@ export default function ForgotPassword() {
                   break;
                 default:
                   setSubmitError(
-                    "Something went wrong, check the data you have entered and try again"
+                    "Something went wrong, check the data you have entered and try again",
                   );
               }
               reject(Error(JSON.stringify(e)));

@@ -1,8 +1,0 @@
-.*ignore
-.parcel-cache
-*.*rc
-*.ico
-*.lock
-*.png
-*.svg
-dist

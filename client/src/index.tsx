@@ -13,12 +13,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <App />
       </AppState>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );
 
 if (process.env.NODE_ENV === "production" && navigator.serviceWorker) {
   navigator.serviceWorker.register(
     new URL("service-worker.ts", import.meta.url),
-    { type: "module" }
+    { type: "module" },
   );
 }

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const resendConfirmation = ({ email }: { email: string }) =>
   new Promise((resolve, reject) => {
     createCognitoUser(email).resendConfirmationCode((err, result) =>
-      err ? reject(err) : resolve(result)
+      err ? reject(err) : resolve(result),
     );
   });
 
@@ -27,7 +27,7 @@ export default function ResendVerification() {
               break;
             default:
               setSubmitError(
-                "Something went wrong, check the data you have entered and try again"
+                "Something went wrong, check the data you have entered and try again",
               );
           }
         }

@@ -37,14 +37,14 @@ export default function SignIn() {
                   <Link to="/resend-verification">
                     resend the verification email
                   </Link>
-                </>
+                </>,
               );
 
             case "NotAuthorizedException":
               return setSubmitError("Incorrect email/password");
             default:
               setSubmitError(
-                "Something went wrong, check the data you have entered and try again"
+                "Something went wrong, check the data you have entered and try again",
               );
           }
         }

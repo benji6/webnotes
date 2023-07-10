@@ -22,7 +22,7 @@ const signUp = ({
       // https://github.com/aws-amplify/amplify-js/tree/master/packages/amazon-cognito-identity-js#usage
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       null as any,
-      (err: Error | void, result) => (err ? reject(err) : resolve(result))
+      (err: Error | void, result) => (err ? reject(err) : resolve(result)),
     );
   });
 
@@ -49,7 +49,7 @@ export default function SignUp() {
               break;
             default:
               setSubmitError(
-                "Something went wrong, check the data you have entered and try again"
+                "Something went wrong, check the data you have entered and try again",
               );
           }
         }

@@ -13,7 +13,7 @@ export default function ChangePassword() {
         try {
           const { cognitoUser } = await createAuthenticatedUserAndSession(
             userEmail,
-            currentPassword
+            currentPassword,
           );
           return new Promise((resolve, reject) => {
             cognitoUser.changePassword(
@@ -31,11 +31,11 @@ export default function ChangePassword() {
                     break;
                   default:
                     setSubmitError(
-                      "Something went wrong, check the data you have entered and try again"
+                      "Something went wrong, check the data you have entered and try again",
                     );
                 }
                 return reject(JSON.stringify(e));
-              }
+              },
             );
           });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,7 +49,7 @@ export default function ChangePassword() {
               break;
             default:
               setSubmitError(
-                "Something went wrong, check the data you have entered and try again"
+                "Something went wrong, check the data you have entered and try again",
               );
           }
           throw Error(JSON.stringify(e));

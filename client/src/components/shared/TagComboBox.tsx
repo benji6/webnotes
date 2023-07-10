@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 import useTags from "../hooks/useTags";
 
 export default function TagComboBox(
-  props: Partial<ComponentProps<typeof ComboBox>>
+  props: Partial<ComponentProps<typeof ComboBox>>,
 ) {
   const tags = useTags();
 

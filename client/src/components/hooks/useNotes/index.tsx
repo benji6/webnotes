@@ -24,7 +24,7 @@ export default function useNotes(): void {
           dispatch({ type: "notes/loadedFromStorage" });
         }
       })(),
-    [dispatch]
+    [dispatch],
   );
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function useNotes(): void {
         if (state.notes) {
           const { notes: newNotes, notesUpdated } = syncServerToClient(
             state.notes,
-            serverNotes
+            serverNotes,
           );
           if (notesUpdated) dispatch({ type: "notes/set", payload: newNotes });
         } else {

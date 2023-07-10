@@ -92,7 +92,7 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
           {Boolean(
             textAreaValue.trim() &&
               (textAreaValue.trim() !== note.body ||
-                tagValue.trim() !== (note.tag ?? ""))
+                tagValue.trim() !== (note.tag ?? "")),
           ) && (
             <Button onClick={handleSubmit}>
               <Icon margin="end" name="save" />

@@ -3,7 +3,7 @@ import { ClientNote } from "../types";
 
 type FluxStandardAction<
   Type extends string,
-  Payload = undefined
+  Payload = undefined,
 > = Payload extends undefined
   ? { type: Type }
   : { payload: Payload; type: Type };
@@ -48,7 +48,7 @@ const initialState: State = {
 };
 
 export const DispatchContext = React.createContext<React.Dispatch<Action>>(
-  () => undefined
+  () => undefined,
 );
 export const StateContext = React.createContext<State>(initialState);
 
@@ -70,7 +70,7 @@ const reducer = (state: State, action: Action): State => {
         notes: state.notes.map((note) =>
           note.dateCreated === action.payload
             ? { ...note, syncState: "deleted" }
-            : note
+            : note,
         ),
       };
     case "notes/loadedFromStorage":
@@ -80,7 +80,7 @@ const reducer = (state: State, action: Action): State => {
     case "notes/update": {
       if (!state.notes) return { ...state, notes: [action.payload] };
       const index = state.notes.findIndex(
-        ({ dateCreated }) => action.payload.dateCreated === dateCreated
+        ({ dateCreated }) => action.payload.dateCreated === dateCreated,
       );
       return {
         ...state,
