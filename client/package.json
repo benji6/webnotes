@@ -18,7 +18,7 @@
   },
   "browserslist": "cover 85% and since 2021",
   "dependencies": {
-    "@sentry/browser": "^7.51.0",
+    "@sentry/browser": "^7.61.0",
     "amazon-cognito-identity-js": "^6.1.2",
     "date-fns": "^2.30.0",
     "eri": "^43.6.0",
