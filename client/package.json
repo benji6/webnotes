@@ -16,7 +16,7 @@
     "test:lint": "eslint --ext js,ts,tsx .",
     "test:types": "tsc --noEmit"
   },
-  "browserslist": "cover 85% and since 2021",
+  "browserslist": "cover 86%",
   "dependencies": {
     "@sentry/browser": "^7.72.0",
     "amazon-cognito-identity-js": "^6.3.6",
