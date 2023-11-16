@@ -60,7 +60,7 @@ export default function Nav({ handleNavClose, open }: Props) {
                 <Icon margin="end" name="plus" />
                 Add note
               </EriNav.Link>
-              {tags.length && (
+              {Boolean(tags.length) && (
                 <EriNav.SubList
                   heading={
                     <span>
