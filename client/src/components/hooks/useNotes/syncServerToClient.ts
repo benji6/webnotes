@@ -43,8 +43,8 @@ export default function syncServerToClient(
       a.dateUpdated > b.dateUpdated
         ? -1
         : a.dateUpdated < b.dateUpdated
-        ? 1
-        : 0,
+          ? 1
+          : 0,
     ),
     notesUpdated,
   };
