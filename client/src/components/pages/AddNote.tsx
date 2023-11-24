@@ -4,8 +4,12 @@ import { ClientNote } from "../../types";
 import useKeyboardSave from "../hooks/useKeyboardSave";
 import { DispatchContext } from "../AppState";
 import { ERRORS } from "../../constants";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useContext, useRef, useState } from "react";
+import {
+  useBeforeUnload,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import { useCallback, useContext, useRef, useState } from "react";
 import TagComboBox from "../shared/TagComboBox";
 
 export default function AddNote() {
@@ -41,6 +45,17 @@ export default function AddNote() {
 
   useKeyboardSave(handleSubmit);
 
+  const shouldShowSaveButton = Boolean(textAreaValue.trim());
+
+  useBeforeUnload(
+    useCallback(
+      (e) => {
+        if (shouldShowSaveButton) e.preventDefault();
+      },
+      [shouldShowSaveButton],
+    ),
+  );
+
   return (
     <Paper.Group>
       <Paper>
@@ -69,7 +84,7 @@ export default function AddNote() {
             rows={14}
             value={textAreaValue}
           />
-          {textAreaValue.trim() && (
+          {shouldShowSaveButton && (
             <Button.Group>
               <Button onClick={handleSubmit}>
                 <Icon margin="end" name="save" />

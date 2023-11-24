@@ -5,8 +5,8 @@ import { ClientNote } from "../../../types";
 import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext } from "../../AppState";
 import { ERRORS } from "../../../constants";
-import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useBeforeUnload, useNavigate } from "react-router-dom";
+import { useCallback, useContext, useState } from "react";
 import TagComboBox from "../../shared/TagComboBox";
 
 interface Props {
@@ -45,6 +45,20 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
   };
 
   useKeyboardSave(handleSubmit);
+
+  const shouldShowSaveButton = Boolean(
+    textAreaValue.trim() &&
+      (textAreaValue.trim() !== note.body ||
+        tagValue.trim() !== (note.tag ?? "")),
+  );
+  useBeforeUnload(
+    useCallback(
+      (e) => {
+        if (shouldShowSaveButton) e.preventDefault();
+      },
+      [shouldShowSaveButton],
+    ),
+  );
 
   const dateCreatedObj = new Date(note.dateCreated);
   const dateUpdatedObj = new Date(note.dateUpdated);
