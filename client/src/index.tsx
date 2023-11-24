@@ -2,17 +2,14 @@ import "./sentry";
 import "eri/dist/index.css";
 import { StrictMode } from "react";
 import * as ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./components/App";
 import AppState from "./components/AppState";
+import Routes from "./components/App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <AppState>
-        <App />
-      </AppState>
-    </BrowserRouter>
+    <AppState>
+      <Routes />
+    </AppState>
   </StrictMode>,
 );
 
