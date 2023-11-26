@@ -1,9 +1,4 @@
-import {
-  Route,
-  Routes as ReactRouterRoutes,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import About from "./pages/About";
 import AddNote from "./pages/AddNote";
 import EditNote from "./pages/EditNote";
@@ -23,56 +18,66 @@ import { Spinner } from "eri";
 import RedirectHome from "./shared/RedirectHome";
 import Layout from "./Layout";
 
-function Root() {
-  const { isNotesLoading, isUserLoading, userEmail } = useContext(StateContext);
-  const userIsLoggedIn = Boolean(userEmail);
-
-  return (
-    <ReactRouterRoutes>
-      <Route element={<Layout />}>
-        <Route path="about" element={<About />} />
-        <Route path="see-also" element={<SeeAlso />} />
-        {isUserLoading ? (
-          <Route path="*" element={<Spinner />} />
-        ) : (
-          <>
-            <Route path="/" element={<Home />} />
-            {userIsLoggedIn ? (
-              <>
-                {isNotesLoading ? (
-                  <Route path="*" element={<Spinner />} />
-                ) : (
-                  <>
-                    <Route path="add" element={<AddNote />} />
-                    <Route path="edit/:dateCreated" element={<EditNote />} />
-                    <Route path="tags" element={<Tag />} />
-                    <Route path="tags/:tag" element={<Tag />} />
-                  </>
-                )}
-                <Route path="change-password" element={<ChangePassword />} />
-              </>
-            ) : (
-              <>
-                <Route path="forgot-password" element={<ForgotPassword />} />
-                <Route
-                  path="resend-verification"
-                  element={<ResendVerification />}
-                />
-                <Route path="reset-password" element={<ResetPassword />} />
-                <Route path="sign-in" element={<SignIn />} />
-                <Route path="sign-up" element={<SignUp />} />
-                <Route path="verify" element={<Verify />} />
-              </>
-            )}
-            <Route path="*" element={<RedirectHome />} />
-          </>
-        )}
-      </Route>
-    </ReactRouterRoutes>
-  );
+function NotesDependantRoute() {
+  const { isNotesLoading } = useContext(StateContext);
+  return isNotesLoading ? <Spinner /> : <Outlet />;
+}
+function UserDependantRoute() {
+  const { isUserLoading } = useContext(StateContext);
+  return isUserLoading ? <Spinner /> : <Outlet />;
+}
+function UserSignedInRoute() {
+  const { userEmail } = useContext(StateContext);
+  return userEmail ? <Outlet /> : <RedirectHome />;
+}
+function UserNotSignedInRoute() {
+  const { userEmail } = useContext(StateContext);
+  return userEmail ? <RedirectHome /> : <Outlet />;
 }
 
-const router = createBrowserRouter([{ path: "*", Component: Root }]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "about", element: <About /> },
+      { path: "see-also", element: <SeeAlso /> },
+      {
+        element: <UserDependantRoute />,
+        children: [
+          { index: true, element: <Home /> },
+          {
+            element: <UserSignedInRoute />,
+            children: [
+              { path: "change-password", element: <ChangePassword /> },
+              {
+                element: <NotesDependantRoute />,
+                children: [
+                  { path: "add", element: <AddNote /> },
+                  { path: "edit/:dateCreated", element: <EditNote /> },
+                  { path: "tags", element: <Tag /> },
+                  { path: "tags/:tag", element: <Tag /> },
+                ],
+              },
+            ],
+          },
+          {
+            element: <UserNotSignedInRoute />,
+            children: [
+              { path: "forgot-password", element: <ForgotPassword /> },
+              { path: "resend-verification", element: <ResendVerification /> },
+              { path: "reset-password", element: <ResetPassword /> },
+              { path: "sign-in", element: <SignIn /> },
+              { path: "sign-up", element: <SignUp /> },
+              { path: "verify", element: <Verify /> },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  { path: "*", element: <RedirectHome /> },
+]);
 
 export default function App() {
   return <RouterProvider router={router} />;
