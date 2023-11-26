@@ -1,11 +1,11 @@
 import { ChangePasswordPage } from "eri";
-import * as React from "react";
 import { createAuthenticatedUserAndSession } from "../../cognito";
 import { ERRORS } from "../../constants";
 import { StateContext } from "../AppState";
+import { useContext } from "react";
 
 export default function ChangePassword() {
-  const userEmail = React.useContext(StateContext).userEmail!;
+  const userEmail = useContext(StateContext).userEmail!;
 
   return (
     <ChangePasswordPage

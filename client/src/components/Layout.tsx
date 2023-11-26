@@ -1,14 +1,14 @@
 import { Header, Nav as EriNav } from "eri";
-import * as React from "react";
 import useUser from "./hooks/useUser";
 import Nav from "./Nav";
 import useNotes from "./hooks/useNotes";
 import { Link, Outlet } from "react-router-dom";
+import { useState } from "react";
 
 export default function Layout() {
   useUser();
   useNotes();
-  const [isNavOpen, setIsNavOpen] = React.useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
     <>

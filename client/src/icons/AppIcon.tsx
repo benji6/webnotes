@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export default function AppIcon(props: React.HtmlHTMLAttributes<SVGElement>) {
   return (
     <svg

@@ -1,13 +1,13 @@
 import { Paper, Card, Fab, Icon } from "eri";
-import * as React from "react";
 import { StateContext } from "../AppState";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Note from "../shared/Note";
 import RedirectHome from "../shared/RedirectHome";
 import { useNotesByTag } from "../hooks/useNotesByTag";
+import { useContext } from "react";
 
 export default function Tag() {
-  const state = React.useContext(StateContext);
+  const state = useContext(StateContext);
   const { tag } = useParams();
   const navigate = useNavigate();
   const notesByTag = useNotesByTag();

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { Dispatch, ReactNode, createContext, useReducer } from "react";
 import { ClientNote } from "../types";
 
 type FluxStandardAction<
@@ -47,10 +47,8 @@ const initialState: State = {
   userEmail: undefined,
 };
 
-export const DispatchContext = React.createContext<React.Dispatch<Action>>(
-  () => undefined,
-);
-export const StateContext = React.createContext<State>(initialState);
+export const DispatchContext = createContext<Dispatch<Action>>(() => undefined);
+export const StateContext = createContext<State>(initialState);
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -128,8 +126,8 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-export default function AppState({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+export default function AppState({ children }: { children: ReactNode }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <DispatchContext.Provider value={dispatch}>

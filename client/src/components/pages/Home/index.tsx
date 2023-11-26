@@ -1,11 +1,11 @@
 import { Paper, Button } from "eri";
-import * as React from "react";
 import { StateContext } from "../../AppState";
 import { Link, useNavigate } from "react-router-dom";
 import NoteList from "./NoteList";
+import { useContext } from "react";
 
 export default function Home() {
-  const state = React.useContext(StateContext);
+  const state = useContext(StateContext);
   const navigate = useNavigate();
 
   return (

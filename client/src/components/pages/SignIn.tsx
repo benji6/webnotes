@@ -1,9 +1,9 @@
 import { SignInPage } from "eri";
-import * as React from "react";
 import { createAuthenticatedUserAndSession } from "../../cognito";
 import { DispatchContext } from "../AppState";
 import { ERRORS } from "../../constants";
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
 // The properties declared here are by no means exhaustive
 interface TokenPayload {
@@ -13,7 +13,7 @@ interface TokenPayload {
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const dispatch = React.useContext(DispatchContext);
+  const dispatch = useContext(DispatchContext);
 
   return (
     <SignInPage

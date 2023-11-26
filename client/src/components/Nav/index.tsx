@@ -1,11 +1,11 @@
 import { Nav as EriNav, Button, Icon } from "eri";
-import * as React from "react";
 import SignOutDialog from "./SignOutDialog";
 import { StateContext } from "../AppState";
 import SyncState from "./SyncState";
 import "./style.css";
 import useTags from "../hooks/useTags";
 import AppIcon from "../../icons/AppIcon";
+import { useContext, useState } from "react";
 
 interface Props {
   open: boolean;
@@ -13,8 +13,8 @@ interface Props {
 }
 
 export default function Nav({ handleNavClose, open }: Props) {
-  const { userEmail } = React.useContext(StateContext);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const { userEmail } = useContext(StateContext);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const tags = useTags();
 
   const handleDialogClose = () => {
