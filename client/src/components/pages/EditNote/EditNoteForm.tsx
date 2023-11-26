@@ -5,10 +5,9 @@ import { ClientNote } from "../../../types";
 import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext } from "../../AppState";
 import { ERRORS } from "../../../constants";
-import { useBeforeUnload, useBlocker, useNavigate } from "react-router-dom";
+import { useBeforeUnload, useNavigate } from "react-router-dom";
 import { useCallback, useContext, useState } from "react";
 import TagComboBox from "../../shared/TagComboBox";
-import DiscardChangesDialog from "./DiscardChangesDialog";
 
 interface Props {
   dateCreated: string;
@@ -59,11 +58,6 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
       },
       [shouldShowSaveButton],
     ),
-  );
-  const blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
-      shouldShowSaveButton &&
-      currentLocation.pathname !== nextLocation.pathname,
   );
 
   const dateCreatedObj = new Date(note.dateCreated);
@@ -136,11 +130,6 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
           }
           onClose={() => setIsDeleteDialogOpen(false)}
           open={isDeleteDialogOpen}
-        />
-        <DiscardChangesDialog
-          onClose={() => blocker.reset?.()}
-          onConfirm={() => blocker.proceed?.()}
-          open={blocker.state === "blocked"}
         />
       </Paper>
     </Paper.Group>
