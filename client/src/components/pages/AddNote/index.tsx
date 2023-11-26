@@ -1,16 +1,18 @@
 import { Icon, TextArea, Paper, Button } from "eri";
-import useNotePlaceholder from "../hooks/useNotePlaceholder";
-import { ClientNote } from "../../types";
-import useKeyboardSave from "../hooks/useKeyboardSave";
-import { DispatchContext } from "../AppState";
-import { ERRORS } from "../../constants";
+import useNotePlaceholder from "../../hooks/useNotePlaceholder";
+import { ClientNote } from "../../../types";
+import useKeyboardSave from "../../hooks/useKeyboardSave";
+import { DispatchContext } from "../../AppState";
+import { ERRORS } from "../../../constants";
 import {
   useBeforeUnload,
+  useBlocker,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
 import { useCallback, useContext, useRef, useState } from "react";
-import TagComboBox from "../shared/TagComboBox";
+import TagComboBox from "../../shared/TagComboBox";
+import DiscardNoteDialog from "./DiscardNoteDialog";
 
 export default function AddNote() {
   const dispatch = useContext(DispatchContext);
@@ -55,6 +57,11 @@ export default function AddNote() {
       [shouldShowSaveButton],
     ),
   );
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      shouldShowSaveButton &&
+      currentLocation.pathname !== nextLocation.pathname,
+  );
 
   return (
     <Paper.Group>
@@ -93,6 +100,11 @@ export default function AddNote() {
             </Button.Group>
           )}
         </form>
+        <DiscardNoteDialog
+          onClose={() => blocker.reset?.()}
+          onConfirm={() => blocker.proceed?.()}
+          open={blocker.state === "blocked"}
+        />
       </Paper>
     </Paper.Group>
   );
