@@ -6,13 +6,11 @@ import { DispatchContext } from "../../AppState";
 import { ERRORS } from "../../../constants";
 import {
   useBeforeUnload,
-  useBlocker,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
 import { useCallback, useContext, useRef, useState } from "react";
 import TagComboBox from "../../shared/TagComboBox";
-import DiscardNoteDialog from "./DiscardNoteDialog";
 
 export default function AddNote() {
   const dispatch = useContext(DispatchContext);
@@ -21,7 +19,6 @@ export default function AddNote() {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [textAreaError, setTextAreaError] = useState<string | undefined>();
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [noteCreated, setNoteCreated] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const [searchParams] = useSearchParams();
   const urlTag = searchParams.get("tag");
@@ -33,7 +30,6 @@ export default function AddNote() {
       setTextAreaError(ERRORS.required);
       return;
     }
-    setNoteCreated(true);
     const dateCreated = new Date().toISOString();
     const note: ClientNote = {
       body,
@@ -44,7 +40,7 @@ export default function AddNote() {
     const tag = formRef.current?.tag.value.trim();
     if (tag) note.tag = tag;
     dispatch({ type: "notes/add", payload: note });
-    setTimeout(() => navigate(tag ? `/tags/${encodeURIComponent(tag)}` : "/"));
+    navigate(tag ? `/tags/${encodeURIComponent(tag)}` : "/");
   };
 
   useKeyboardSave(handleSubmit);
@@ -58,12 +54,6 @@ export default function AddNote() {
       },
       [shouldShowSaveButton],
     ),
-  );
-  const blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
-      !noteCreated &&
-      shouldShowSaveButton &&
-      currentLocation.pathname !== nextLocation.pathname,
   );
 
   return (
@@ -103,11 +93,6 @@ export default function AddNote() {
             </Button.Group>
           )}
         </form>
-        <DiscardNoteDialog
-          onClose={() => blocker.reset?.()}
-          onConfirm={() => blocker.proceed?.()}
-          open={blocker.state === "blocked"}
-        />
       </Paper>
     </Paper.Group>
   );
