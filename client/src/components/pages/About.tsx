@@ -1,6 +1,6 @@
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Paper, ShareButton } from "eri";
 import { BUILD_TIME } from "../../constants";
+import { formatDistanceToNow } from "date-fns";
 
 export default function About() {
   return (
