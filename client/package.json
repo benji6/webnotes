@@ -31,7 +31,7 @@
     "@parcel/packager-raw-url": "^2.7.0",
     "@parcel/transformer-webmanifest": "^2.8.0",
     "@types/node": "^20.8.10",
-    "@types/react": "^18.2.23",
+    "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.9.1",
