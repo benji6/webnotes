@@ -4,8 +4,10 @@ import Nav from "./Nav";
 import useNotes from "./hooks/useNotes";
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
+import { useShuffleBackgroundMesh } from "./hooks/useShuffleBackgroundMesh";
 
 export default function Layout() {
+  useShuffleBackgroundMesh();
   useUser();
   useNotes();
   const [isNavOpen, setIsNavOpen] = useState(false);
