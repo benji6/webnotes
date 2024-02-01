@@ -18,7 +18,7 @@
   },
   "browserslist": "since 2022 and >1%",
   "dependencies": {
-    "@sentry/browser": "^7.84.0",
+    "@sentry/browser": "^7.99.0",
     "amazon-cognito-identity-js": "^6.3.6",
     "date-fns": "^3.0.0",
     "eri": "^45.0.0",
