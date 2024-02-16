@@ -6,7 +6,9 @@ const buildPath = path.join(__dirname, "..", "dist");
 
 (async () => {
   const files = await fs.readdir(buildPath);
-  const filteredFiles = files.filter((file) => !ignoreSet.has(file));
+  const filteredFiles = files.filter(
+    (file) => !(ignoreSet.has(file) || file.endsWith(".map")),
+  );
   const cacheList = ["/", ...filteredFiles];
   const serviceWorkerPath = path.join(buildPath, "service-worker.js");
   const serviceWorker = await fs.readFile(serviceWorkerPath, "utf-8");
