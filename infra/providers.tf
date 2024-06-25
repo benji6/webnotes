@@ -13,5 +13,11 @@ terraform {
 }
 
 provider "aws" {
+  default_tags {
+    tags = {
+      Application = "Webnotes"
+    }
+  }
+
   region = "us-east-1"
 }
