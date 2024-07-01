@@ -4,11 +4,29 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import AppState from "./components/AppState";
 import Routes from "./components/App";
+import { ErrorBoundary } from "@sentry/react";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AppState>
-      <Routes />
+      <ErrorBoundary
+        fallback={
+          <p className="center">
+            Oops something went wrong! The error should be reported
+            automatically, but please do{" "}
+            <a
+              href="https://github.com/benji6/webnotes/issues"
+              rel="noreferrer"
+              target="_blank"
+            >
+              raise an issue on GitHub
+            </a>{" "}
+            to ensure it gets looked at.
+          </p>
+        }
+      >
+        <Routes />
+      </ErrorBoundary>
     </AppState>
   </StrictMode>,
 );
