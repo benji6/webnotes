@@ -8,3 +8,7 @@ updates:
     directory: "/client"
     schedule:
       interval: monthly
+  - package-ecosystem: pip
+    directory: /scripts
+    schedule:
+      interval: monthly

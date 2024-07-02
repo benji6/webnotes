@@ -1,3 +1,7 @@
+# Deletes old users that have no notes saved
+cleanup_zombie_users:
+	@cd scripts && poetry run python3 ./cleanup_zombie_users.py
+
 # Deploy infrastructure
 deploy:
 	./bin/deploy.sh
