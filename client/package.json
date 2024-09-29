@@ -7,7 +7,7 @@
     "build": "rm -rf dist && mkdir dist && run-p build:* && node scripts/injectCacheLists",
     "build:js": "BUILD_TIME=$(node -e 'console.log((new Date).toISOString())') CACHE_FIRST_CACHE=CACHE_FIRST_CACHE NETWORK_FIRST_CACHE=NETWORK_FIRST_CACHE parcel build --no-source-maps src/index.html",
     "build:robots": "touch dist/robots.txt",
-    "fmt": "prettier -u --write '**/*'",
+    "fmt": "npm run test:lint -- --fix && prettier -u --write '**/*'",
     "icons": "node scripts/icons",
     "start": "BUILD_TIME=$(node -e 'console.log((new Date).toISOString())') parcel src/index.html --open -p 1236",
     "test": "run-p test:*",
