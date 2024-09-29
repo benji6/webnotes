@@ -20,7 +20,7 @@
   "dependencies": {
     "@sentry/react": "^8.13.0",
     "amazon-cognito-identity-js": "^6.3.6",
-    "date-fns": "^3.0.0",
+    "date-fns": "^4.1.0",
     "eri": "^45.0.0",
     "idb-keyval": "^6.2.0",
     "react": "^18.2.0",
