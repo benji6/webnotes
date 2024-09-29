@@ -70,6 +70,7 @@ export default function AddNote() {
         >
           <TagComboBox defaultValue={urlTag || undefined} />
           <TextArea
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
             error={textAreaError}
             label="Note"

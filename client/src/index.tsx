@@ -6,7 +6,9 @@ import AppState from "./components/AppState";
 import Routes from "./components/App";
 import { ErrorBoundary } from "@sentry/react";
 
-createRoot(document.getElementById("root")!).render(
+const rootEl = document.getElementById("root");
+if (!rootEl) throw Error("no root element");
+createRoot(rootEl).render(
   <StrictMode>
     <AppState>
       <ErrorBoundary

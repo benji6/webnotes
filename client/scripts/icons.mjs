@@ -1,7 +1,9 @@
-const favicons = require("favicons");
-const fs = require("fs").promises;
-const path = require("path");
+import favicons from "favicons";
+import { promises as fs } from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const iconsPath = path.join(__dirname, "..", "src", "icons");
 const source = path.join(iconsPath, "icon.svg");
 

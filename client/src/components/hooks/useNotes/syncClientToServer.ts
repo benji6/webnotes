@@ -4,7 +4,7 @@ import { patchNotes } from "../../../api";
 export default async function syncClientToServer(
   notes: ClientNote[],
 ): Promise<ClientNote[]> {
-  const patch: Patch = { delete: [], put: [] };
+  const patch: Patch = {};
   const newNotes: ClientNote[] = [];
 
   for (const note of notes) {
@@ -12,7 +12,8 @@ export default async function syncClientToServer(
 
     switch (note.syncState) {
       case "deleted":
-        patch.delete!.push(note.dateCreated);
+        if (patch.delete) patch.delete.push(note.dateCreated);
+        else patch.delete = [note.dateCreated];
         continue;
       case "created":
       case "updated": {
@@ -22,14 +23,15 @@ export default async function syncClientToServer(
           dateUpdated: note.dateUpdated,
         };
         if (note.tag) newNote.tag = note.tag;
-        patch.put!.push(newNote);
+        if (patch.put) patch.put.push(newNote);
+        else patch.put = [newNote];
         newNotes.push(newNote);
       }
     }
   }
 
-  if (!patch.delete!.length) delete patch.delete;
-  if (!patch.put!.length) delete patch.put;
+  if (!patch.delete?.length) delete patch.delete;
+  if (!patch.put?.length) delete patch.put;
 
   await patchNotes(patch);
   return newNotes;

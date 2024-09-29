@@ -5,12 +5,13 @@ import { StateContext } from "../AppState";
 import { useContext } from "react";
 
 export default function ChangePassword() {
-  const userEmail = useContext(StateContext).userEmail!;
+  const { userEmail } = useContext(StateContext);
 
   return (
     <ChangePasswordPage
       onSubmit={async ({ currentPassword, newPassword, setSubmitError }) => {
         try {
+          if (!userEmail) throw Error("userEmail not defined");
           const { cognitoUser } = await createAuthenticatedUserAndSession(
             userEmail,
             currentPassword,

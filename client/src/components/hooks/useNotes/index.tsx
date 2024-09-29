@@ -75,7 +75,6 @@ export default function useNotes(): void {
       }
     })();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(fetchNotes, [state.isNotesLoading, state.userEmail]);
   useEffect(updateNotes, [
     dispatch,

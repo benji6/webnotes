@@ -1,7 +1,9 @@
-const path = require("path");
-const fs = require("fs").promises;
+import path from "path";
+import { promises as fs } from "fs";
+import { fileURLToPath } from "url";
 
 const ignoreSet = new Set(["index.html", "robots.txt", "service-worker.js"]);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildPath = path.join(__dirname, "..", "dist");
 
 (async () => {

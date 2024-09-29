@@ -51,14 +51,12 @@ export const getIdToken = (): Promise<CognitoIdToken> =>
   new Promise((resolve, reject) => {
     const currentUser = userPool.getCurrentUser();
     if (!currentUser) return reject(Error("No current user"));
-    currentUser.getSession(
-      (err: Error | void, session: CognitoUserSession | null) => {
-        if (!err) return resolve(session!.getIdToken());
-        if (err.message === "User does not exist.") {
-          currentUser.signOut();
-          return reject(Error("No current user"));
-        }
-        reject(err);
-      },
-    );
+    currentUser.getSession((err: Error | null, session: CognitoUserSession) => {
+      if (!err) return resolve(session.getIdToken());
+      if (err.message === "User does not exist.") {
+        currentUser.signOut();
+        return reject(Error("No current user"));
+      }
+      reject(err);
+    });
   });
