@@ -16,7 +16,7 @@
     "test:lint": "eslint",
     "test:types": "tsc --noEmit"
   },
-  "browserslist": "since 2022 and >1%",
+  "browserslist": "defaults and since 2023",
   "dependencies": {
     "@sentry/react": "^8.33.1",
     "amazon-cognito-identity-js": "^6.3.6",
