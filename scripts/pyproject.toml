@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-boto3 = "^1.35.53"
+boto3 = "^1.35.72"
 
 
 [build-system]
