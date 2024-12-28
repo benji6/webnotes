@@ -130,8 +130,8 @@ export default function AppState({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <DispatchContext.Provider value={dispatch}>
-      <StateContext.Provider value={state}>{children}</StateContext.Provider>
-    </DispatchContext.Provider>
+    <DispatchContext value={dispatch}>
+      <StateContext value={state}>{children}</StateContext>
+    </DispatchContext>
   );
 }
