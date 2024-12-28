@@ -1,6 +1,6 @@
 import { Icon, Spinner } from "eri";
 import { StateContext } from "../AppState";
-import { useContext } from "react";
+import { use } from "react";
 
 export default function SyncState() {
   const {
@@ -8,7 +8,7 @@ export default function SyncState() {
     isSyncingToServer,
     syncFromServerError,
     syncToServerError,
-  } = useContext(StateContext);
+  } = use(StateContext);
 
   return (
     <div className="w-nav__sync-state">

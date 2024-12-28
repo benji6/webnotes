@@ -2,7 +2,7 @@ import { Dialog, Button, Icon } from "eri";
 import { useNavigate } from "react-router-dom";
 import { userPool } from "../../cognito";
 import { DispatchContext, StateContext } from "../AppState";
-import { useContext, useState } from "react";
+import { use, useState } from "react";
 
 interface Props {
   onClose(): void;
@@ -10,8 +10,8 @@ interface Props {
 }
 
 export default function SignOutDialog({ onClose, open }: Props) {
-  const state = useContext(StateContext);
-  const dispatch = useContext(DispatchContext);
+  const dispatch = use(DispatchContext);
+  const state = use(StateContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 

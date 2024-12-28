@@ -3,10 +3,10 @@ import { StateContext } from "../../AppState";
 import { Link, useNavigate } from "react-router-dom";
 import Note from "../../shared/Note";
 import { useNotesByTag } from "../../hooks/useNotesByTag";
-import { useContext } from "react";
+import { use } from "react";
 
 export default function NoteList() {
-  const state = useContext(StateContext);
+  const state = use(StateContext);
   const navigate = useNavigate();
 
   const notesByTag = useNotesByTag();

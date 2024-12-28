@@ -1,11 +1,11 @@
-import { useContext, useEffect } from "react";
+import { use, useEffect } from "react";
 import { getIdToken } from "../../cognito";
 import storage from "../../storage";
 import { DispatchContext, StateContext } from "../AppState";
 
 export default function useUser(): void {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
+  const dispatch = use(DispatchContext);
+  const state = use(StateContext);
 
   useEffect(
     () =>
@@ -28,7 +28,7 @@ export default function useUser(): void {
             dispatch({ type: "user/clearEmail" });
         }
       })(),
-    [dispatch],
+    [],
   );
 
   useEffect(() => {

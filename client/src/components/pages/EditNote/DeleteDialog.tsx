@@ -1,7 +1,7 @@
 import { Dialog, Button, Icon } from "eri";
 import { NavigateFunction } from "react-router-dom";
 import { DispatchContext } from "../../AppState";
-import { useContext } from "react";
+import { use } from "react";
 
 interface Props {
   dateCreated: string;
@@ -16,8 +16,7 @@ export default function DeleteDialog({
   onClose,
   open,
 }: Props) {
-  const dispatch = useContext(DispatchContext);
-
+  const dispatch = use(DispatchContext);
   return (
     <Dialog onClose={onClose} open={open} title="Delete note?">
       <Button.Group>

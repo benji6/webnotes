@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { use } from "react";
 import { ClientNote } from "../../types";
 import { StateContext } from "../AppState";
 
 export function useNotesByTag() {
-  const state = useContext(StateContext);
+  const state = use(StateContext);
   const notesByTag = new Map<string | undefined, ClientNote[]>();
   if (state.notes)
     for (const note of state.notes) {

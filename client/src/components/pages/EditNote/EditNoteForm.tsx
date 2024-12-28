@@ -6,7 +6,7 @@ import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext } from "../../AppState";
 import { ERRORS } from "../../../constants";
 import { useBeforeUnload, useNavigate } from "react-router-dom";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, use, useState } from "react";
 import TagComboBox from "../../shared/TagComboBox";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function EditNoteForm({ dateCreated, note }: Props) {
-  const dispatch = useContext(DispatchContext);
+  const dispatch = use(DispatchContext);
   const navigate = useNavigate();
 
   const [tagValue, setTagValue] = useState(note.tag ?? "");
