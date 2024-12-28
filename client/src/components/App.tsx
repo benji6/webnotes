@@ -12,26 +12,26 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/ChangePassword";
 import Tag from "./pages/Tag";
-import { useContext } from "react";
+import { use } from "react";
 import { StateContext } from "./AppState";
 import { Spinner } from "eri";
 import RedirectHome from "./shared/RedirectHome";
 import Layout from "./Layout";
 
 function NotesDependantRoute() {
-  const { isNotesLoading } = useContext(StateContext);
+  const { isNotesLoading } = use(StateContext);
   return isNotesLoading ? <Spinner /> : <Outlet />;
 }
 function UserDependantRoute() {
-  const { isUserLoading } = useContext(StateContext);
+  const { isUserLoading } = use(StateContext);
   return isUserLoading ? <Spinner /> : <Outlet />;
 }
 function UserSignedInRoute() {
-  const { userEmail } = useContext(StateContext);
+  const { userEmail } = use(StateContext);
   return userEmail ? <Outlet /> : <RedirectHome />;
 }
 function UserNotSignedInRoute() {
-  const { userEmail } = useContext(StateContext);
+  const { userEmail } = use(StateContext);
   return userEmail ? <RedirectHome /> : <Outlet />;
 }
 

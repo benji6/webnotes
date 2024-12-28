@@ -3,7 +3,7 @@ import { createAuthenticatedUserAndSession } from "../../cognito";
 import { DispatchContext } from "../AppState";
 import { ERRORS } from "../../constants";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { use } from "react";
 
 // The properties declared here are by no means exhaustive
 interface TokenPayload {
@@ -13,7 +13,6 @@ interface TokenPayload {
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const dispatch = useContext(DispatchContext);
 
   return (
     <SignInPage
@@ -23,6 +22,7 @@ export default function SignIn() {
             await createAuthenticatedUserAndSession(email, password);
           const { email: tokenEmail } = cognitoUserSession.getIdToken()
             .payload as TokenPayload;
+          const dispatch = use(DispatchContext);
           dispatch({ type: "user/setEmail", payload: tokenEmail });
           navigate("/");
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

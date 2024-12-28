@@ -2,15 +2,14 @@ import { ChangePasswordPage } from "eri";
 import { createAuthenticatedUserAndSession } from "../../cognito";
 import { ERRORS } from "../../constants";
 import { StateContext } from "../AppState";
-import { useContext } from "react";
+import { use } from "react";
 
 export default function ChangePassword() {
-  const { userEmail } = useContext(StateContext);
-
   return (
     <ChangePasswordPage
       onSubmit={async ({ currentPassword, newPassword, setSubmitError }) => {
         try {
+          const { userEmail } = use(StateContext);
           if (!userEmail) throw Error("userEmail not defined");
           const { cognitoUser } = await createAuthenticatedUserAndSession(
             userEmail,
