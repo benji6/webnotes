@@ -9,10 +9,11 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { useCallback, use, useRef, useState } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
 import TagComboBox from "../../shared/TagComboBox";
 
 export default function AddNote() {
+  const dispatch = useContext(DispatchContext);
   const navigate = useNavigate();
   const placeholder = useNotePlaceholder();
   const [textAreaValue, setTextAreaValue] = useState("");
@@ -38,7 +39,6 @@ export default function AddNote() {
     };
     const tag = formRef.current?.tag.value.trim();
     if (tag) note.tag = tag;
-    const dispatch = use(DispatchContext);
     dispatch({ type: "notes/add", payload: note });
     navigate(tag ? `/tags/${encodeURIComponent(tag)}` : "/");
   };

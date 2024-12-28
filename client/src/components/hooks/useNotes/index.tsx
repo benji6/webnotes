@@ -4,11 +4,11 @@ import syncClientToServer from "./syncClientToServer";
 import syncServerToClient from "./syncServerToClient";
 import useInterval from "../useInterval";
 import { StateContext, DispatchContext } from "../../AppState";
-import { use, useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 export default function useNotes(): void {
-  const state = use(StateContext);
-  const dispatch = use(DispatchContext);
+  const dispatch = useContext(DispatchContext);
+  const state = useContext(StateContext);
 
   useEffect(
     () =>
@@ -24,7 +24,7 @@ export default function useNotes(): void {
           dispatch({ type: "notes/loadedFromStorage" });
         }
       })(),
-    [],
+    [dispatch],
   );
 
   useEffect(() => {

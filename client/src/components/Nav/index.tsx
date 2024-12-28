@@ -5,7 +5,7 @@ import SyncState from "./SyncState";
 import "./style.css";
 import useTags from "../hooks/useTags";
 import AppIcon from "../../icons/AppIcon";
-import { use, useState } from "react";
+import { useContext, useState } from "react";
 
 interface Props {
   open: boolean;
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function Nav({ handleNavClose, open }: Props) {
-  const { userEmail } = use(StateContext);
+  const { userEmail } = useContext(StateContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const tags = useTags();
 

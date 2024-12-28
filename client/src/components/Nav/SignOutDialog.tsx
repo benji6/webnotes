@@ -2,7 +2,7 @@ import { Dialog, Button, Icon } from "eri";
 import { useNavigate } from "react-router-dom";
 import { userPool } from "../../cognito";
 import { DispatchContext, StateContext } from "../AppState";
-import { use, useState } from "react";
+import { useContext, useState } from "react";
 
 interface Props {
   onClose(): void;
@@ -10,7 +10,8 @@ interface Props {
 }
 
 export default function SignOutDialog({ onClose, open }: Props) {
-  const state = use(StateContext);
+  const state = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,7 +20,6 @@ export default function SignOutDialog({ onClose, open }: Props) {
     const currentUser = userPool.getCurrentUser();
     if (currentUser) currentUser.signOut();
     onClose();
-    const dispatch = use(DispatchContext);
     dispatch({ type: "notes/clearAll" });
     dispatch({ type: "user/clearEmail" });
     navigate("/");

@@ -1,15 +1,15 @@
-import { use, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { getIdToken } from "../../cognito";
 import storage from "../../storage";
 import { DispatchContext, StateContext } from "../AppState";
 
 export default function useUser(): void {
-  const state = use(StateContext);
+  const dispatch = useContext(DispatchContext);
+  const state = useContext(StateContext);
 
   useEffect(
     () =>
       void (async () => {
-        const dispatch = use(DispatchContext);
         try {
           const storedEmail = await storage.getEmail();
           if (storedEmail) {
@@ -28,7 +28,7 @@ export default function useUser(): void {
             dispatch({ type: "user/clearEmail" });
         }
       })(),
-    [],
+    [dispatch],
   );
 
   useEffect(() => {
