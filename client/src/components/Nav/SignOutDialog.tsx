@@ -1,5 +1,5 @@
 import { Dialog, Button, Icon } from "eri";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { userPool } from "../../cognito";
 import { DispatchContext, StateContext } from "../AppState";
 import { use, useState } from "react";

@@ -1,5 +1,5 @@
 import { Card } from "eri";
-import { NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router";
 
 interface Props {
   children: string;

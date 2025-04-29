@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import About from "./pages/About";
 import AddNote from "./pages/AddNote";
 import EditNote from "./pages/EditNote";

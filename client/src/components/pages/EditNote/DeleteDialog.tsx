@@ -1,5 +1,5 @@
 import { Dialog, Button, Icon } from "eri";
-import { NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router";
 import { DispatchContext } from "../../AppState";
 import { use } from "react";
 

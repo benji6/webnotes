@@ -1,6 +1,6 @@
 import { Card, Fab, Icon, Spinner, Paper } from "eri";
 import { StateContext } from "../../AppState";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import Note from "../../shared/Note";
 import { useNotesByTag } from "../../hooks/useNotesByTag";
 import { use } from "react";

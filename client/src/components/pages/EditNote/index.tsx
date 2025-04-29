@@ -1,5 +1,5 @@
 import { StateContext } from "../../AppState";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { use } from "react";
 import RedirectHome from "../../shared/RedirectHome";
 import EditNoteForm from "./EditNoteForm";

@@ -1,6 +1,6 @@
 import { Paper, Card, Fab, Icon } from "eri";
 import { StateContext } from "../AppState";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router";
 import Note from "../shared/Note";
 import RedirectHome from "../shared/RedirectHome";
 import { useNotesByTag } from "../hooks/useNotesByTag";

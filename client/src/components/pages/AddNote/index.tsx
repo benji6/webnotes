@@ -4,11 +4,7 @@ import { ClientNote } from "../../../types";
 import useKeyboardSave from "../../hooks/useKeyboardSave";
 import { DispatchContext } from "../../AppState";
 import { ERRORS } from "../../../constants";
-import {
-  useBeforeUnload,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { useBeforeUnload, useNavigate, useSearchParams } from "react-router";
 import { useCallback, use, useRef, useState } from "react";
 import TagComboBox from "../../shared/TagComboBox";
 

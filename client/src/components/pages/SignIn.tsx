@@ -2,7 +2,7 @@ import { SignInPage } from "eri";
 import { createAuthenticatedUserAndSession } from "../../cognito";
 import { DispatchContext } from "../AppState";
 import { ERRORS } from "../../constants";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { use } from "react";
 
 // The properties declared here are by no means exhaustive

@@ -2,7 +2,7 @@ import { Header, Nav as EriNav } from "eri";
 import useUser from "./hooks/useUser";
 import Nav from "./Nav";
 import useNotes from "./hooks/useNotes";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router";
 import { useState } from "react";
 import { useShuffleBackgroundMesh } from "./hooks/useShuffleBackgroundMesh";
 

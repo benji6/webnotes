@@ -1,6 +1,6 @@
 import { Paper, Button } from "eri";
 import { StateContext } from "../../AppState";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import NoteList from "./NoteList";
 import { use } from "react";
 
