@@ -101,28 +101,28 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
             rows={14}
             value={textAreaValue}
           />
-        </form>
-        <Button.Group>
-          {Boolean(
-            textAreaValue.trim() &&
-              (textAreaValue.trim() !== note.body ||
-                tagValue.trim() !== (note.tag ?? "")),
-          ) && (
-            <Button onClick={handleSubmit}>
-              <Icon margin="end" name="save" />
-              Save
+          <Button.Group>
+            {Boolean(
+              textAreaValue.trim() &&
+                (textAreaValue.trim() !== note.body ||
+                  tagValue.trim() !== (note.tag ?? "")),
+            ) && (
+              <Button>
+                <Icon margin="end" name="save" />
+                Save
+              </Button>
+            )}
+            <Button
+              danger
+              onClick={() => setIsDeleteDialogOpen(true)}
+              type="button"
+              variant="secondary"
+            >
+              <Icon margin="end" name="trash" />
+              Delete
             </Button>
-          )}
-          <Button
-            danger
-            onClick={() => setIsDeleteDialogOpen(true)}
-            type="button"
-            variant="secondary"
-          >
-            <Icon margin="end" name="trash" />
-            Delete
-          </Button>
-        </Button.Group>
+          </Button.Group>
+        </form>
         <DeleteDialog
           dateCreated={dateCreated}
           navigate={() =>

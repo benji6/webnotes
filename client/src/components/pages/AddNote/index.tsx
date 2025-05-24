@@ -83,7 +83,7 @@ export default function AddNote() {
           />
           {shouldShowSaveButton && (
             <Button.Group>
-              <Button onClick={handleSubmit}>
+              <Button>
                 <Icon margin="end" name="save" />
                 Save
               </Button>
