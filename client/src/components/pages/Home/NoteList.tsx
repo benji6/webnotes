@@ -1,4 +1,4 @@
-import { Card, Fab, Icon, Spinner, Paper } from "eri";
+import { Card, Fab, Icon, Spinner, Paper, Button } from "eri";
 import { StateContext } from "../../AppState";
 import { Link, useNavigate } from "react-router";
 import Note from "../../shared/Note";
@@ -53,9 +53,11 @@ export default function NoteList() {
         <Paper>
           <h2>Notes</h2>
           <p>You have no notes!</p>
-          <p>
-            <Link to="add">Click here to add your first one</Link>
-          </p>
+          <Button.Group>
+            <Button onClick={() => navigate("add")} type="button">
+              Add note
+            </Button>
+          </Button.Group>
         </Paper>
       )}
       <Fab aria-label="add new note" onClick={() => navigate("add")}>
