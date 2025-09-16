@@ -79,6 +79,7 @@ export default function AddNote() {
             }}
             placeholder={placeholder}
             rows={14}
+            stretch
             value={textAreaValue}
           />
           {shouldShowSaveButton && (

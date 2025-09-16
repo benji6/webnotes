@@ -99,6 +99,7 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
             }}
             placeholder={placeholder}
             rows={14}
+            stretch
             value={textAreaValue}
           />
           <Button.Group>
