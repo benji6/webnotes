@@ -18,7 +18,7 @@
   },
   "browserslist": "baseline 2023",
   "dependencies": {
-    "@sentry/react": "^9.15.0",
+    "@sentry/react": "^10.17.0",
     "amazon-cognito-identity-js": "^6.3.6",
     "date-fns": "^4.1.0",
     "eri": "^46.2.1",
