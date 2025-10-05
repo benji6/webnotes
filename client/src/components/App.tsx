@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import About from "./pages/About";
 import AddNote from "./pages/AddNote";
 import EditNote from "./pages/EditNote";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Home from "./pages/Home";
 import ResendVerification from "./pages/ResendVerification";
 import SeeAlso from "./pages/SeeAlso";
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "about", element: <About /> },
+      { path: "privacy-policy", element: <PrivacyPolicy /> },
       { path: "see-also", element: <SeeAlso /> },
       {
         element: <UserDependantRoute />,

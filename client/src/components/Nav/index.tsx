@@ -91,6 +91,10 @@ export default function Nav({ handleNavClose, open }: Props) {
             <Icon margin="end" name="help" />
             About
           </EriNav.Link>
+          <EriNav.Link onClick={handleNavClose} to="privacy-policy">
+            <Icon margin="end" name="eye" />
+            Privacy Policy
+          </EriNav.Link>
           <EriNav.Link onClick={handleNavClose} to="see-also">
             <Icon margin="end" name="link" />
             See also

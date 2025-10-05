@@ -5,6 +5,7 @@ import { createRoot } from "react-dom/client";
 import AppState from "./components/AppState";
 import Routes from "./components/App";
 import { ErrorBoundary } from "@sentry/react";
+import { REPO_ISSUES_URL } from "./constants";
 
 const rootEl = document.getElementById("root");
 if (!rootEl) throw Error("no root element");
@@ -16,11 +17,7 @@ createRoot(rootEl).render(
           <p className="center">
             Oops something went wrong! The error should be reported
             automatically, but please do{" "}
-            <a
-              href="https://github.com/benji6/webnotes/issues"
-              rel="noreferrer"
-              target="_blank"
-            >
+            <a href={REPO_ISSUES_URL} rel="noreferrer" target="_blank">
               raise an issue on GitHub
             </a>{" "}
             to ensure it gets looked at.
