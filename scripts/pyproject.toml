@@ -1,14 +1,14 @@
 [tool.poetry]
-name = "webnotes-scripts"
-version = "0.1.0"
-description = ""
 authors = ["Your Name <you@example.com>"]
+description = ""
+name = "webnotes-scripts"
+package-mode = false
 readme = "README.md"
+version = "0.1.0"
 
 [tool.poetry.dependencies]
 python = "^3.11"
 boto3 = "^1.40.42"
-
 
 [build-system]
 requires = ["poetry-core"]

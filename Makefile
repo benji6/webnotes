@@ -16,7 +16,12 @@ help:
 
 # Install all dependencies
 init:
-	./bin/init.sh
+	@echo "⏳ Installing Node.js dependencies... ⏳"
+	@cd client && npm i
+	@echo "🍄 Node.js dependencies successfully installed! 🍄"
+	@echo "⏳ Installing Python dependencies... ⏳"
+	@cd scripts && poetry install
+	@echo "🍄 Python dependencies successfully installed! 🍄"
 
 # Run the project locally
 start:
