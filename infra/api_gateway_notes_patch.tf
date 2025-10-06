@@ -8,9 +8,10 @@ resource "aws_api_gateway_integration" "notes_patch" {
 }
 
 resource "aws_api_gateway_method" "notes_patch" {
-  authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_api_gateway_authorizer.api.id
-  http_method   = "PATCH"
-  resource_id   = aws_api_gateway_resource.notes.id
-  rest_api_id   = aws_api_gateway_rest_api.api.id
+  authorization        = "COGNITO_USER_POOLS"
+  authorizer_id        = aws_api_gateway_authorizer.api.id
+  http_method          = "PATCH"
+  resource_id          = aws_api_gateway_resource.notes.id
+  rest_api_id          = aws_api_gateway_rest_api.api.id
+  request_validator_id = aws_api_gateway_request_validator.api.id
 }

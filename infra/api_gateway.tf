@@ -1,6 +1,10 @@
 resource "aws_api_gateway_rest_api" "api" {
   name        = "WebnotesApi"
   description = "Webnotes API"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_api_gateway_authorizer" "api" {
@@ -8,6 +12,13 @@ resource "aws_api_gateway_authorizer" "api" {
   provider_arns = [aws_cognito_user_pool.main.arn]
   rest_api_id   = aws_api_gateway_rest_api.api.id
   type          = "COGNITO_USER_POOLS"
+}
+
+resource "aws_api_gateway_request_validator" "api" {
+  name                        = "WebnotesRequestValidator"
+  rest_api_id                 = aws_api_gateway_rest_api.api.id
+  validate_request_body       = true
+  validate_request_parameters = true
 }
 
 resource "aws_api_gateway_resource" "notes" {
@@ -24,6 +35,10 @@ resource "aws_api_gateway_deployment" "prod" {
 
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name  = "prod"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 output "deploy_api_command" {

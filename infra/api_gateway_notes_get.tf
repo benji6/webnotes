@@ -43,11 +43,12 @@ resource "aws_api_gateway_integration_response" "notes_get_500" {
 }
 
 resource "aws_api_gateway_method" "notes_get" {
-  authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_api_gateway_authorizer.api.id
-  http_method   = "GET"
-  resource_id   = aws_api_gateway_resource.notes.id
-  rest_api_id   = aws_api_gateway_rest_api.api.id
+  authorization        = "COGNITO_USER_POOLS"
+  authorizer_id        = aws_api_gateway_authorizer.api.id
+  http_method          = "GET"
+  resource_id          = aws_api_gateway_resource.notes.id
+  rest_api_id          = aws_api_gateway_rest_api.api.id
+  request_validator_id = aws_api_gateway_request_validator.api.id
 }
 
 resource "aws_api_gateway_method_response" "notes_get_200" {
