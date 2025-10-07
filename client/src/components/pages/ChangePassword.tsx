@@ -8,8 +8,8 @@ export default function ChangePassword() {
   return (
     <ChangePasswordPage
       onSubmit={async ({ currentPassword, newPassword, setSubmitError }) => {
+        const { userEmail } = use(StateContext);
         try {
-          const { userEmail } = use(StateContext);
           if (!userEmail) throw Error("userEmail not defined");
           const { cognitoUser } = await createAuthenticatedUserAndSession(
             userEmail,
