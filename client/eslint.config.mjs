@@ -15,6 +15,7 @@ export default defineConfig(
   ...tseslint.configs.stylistic,
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
+  { settings: { react: { version: "detect" } } },
   reactHooks.configs["recommended"],
   jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
