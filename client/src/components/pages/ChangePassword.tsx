@@ -52,7 +52,7 @@ export default function ChangePassword() {
                 "Something went wrong, check the data you have entered and try again",
               );
           }
-          throw Error(JSON.stringify(e));
+          throw Error("Failed to change password", { cause: e });
         }
       }}
     />
