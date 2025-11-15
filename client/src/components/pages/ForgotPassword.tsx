@@ -26,7 +26,7 @@ export default function ForgotPassword() {
                     "Something went wrong, check the data you have entered and try again",
                   );
               }
-              reject(Error(JSON.stringify(e)));
+              reject(Error("Forgot password error", { cause: e }));
             },
           });
         })
