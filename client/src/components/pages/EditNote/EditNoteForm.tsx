@@ -48,8 +48,8 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
 
   const shouldShowSaveButton = Boolean(
     textAreaValue.trim() &&
-      (textAreaValue.trim() !== note.body ||
-        tagValue.trim() !== (note.tag ?? "")),
+    (textAreaValue.trim() !== note.body ||
+      tagValue.trim() !== (note.tag ?? "")),
   );
   useBeforeUnload(
     useCallback(
@@ -105,8 +105,8 @@ export default function EditNoteForm({ dateCreated, note }: Props) {
           <Button.Group>
             {Boolean(
               textAreaValue.trim() &&
-                (textAreaValue.trim() !== note.body ||
-                  tagValue.trim() !== (note.tag ?? "")),
+              (textAreaValue.trim() !== note.body ||
+                tagValue.trim() !== (note.tag ?? "")),
             ) && (
               <Button>
                 <Icon margin="end" name="save" />
