@@ -9,7 +9,7 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 python = "^3.11"
 boto3 = "1.35.49"
-checkov = "^3.2.490"
+checkov = "^3.2.495"
 
 [build-system]
 requires = ["poetry-core"]
