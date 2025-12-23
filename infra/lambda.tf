@@ -11,6 +11,7 @@ data "archive_file" "notes_patch" {
 }
 
 resource "aws_lambda_function" "notes_get" {
+  architectures                  = ["arm64"]
   filename                       = data.archive_file.notes_get.output_path
   function_name                  = "WebnotesNotesGet"
   handler                        = "notes_get.handler"
@@ -21,6 +22,7 @@ resource "aws_lambda_function" "notes_get" {
 }
 
 resource "aws_lambda_function" "notes_patch" {
+  architectures                  = ["arm64"]
   filename                       = data.archive_file.notes_patch.output_path
   function_name                  = "WebnotesNotesPatch"
   handler                        = "notes_patch.handler"
