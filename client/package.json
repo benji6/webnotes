@@ -24,7 +24,7 @@
     "eri": "^46.2.1",
     "idb-keyval": "^6.2.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "^19.2.4",
     "react-router": "^7.5.3"
   },
   "devDependencies": {
