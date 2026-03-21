@@ -15,6 +15,8 @@ The Webnotes UI was built using a component library I made called [Eri](https://
 
 ### Install dependencies
 
+Install [`uv`](https://docs.astral.sh/uv/) first for the Python tooling under `scripts/`, then run:
+
 ```sh
 make init
 ```

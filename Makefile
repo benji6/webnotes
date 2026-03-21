@@ -1,6 +1,6 @@
 # Deletes old users that have no notes saved
 cleanup_zombie_users:
-	@cd scripts && poetry run python3 ./cleanup_zombie_users.py
+	@cd scripts && uv run python ./cleanup_zombie_users.py
 
 # Deploy infrastructure
 deploy:
@@ -20,7 +20,7 @@ init:
 	@cd client && npm i
 	@echo "🍄 Node.js dependencies successfully installed! 🍄"
 	@echo "⏳ Installing Python dependencies... ⏳"
-	@cd scripts && poetry install
+	@cd scripts && uv sync
 	@echo "🍄 Python dependencies successfully installed! 🍄"
 
 # Run the project locally

@@ -22,7 +22,7 @@ pushd scripts > /dev/null
 # CKV_AWS_117 is skipped because the default AWS VPC is deemed sufficient
 # CKV_AWS_119 is skipped because AWS encrypt DynamoDB at rest with their own keys and that is deemed sufficient (see also https://github.com/bridgecrewio/checkov/issues/1473)
 # CKV_AWS_272 is skipped because it is deemed overly heavyweight
-poetry run checkov --directory ../infra --quiet --skip-check CKV_AWS_50,CKV_AWS_116,CKV_AWS_117,CKV_AWS_119,CKV_AWS_272
+uv run checkov --directory ../infra --quiet --skip-check CKV_AWS_50,CKV_AWS_116,CKV_AWS_117,CKV_AWS_119,CKV_AWS_272
 # --quiet 
 popd > /dev/null
 echo "🍄 Checkov passed! 🍄"
