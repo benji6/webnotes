@@ -1,5 +1,5 @@
 import "./sentry";
-import "eri/dist/index.css";
+import "eri/style.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import AppState from "./components/AppState";
