@@ -1,6 +1,0 @@
-{
-  "/api": {
-    "changeOrigin": true,
-    "target": "https://webnotes.link"
-  }
-}

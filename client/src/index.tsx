@@ -30,9 +30,6 @@ createRoot(rootEl).render(
   </StrictMode>,
 );
 
-if (process.env.NODE_ENV === "production" && navigator.serviceWorker) {
-  navigator.serviceWorker.register(
-    new URL("service-worker.ts", import.meta.url),
-    { type: "module" },
-  );
+if (import.meta.env.PROD && navigator.serviceWorker) {
+  navigator.serviceWorker.register("/service-worker.js", { type: "module" });
 }

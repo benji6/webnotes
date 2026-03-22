@@ -4,8 +4,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const iconsPath = path.join(__dirname, "..", "src", "icons");
-const source = path.join(iconsPath, "icon.svg");
+const publicPath = path.join(__dirname, "..", "public");
+const source = path.join(publicPath, "icon.svg");
 
 const configuration = {
   online: false,
@@ -39,6 +39,6 @@ favicons(source, configuration, (err, response) => {
       name: name.replace("android-chrome", "icon"),
     }))
     .forEach(({ contents, name }) =>
-      fs.writeFile(path.join(iconsPath, name), contents),
+      fs.writeFile(path.join(publicPath, name), contents),
     );
 });
