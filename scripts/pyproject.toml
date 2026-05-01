@@ -5,7 +5,7 @@ description = "Python scripts used by the Webnotes project."
 readme = "README.md"
 requires-python = ">=3.11,<4.0"
 dependencies = [
-    "boto3==1.35.49",
+    "boto3==1.43.1",
     "checkov>=3.2.500,<4.0.0",
 ]
 
