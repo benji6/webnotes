@@ -25,7 +25,7 @@
     "react-router": "^7.5.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.1",
+    "@eslint/js": "^10.0.1",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^24.10.0",
     "@types/react": "^19.0.2",
