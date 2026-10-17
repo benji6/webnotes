@@ -9,7 +9,8 @@
     "rootDir": "src",
     "sourceMap": true,
     "strict": true,
-    "target": "ES2023"
+    "target": "ES2023",
+    "types": ["node"]
   },
   "exclude": ["node_modules", "vite.config.ts"]
 }
