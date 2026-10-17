@@ -9,7 +9,7 @@
     "icons": "node scripts/icons.mjs",
     "start": "vite",
     "test": "run-p test:*",
-    "test:audit": "npm audit --audit-level=low",
+    "test:audit": "npm audit --omit=dev --audit-level=low",
     "test:fmt": "prettier --check -u '**/*'",
     "test:lint": "eslint",
     "test:types": "tsc --noEmit"
