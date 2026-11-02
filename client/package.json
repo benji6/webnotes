@@ -15,7 +15,7 @@
     "test:types": "tsc --noEmit"
   },
   "dependencies": {
-    "@sentry/react": "^10.17.0",
+    "@sentry/react": "^11.10.0",
     "amazon-cognito-identity-js": "^6.3.6",
     "date-fns": "^4.1.0",
     "eri": "^47.0.0",
